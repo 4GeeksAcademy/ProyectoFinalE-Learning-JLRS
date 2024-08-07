@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
+import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 //PENDIENTE CAMBIAR FUNCIONES Y CONECTAR CON API
-export const Single = () => {
-	const { store, actions } = useContext(Context);
+export const signUp = () =>{
+    const { store, actions } = useContext(Context);
     const [dataForm,setDataForm]=useState({
         email: '',
         password: '',
@@ -37,8 +34,9 @@ export const Single = () => {
 			    <label>Password
                     <input className="form-control" name="phone" value={dataForm.password} placeholder="" onChange={handleChange} type="text"></input>
                 </label>
-				<input className="btn btn-primary mt-3" value="Iniciar sesión" type="submit"/>
+				<input className="btn btn-primary" value="Iniciar sesión" type="submit"/>
 			</form>
         </div>
     )
+};
 };
