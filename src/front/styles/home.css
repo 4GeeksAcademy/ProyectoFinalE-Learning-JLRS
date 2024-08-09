@@ -20,9 +20,15 @@
 }
 
 .carousel-item img {
+    border-radius: 15px;
     width: 100%; /* Ajusta la imagen al 100% del ancho del carrusel */
     height: 300px; /* Altura fija de la imagen */
     object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionar */
+    height: 100%;
+    width: 100%; /* Ajusta la imagen al 100% del ancho del carrusel */
+    max-height: 300px; /* Altura máxima de la imagen */
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionar */
+    
 }
 
 /* Oculta los botones de navegación del carrusel por defecto */
@@ -54,4 +60,3 @@
     opacity: 0.5; /* Muestra los botones con algo de opacidad cuando el carrusel es hover */
     pointer-events: auto; /* Habilita el evento de clic en los botones cuando el carrusel es hover */
 }
-
