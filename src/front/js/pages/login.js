@@ -1,11 +1,10 @@
 import React, { useState, useContext } from "react";
-import { Context } from "../store/appContext";
-import { loginUser } from "../component/actions"; // Asegúrate de que la ruta sea correcta
+import { Context } from "../store/appContext"; // Importa el Contexto desde el store
 import { useNavigate } from "react-router-dom";
 import "../../styles/login.css";
 
 export const Login = () => {
-    const { store, actions } = useContext(Context);
+    const { store, actions } = useContext(Context); // Usa el contexto
     const [dataForm, setDataForm] = useState({
         email: '',     // Inicialmente vacío 
         password: '',  // Inicialmente vacío
@@ -30,10 +29,10 @@ export const Login = () => {
         setLoading(true); // Comienza a cargar antes de realizar cualquier acción
     
         try {
-            // Supongamos que `dataForm` contiene los datos del formulario, como email y password
-            const result = await loginUser(dataForm);
+            // Usa la función loginUser del contexto
+            const result = await actions.loginUser(dataForm);
     
-            if (result.user && typeof result.user.is_teacher !== 'undefined') {
+            if (result.success && result.user) {
                 // Guarda el token en el almacenamiento local
                 localStorage.setItem('token', result.data.token);
     
@@ -59,7 +58,6 @@ export const Login = () => {
         }
     };
     
-   
     return (
         <div>
             <form className="container d-flex flex-column align-items-center mt-5 p-3" id="formularioLogin" onSubmit={handleSubmit}>
