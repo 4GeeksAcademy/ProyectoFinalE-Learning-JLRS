@@ -5,7 +5,7 @@ import "../../styles/vistacurso.css";
 function vistacurso() {
   return (
       <div className='vistacurso__main-content'>
-        <div className="card" style={{width: "40rem"}}>
+        <div className="card m-5" style={{width: "40rem"}}>
           <div className="card-body">
             <h1 className="card-title">React.JS, Guía desde 0 (Actualizado 2024)</h1>
             <h6 className="card-subtitle mb-2 text-body-secondary">Aprende a crear sitios web de forma rápida y sencilla con React Js</h6>
@@ -13,7 +13,7 @@ function vistacurso() {
             <button type="button" class="btn btn-primary btn-lg">Creado por Roberto Losada</button>
           </div>
         </div>
-        <div className="card" style={{width: "40rem"}}>
+        <div className="card m-5" style={{width: "40rem"}}>
           <div className="card-body">
             <h5 className="card-title">Lo que aprenderás</h5>
             <p className="card-text">Aprenderas a Construir sitios web utilizando la libreria React JS.</p>
@@ -24,7 +24,7 @@ function vistacurso() {
             <p>Organización de las carpetas de tu proyecto</p>
           </div>
         </div>
-        <div className="card" style={{width: "40rem"}}>
+        <div className="card m-5" style={{width: "40rem"}}>
           <div className="card-body">
             <h5 className="card-title">Este curso Incluye:</h5>
             <p className="card-text">14,5 horas de vídeo bajo demanda.</p>
@@ -34,7 +34,7 @@ function vistacurso() {
             <p>Certificado de finalización</p>
           </div>
         </div>
-        <div className="card" style={{width: "40rem"}}>
+        <div className="card m-5" style={{width: "40rem"}}>
           <div className="card-body">
             <h5 className="card-title">Contenido del Curso</h5>
             <p className="card-text">Que es React JS?</p>

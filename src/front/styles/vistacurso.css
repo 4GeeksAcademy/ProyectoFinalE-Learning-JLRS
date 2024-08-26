@@ -22,5 +22,11 @@
       margin-left: 50%;
 }
 .btn{
-    margin: 2px;  
+    margin: 2px;
+    background-color: #416788;
+    border-color: #B5BAD0;  
+}
+.btn:hover {
+    background-color: #7389AE;
+    border-color: #000022;
 }

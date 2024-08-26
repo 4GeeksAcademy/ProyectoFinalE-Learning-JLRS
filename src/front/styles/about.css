@@ -1,13 +1,21 @@
+.titulo-principal{
+text-align: center;
+font-size: 48px;
+color: #416788;
+}
+
 .about{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
     gap: 1rem;
-    background-color: #64b6ac;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-block-end: 5%;
+    background-color: #416788;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-block-end: 10%;
+    margin-top: 4%;
+    border-radius: 20px;
 }
 .about__main-content{
     display:flex;
@@ -16,7 +24,9 @@
     align-items: stretch;
     width: 100%;  
     padding: 1rem;
-
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-block-end: 5%;
 }
 .card-body{
     text-align: center;
@@ -25,5 +35,5 @@
     letter-spacing: 2px;
 }
 .card-img-top{
-    height: 450px;
+    height: 400px;
 }
