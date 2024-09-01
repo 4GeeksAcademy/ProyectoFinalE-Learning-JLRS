@@ -3,6 +3,7 @@ import { Link , useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/navbar.css";
 import logo from '../../img/LogoNombre2b.png';
+import { Dropdown } from "react-bootstrap";
 
 export const Navbar = () => {
     const{store,actions}=useContext(Context)
@@ -28,16 +29,18 @@ export const Navbar = () => {
             </Link>
             {logueado ? ( //es true, se muestra el dropdown con la imagen del perfil y las opciones del menú.
                 <div className="navbar-buttons">
-                    <Link to="/vistaProfe" className="btn btn-secondary">
+                    {/* <Link to="/vistaProfe" className="btn btn-secondary">
                         Volver
-                    </Link>
-                    <Link to="/perfil"><div className="perfilProfe">
-                        <img src={store.usuarioPr?.photo} alt="" className="foto-perfilProfe" />
-                        <h3>{store.usuarioPr?.name}</h3>
-                    </div></Link>
-                    <button className="btn btn-secondary" type="button" onClick={()=>handleLogout()}>
-                        Cerrar sesión
-                    </button>
+                    </Link> */}
+                    <Dropdown> 
+                        <Dropdown.Toggle variant="success" id="dropdown-basic" className="foto-perfil-toggle"> 
+                            <img src={store.usuarioPr?.photo} alt="" className="foto-perfilProfe" />
+                        </Dropdown.Toggle> 
+                        <Dropdown.Menu> 
+                        <   Dropdown.Item as={Link} to="/perfil">Editar perfil</Dropdown.Item> 
+                            <Dropdown.Item onClick={handleLogout}>Cerrar sesión</Dropdown.Item>
+                        </Dropdown.Menu> 
+                    </Dropdown>
                 </div>
             ) : ( //Si no está autenticado, se muestran los botones de "Iniciar sesión" y "Registrarse".
                 <div className="navbar-buttons">
