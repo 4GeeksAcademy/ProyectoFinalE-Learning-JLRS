@@ -27,17 +27,14 @@ export const Navbar = () => {
                 <img src={logo} alt="Logo Elearning" className="logo"/>
             </Link>
             {logueado ? ( //es true, se muestra el dropdown con la imagen del perfil y las opciones del menú.
-                <div className="dropdown">
-                    <button
-                        className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src={usuarioImage} alt="User Profile" className="imgPerfil"/>
-                    </button>
-                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                        <li><Link className="dropdown-item" to="/editarPerfil">Perfil</Link></li>
-                        <li><Link className="dropdown-item" to="/favoritos">Favoritos</Link></li>
-                        <li><Link className="dropdown-item" to="/cursos">Cursos</Link></li>
-                        <li><Link className="dropdown-item" to="/logout">Salir</Link></li>
-                    </ul>
+                <div className="navbar-buttons">
+                    <Link to="/vistaProfe" className="btn btn-secondary">
+                        Volver
+                    </Link>
+                    <Link to="/perfil"><div className="perfilProfe">
+                        <img src={store.usuarioPr?.photo} alt="" className="foto-perfilProfe" />
+                        <h3>{store.usuarioPr?.name}</h3>
+                    </div></Link>
                     <button className="btn btn-secondary" type="button" onClick={()=>handleLogout()}>
                         Cerrar sesión
                     </button>

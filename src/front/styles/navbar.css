@@ -24,6 +24,22 @@
     transform: scale(1.1);
 }
 
+/* Perfil del profesor */
+.perfilProfe {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+    
+    /* Estilo para la imagen del perfil */
+.foto-perfilProfe {
+    background-color:rgb(128, 128, 128);
+    width: 100px;
+    height: 100px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.095); /* Sombra interior */
+    border-radius: 50%;
+}
+
 .btn-secondary {
     background-color: #416788;
     border-color: #416788;
@@ -39,11 +55,4 @@
 .navbar-buttons {
     display: flex;
     gap: 1rem; /* Espacio entre botones */
-}
-
-.imgPerfil {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%; /* Opcional: para hacer la imagen redonda */
-    margin-right: 0.5rem;
 }

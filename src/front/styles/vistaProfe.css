@@ -1,68 +1,58 @@
-/* vistaProfe.css */
-
-/* Contenedor principal del componente VistaProfe */
+/* Contenedor principal del profesor */
 .contenedorProfe {
-    max-width: 1200px; /* Ancho máximo del contenedor */
-    margin: 0 auto; /* Centrar horizontalmente */
-    padding: 20px; /* Espaciado interno */
-}
-
-/* Estilos para la sección del perfil del profesor */
-.perfilProfe {
-    display: flex; /* Alinear contenido */
-    align-items: center; /* Centrar verticalmente los elementos dentro del perfil */
-    border: 1px solid #ddd; /* Borde */
-    border-radius: 8px; /* Esquinas redondeadas */
-    padding: 15px; /* Espaciado interno */
-    background-color: #f9f9f9; 
-    margin-bottom: 20px; /* Espaciado inferior */
-}
-
-.foto-perfil {
-    width: 80px;
-    height: 80px; 
-    border-radius: 50%; /* Redondeamos la imagen */
-    object-fit: cover; /* imagen cubra el contenedor sin deformarse */
-    margin-right: 15px; 
-}
-
-h3 {
-    margin: 0; /* Eliminamos el margen  */
-    font-size: 1.5rem; 
-    color: #333; /* Color del texto */
-}
-
-/* Estilos para la lista de cursos */
-.cursos {
-    background-color: #ffff; 
-    border: 1px solid #ddd; /* Borde */
-    border-radius: 8px; /* Esquinas redondeadas */
-    padding: 15px; /* Espaciado interno */
-}
-
-h4 {
-    margin: 0; /* Eliminamos el margen */
-    font-size: 1.25rem; 
-    color: #333; 
-}
-
-.lista-grupo {
-    list-style: none; /*quitar los puntos de la lista */
-    padding: 0; /* Eliminamos el espacio interno */
-    margin: 0; 
-}
-
-.lista-grupo-item {
-    padding: 10px; /* Espacio interno de cada elemento */
-    border-bottom: 1px solid #ddd; /* Borde inferior de cada elemento */
-    cursor: pointer; /* Cambia el cursor a una mano para indicar que es clickeable */
-    transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
-}
-
-.lista-grupo-item:hover {
-    background-color: #f0f0f0; /* Color de fondo al pasar el ratón */
-}
-
-.lista-grupo-item:last-child {
-    border-bottom: none; /* Eliminar el borde inferior del último elemento */
-}
+    display: flex;
+    flex-direction: column;
+    height: 25vh; /* Ocupa un cuarto de la altura de la ventana */
+    background-color: #416788; /* Color de fondo para la sección superior (opcional) */
+    }
+    
+    /* Contenedor para la sección superior */
+    .seccionSuperiorP {
+    flex: 1; /* Toma toda la altura del contenedor principal */
+    padding: 20px;
+    background-color: #416788; /* Color de fondo para la sección superior */
+    overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado largo */
+    }
+    
+    /* Contenedor para la sección inferior */
+    .seccionInferior {
+    flex: 1; /* Toma el espacio restante */
+    padding: 20px;
+    background-color: #416788; /* Color de fondo para la sección inferior */
+    overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado largo */
+    }
+    
+    /* Estilo para los cursos */
+    .cursosVP {
+    margin-top: 20px;
+    color: #e0e0e0;
+    }
+    
+    /* Lista de cursos */
+    .vPlista-grupo {
+    list-style: none;
+    padding: 0;
+    }
+    
+    /* Elementos de la lista */
+    .vPlista-grupo-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+    
+    /* Hover en los elementos de la lista */
+    .lista-grupo-item:hover {
+    background-color: #f0f0f0;
+    }
+    
+    /* Estilo para el contenedor del formulario para que no se superponga al pie de página */
+    .formularioContenedor {
+    flex: 1; /* Ocupa el espacio restante */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #e0e0e0; /* Color de fondo para la sección del formulario */
+    overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado largo */
+    }

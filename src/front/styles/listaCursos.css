@@ -5,6 +5,8 @@
     box-shadow: 0 4px 8px #000022;
     padding: 1rem;
     border-radius: 10px;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 /* Estilos para el contenedor de la tarjeta */

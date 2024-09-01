@@ -33,13 +33,6 @@ const VistaDetallada = () => {
         navigate('/vistaPago', { state: { curso } }); // Pasa información del curso a VistaPago
     };
 
-    // Cargar cursos cuando el componente se monta
-    useEffect(() => {
-        console.log('Cargando cursos...');
-    //    actions.cargarCursos(); 
-    }, []);
-    
-
 
     if (!curso) {
         return <p>Curso no encontrado</p>; // Mensaje si el curso no existe
