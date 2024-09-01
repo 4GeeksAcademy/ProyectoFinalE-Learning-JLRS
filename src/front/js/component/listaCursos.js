@@ -28,7 +28,7 @@ const ListaCursos = () => {
                                     <h5 className="cardCursos-title">{curso.title}</h5> {/* Muestra el nombre del curso en el título de la tarjeta */}
                                     <p className="cardCursos-text">
                                         <strong>Categoría:</strong> {curso.categoria}<br />
-                                        <strong>Valoración:</strong> {curso.valoracion} estrellas<br />
+                                        <strong>Valoración:</strong> {curso.valoraciones} estrellas<br />
                                         <strong>Nivel:</strong> {curso.nivel}<br />
                                         <strong>Precio:</strong> €{curso.precio}<br />
                                         <strong>Fecha de Inicio:</strong> {new Date(curso.fecha_inicio).toLocaleDateString()}<br />
