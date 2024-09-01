@@ -29,9 +29,9 @@ export const Navbar = () => {
             </Link>
             {logueado ? ( //es true, se muestra el dropdown con la imagen del perfil y las opciones del menú.
                 <div className="navbar-buttons">
-                    {/* <Link to="/vistaProfe" className="btn btn-secondary">
+                    <Link to="/vistaProfe" className="btn btn-secondary">
                         Volver
-                    </Link> */}
+                    </Link>
                     <Dropdown> 
                         <Dropdown.Toggle variant="success" id="dropdown-basic" className="foto-perfil-toggle"> 
                             <img src={store.usuarioPr?.photo} alt="" className="foto-perfilProfe" />
