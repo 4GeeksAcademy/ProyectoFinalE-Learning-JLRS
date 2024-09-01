@@ -109,7 +109,7 @@ export const FormularioCurso = () => {
                         <Dropdown.Item onClick={() => handleChange({ target: { name: 'idioma', value: "Inglés" } })}>
                             Inglés
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'idioma', value: "Aleman" } })}>
+                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'idioma', value: "Alemán" } })}>
                             Alemán
                         </Dropdown.Item>
                     </Dropdown.Menu>

@@ -33,8 +33,8 @@ const BarraBusqueda = () => {
         }
 
         // Validación de valoración: debe estar entre 1 y 5
-        if (store.filtros.valoracion < 1 || store.filtros.valoracion > 5) {
-            errores.valoracion = "La valoración debe estar entre 1 y 5";
+        if (store.filtros.valoraciones < 1 || store.filtros.valoraciones > 5) {
+            errores.valoraciones = "La valoración debe estar entre 1 y 5";
             valido = false;
         }
 
@@ -179,14 +179,14 @@ const BarraBusqueda = () => {
                                     {[...Array(5)].map((_, i) => ( /* Crea un array de 5 elementos (para representar 5 estrellas) e itera sobre el y genera un span para cada estrella*/
                                         <span
                                             key={i}
-                                            className={i < store.filtros.valoracion ? "estrella rellena" : "estrella vacia"} /* Si la estrella está activada (onclick) (de menos a más ), recibe la clase estrella rellena, si no recibe la clase estrella vacia*/
-                                            onClick={() => handleChange({ target: { name: 'valoracion', value: i + 1 } })}
+                                            className={i < store.filtros.valoraciones ? "estrella rellena" : "estrella vacia"} /* Si la estrella está activada (onclick) (de menos a más ), recibe la clase estrella rellena, si no recibe la clase estrella vacia*/
+                                            onClick={() => handleChange({ target: { name: 'valoraciones', value: i + 1 } })}
                                         >
                                             ★
                                         </span>
                                     ))}
                                 </div>
-                                {erroresFormulario.valoracion && <div className="error">{erroresFormulario.valoracion}</div>}
+                                {erroresFormulario.valoraciones && <div className="error">{erroresFormulario.valoraciones}</div>}
                             </div>
                         </Form.Group>
                     </Col>
