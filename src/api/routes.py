@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import create_access_token, jwt_required
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import os
 
 import stripe #plataforma de pago. Para instalar el paquete de Stripe, tuve que poner: pip install stripe ,en la consola Backend y: npm install @stripe/react-stripe-js @stripe/stripe-js ,en el Fronted
@@ -54,23 +54,25 @@ def delete_user(user_id):
 
 # Rutas protegidas por JWT
 @api.route('/cursos', methods=['POST'])
-#@jwt_required() AUN NO SE SI HACE FALTA
 def crear_curso():
-    title = request.json.get('title', None)
-    portada = request.json.get('portada', None)
-    resumen = request.json.get('resumen', None)
-    categoria = request.json.get('categoria', None)
-    nivel = request.json.get('nivel', None)
-    idioma = request.json.get('idioma', None)
+    data=request.json
+    title = data.get('title', None)
+    portada = data.get('portada', None)
+    resumen = data.get('resumen', None)
+    categoria = data.get('categoria', None)
+    nivel = data.get('nivel', None)
+    idioma = data.get('idioma', None)
+    fecha_inicio = data.get('fecha_inicio', None)
+    precio = data.get('precio', None)
     if not title or not portada or not resumen or not categoria or not nivel or not idioma:
         return jsonify({'success': False, 'msg': 'Todos los campos son necesarios'}), 400
     curso = Curso.query.filter_by(title=title).first()
     if curso:
         return jsonify({'success': False, 'msg': 'El curso ya existe, intenta otro título'}), 400
-    new_curso = Curso(title=title, portada=portada, resumen=resumen, categoria=categoria, nivel=nivel,idioma=idioma)
+    new_curso = Curso(title=title, portada=portada, resumen=resumen, categoria=categoria, nivel=nivel,idioma=idioma,fecha_inicio=fecha_inicio,precio=precio)
     db.session.add(new_curso)
     db.session.commit()
-    return jsonify({'success': True, 'curso': new_curso.serialize()}), 200
+    return jsonify(new_curso.serialize()), 200
 
 
 
@@ -84,36 +86,36 @@ def crear_curso():
 
 
 
-@api.route('/cursos/<int:curso_id>', methods=['GET'])
-@jwt_required()  # Proteger la ruta para que solo usuarios autenticados puedan acceder
-def get_curso(curso_id):
-    curso = Curso.query.get(curso_id)
-    if curso:
-        # Suponemos que el primer video asociado al curso es el que queremos mostrar
-        video = Videos.query.filter_by(curso_id=curso_id).first()
-        video_url = video.url if video else None
-        return jsonify({"msg": curso.serialize(), "video_url": video_url}), 200
-    else:
-        return jsonify({"error": "Curso not found"}), 404
+# @api.route('/cursos/<int:curso_id>', methods=['GET'])
+# @jwt_required()  # Proteger la ruta para que solo usuarios autenticados puedan acceder
+# def get_curso(curso_id):
+#     curso = Curso.query.get(curso_id)
+#     if curso:
+#         # Suponemos que el primer video asociado al curso es el que queremos mostrar
+#         video = Videos.query.filter_by(curso_id=curso_id).first()
+#         video_url = video.url if video else None
+#         return jsonify({"msg": curso.serialize(), "video_url": video_url}), 200
+#     else:
+#         return jsonify({"error": "Curso not found"}), 404
 
-@api.route('/cursos', methods=['GET'])
-@jwt_required()  # Proteger la ruta para que solo usuarios autenticados puedan acceder
-def get_cursos():
-    cursos = Curso.query.all()
-    if cursos:
-        return jsonify({"msg": [curso.serialize() for curso in cursos]}), 200
-    else:
-        return jsonify({"error": "Cursos not found"}), 404
+# @api.route('/cursos', methods=['GET'])
+# @jwt_required()  # Proteger la ruta para que solo usuarios autenticados puedan acceder
+# def get_cursos():
+#     cursos = Curso.query.all()
+#     if cursos:
+#         return jsonify({"msg": [curso.serialize() for curso in cursos]}), 200
+#     else:
+#         return jsonify({"error": "Cursos not found"}), 404
 
-@api.route('/curso/<int:curso_id>/videos', methods=['GET'])
-@jwt_required()
-def get_curso_videos(curso_id):
-    user_id = get_jwt_identity()  # Obtener el ID del usuario desde el JWT
+# @api.route('/curso/<int:curso_id>/videos', methods=['GET'])
+# @jwt_required()
+# def get_curso_videos(curso_id):
+#     user_id = get_jwt_identity()  # Obtener el ID del usuario desde el JWT
 
-    # Verificar si el usuario está matriculado en el curso
-    matricula = Matricula.query.filter_by(alumno_id=user_id, curso_id=curso_id).first()
-    if not matricula:
-        return jsonify({"error": "No estás matriculado en este curso."}), 403
+#     # Verificar si el usuario está matriculado en el curso
+#     matricula = Matricula.query.filter_by(alumno_id=user_id, curso_id=curso_id).first()
+#     if not matricula:
+#         return jsonify({"error": "No estás matriculado en este curso."}), 403
 
 
 
@@ -186,3 +188,12 @@ def create_payment():
         })
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
+    
+@api.route('/cursos', methods=['GET'])
+def cargarCursos():
+    cursos = Curso.query.all()
+    try:
+        cursos_list = [curso.serialize() for curso in cursos]
+        return jsonify(cursos_list), 200
+    except Exception as e: 
+        return jsonify({'message': str(e)}), 500

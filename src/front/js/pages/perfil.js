@@ -67,7 +67,6 @@ function Perfil() {
                   <div class="p-3" className='lado2' ><button type="button" id="boton"   >Cambiar foto</button>
                     
                     <div> JPG o PNG  </div>
-                    <div> Podrás cambiarla cuando quieras. </div>
                   </div>
                 </div>
               </div>

@@ -21,39 +21,39 @@ const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
             cursos: [
-                {
-                    id: 1,
-                    nombre: "Curso de Desarrollo Web",
-                    categoria: "Desarrollo",
-                    subcategoria: "Desarrollo Web",
-                    valoracion: 5,
-                    nivel: "principiante",
-                    precio: 100,
-                    fecha: "2023-09-01",
-                    idioma: "espanol"
-                },
-                {
-                    id: 2,
-                    nombre: "Curso de Finanzas",
-                    categoria: "Negocios",
-                    subcategoria: "Finanzas",
-                    valoracion: 4,
-                    nivel: "intermedio",
-                    precio: 200,
-                    fecha: "2023-10-01",
-                    idioma: "ingles"
-                },
-                {
-                    id: 3,
-                    nombre: "Curso de Diseño Web",
-                    categoria: "Diseño",
-                    subcategoria: "Diseño Web",
-                    valoracion: 3,
-                    nivel: "avanzado",
-                    precio: 150,
-                    fecha: "2023-11-01",
-                    idioma: "aleman"
-                }
+                // {
+                //     id: 1,
+                //     nombre: "Curso de Desarrollo Web",
+                //     categoria: "Desarrollo",
+                //     subcategoria: "Desarrollo Web",
+                //     valoracion: 5,
+                //     nivel: "principiante",
+                //     precio: 100,
+                //     fecha: "2023-09-01",
+                //     idioma: "espanol"
+                // },
+                // {
+                //     id: 2,
+                //     nombre: "Curso de Finanzas",
+                //     categoria: "Negocios",
+                //     subcategoria: "Finanzas",
+                //     valoracion: 4,
+                //     nivel: "intermedio",
+                //     precio: 200,
+                //     fecha: "2023-10-01",
+                //     idioma: "ingles"
+                // },
+                // {
+                //     id: 3,
+                //     nombre: "Curso de Diseño Web",
+                //     categoria: "Diseño",
+                //     subcategoria: "Diseño Web",
+                //     valoracion: 3,
+                //     nivel: "avanzado",
+                //     precio: 150,
+                //     fecha: "2023-11-01",
+                //     idioma: "aleman"
+                // }
                 
             ], //  Almacena todos los cursos obtenidos del mockup mientras no funciona la API del el backend. Siempre tiene los cursos sin filtrar.
             cursosConFiltros: [], // Almacena los cursos después de aplicar filtros. Se actualiza cuando aplicas filtros
@@ -72,7 +72,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 valoracion: 0,
                 nivel: "",
                 precio: [0, 350],
-                fecha: "",
+                fecha_inicio: "",
                 idioma: "",
                 busqueda: "",
                 
@@ -145,9 +145,9 @@ const getState = ({ getStore, getActions, setStore }) => {
                         (!filtros.valoracion || curso.valoracion >= filtros.valoracion) &&
                         (!filtros.nivel || curso.nivel === filtros.nivel) &&
                         (!filtros.precio || (curso.precio >= filtros.precio[0] && curso.precio <= filtros.precio[1])) &&
-                        (!filtros.fecha || new Date(curso.fecha) >= new Date(filtros.fecha)) &&
+                        (!filtros.fecha_inicio || new Date(curso.fecha_inicio) >= new Date(filtros.fecha_inicio)) &&
                         (!filtros.idioma || curso.idioma === filtros.idioma) &&
-                        (!filtros.busqueda || curso.nombre.toLowerCase().includes(filtros.busqueda.toLowerCase()))
+                        (!filtros.busqueda || curso.title.toLowerCase().includes(filtros.busqueda.toLowerCase()))
                     );
                 });
                    // Actualiza el estado global con los cursos filtrados
@@ -173,10 +173,23 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             //Actualizar el estado global,limpiando los cursos filtrados. 
             //Esto significa que el array cursosConFiltros se vacía.
-            resetFiltros: ()=>{
-                const store = getStore(); //devuelve el estado global.
-                setStore ({...store, cursosConFiltros: [] })
-
+            resetFiltros: () => {
+                const store = getStore(); // Obtiene el estado actual del store.
+                setStore({
+                    ...store, // Copia el estado actual.
+                    filtros: {
+                        categoria: '',
+                        valoracion: 0,
+                        nivel: '',
+                        precio: [0, 350],
+                        fecha_inicio: '',
+                        idioma: '',
+                        busqueda: ''
+                    }, // Restablece los filtros a sus valores predeterminados.
+                cursosConFiltros: [] // Limpia los cursos filtrados.
+                });
+                // //  filtros vacíos para mostrar todos los cursos
+                // getActions().aplicarFiltrosCursos();
             },
 
             // Cerrar sesión Alumno
@@ -291,12 +304,12 @@ const getState = ({ getStore, getActions, setStore }) => {
                     if (response.ok) {
                         return {
                             success: true,
-                            message: 'Curso creado exitosamente.'
+                            message: 'Usuario creado exitosamente.',
                         };
                     } else {
                         return {
                             success: false,
-                            message: data.message || 'Error desconocido durante la creación '
+                            message: data.message || 'Error desconocido durante el registro '
                         };
                     }
                 } catch (error) {

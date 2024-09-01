@@ -241,12 +241,12 @@ const BarraBusqueda = () => {
                             <div className="contenedorFecha">
                                 <Form.Control 
                                     type="date" 
-                                    name="fecha" 
-                                    value={store.filtros.fecha} /* Flux */
+                                    name="fecha_inicio" 
+                                    value={store.filtros.fecha_inicio} /* Flux */
                                     onChange={handleChange} 
                                     className="filtro-fecha-select" 
                                 />
-                                {erroresFormulario.fecha && <div className="error">{erroresFormulario.fecha}</div>}
+                                {erroresFormulario.fecha_inicio && <div className="error">{erroresFormulario.fecha_inicio}</div>}
                             </div>
                         </Form.Group>
                     </Col>

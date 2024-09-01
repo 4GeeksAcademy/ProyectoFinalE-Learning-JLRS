@@ -7,10 +7,7 @@ import { Context } from "../store/appContext";
 
 export const SignUp = () => {
     const { store, actions } = useContext(Context);
-
-
     const handleRadioChange = (value) => setDataForm({ ...dataForm, is_teacher: value })
-
     const [dataForm, setDataForm] = useState({
         email: '',
         password: '',
