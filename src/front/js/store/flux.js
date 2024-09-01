@@ -132,8 +132,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
             
-        
-
             // Aplicar filtros a los cursos
             aplicarFiltrosCursos: () => {
                 const store = getStore();
