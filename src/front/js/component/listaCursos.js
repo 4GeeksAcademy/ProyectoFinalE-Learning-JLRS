@@ -1,6 +1,7 @@
 // Este componente extrae los cursos del estado global y los muestra en una lista.
 
 import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Context } from '../store/appContext'; // Importa el contexto global
 import "../../styles/listaCursos.css";
 
@@ -17,7 +18,7 @@ const ListaCursos = () => {
             {store.cursosConFiltros.length > 0 ? (  /* Verifica si hay cursos filtrados */
                 <div className="row row-cols-1 row-cols-md-3 g-4"> {/* Cursos en una cuadrícula y g-4 agrega un espaciado entre los elementos */}
                     {store.cursosConFiltros?.map(curso => ( /* Mapea los cursos filtrados y genera un elemento para cada curso */
-                        <div className="col" key={curso.id}> {/* Columna para cada tarjeta y usa el id del curso como la clave única */}
+                        <div className="col" key={curso.id} name={curso.title} id={curso.id}> {/* Columna para cada tarjeta y usa el id del curso como la clave única */}
                             <div className="cardCursos h-100">
                                 <img 
                                     src={curso.portada ? `${process.env.BACKEND_URL}${curso.portada}` : "https://via.placeholder.com/150"} /* direccion del models.py donde aparezca cursos y sus imagenes*/
@@ -35,9 +36,9 @@ const ListaCursos = () => {
                                         <strong>Idioma:</strong> {curso.idioma}
                                     </p>
                                 </div>
-                                <div className="cardCursos-footer">
-                                    <a href={`/curso/${curso.id}`} className="btn btn-primary">Informacion del curso</a> {/* Enlace para ir al detalle del curso */}
-                                </div>
+                                <Link to={`/curso/${curso.id}`}><div className="cardCursos-footer">
+                                    <div className="btn btn-primary">Informacion del curso</div> {/* Enlace para ir al detalle del curso */}
+                                </div></Link>
                             </div>
                         </div>
                     ))}

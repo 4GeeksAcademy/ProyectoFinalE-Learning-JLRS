@@ -208,11 +208,11 @@ def cargarCursos():
     except Exception as e: 
         return jsonify({'message': str(e)}), 500
     
-# @api.route('/cursos/<int:curso_id>', methods=['GET'])
-# def get_curso(curso_id):
-#     cursos = Curso.query.get(curso_id)
-#     try:
-#         curso = [curso.serialize() for curso in cursos]
-#         return jsonify(curso), 200
-#     except Exception as e: 
-#         return jsonify({'message': str(e)}), 500
+@api.route('/cursos/<int:id>', methods=['GET'])
+def get_curso(id):
+    cursos = Curso.query.get(id)
+    try:
+        curso = [curso.serialize() for curso in cursos]
+        return jsonify(curso), 200
+    except Exception as e: 
+        return jsonify({'message': str(e)}), 500

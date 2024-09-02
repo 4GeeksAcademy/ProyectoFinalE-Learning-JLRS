@@ -131,6 +131,22 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.error('Error loading courses:', error);
                 }
             },
+
+            cargarCurso: async (id) => {
+                const store = getStore();
+                setStore({ ...store, loading: true }); // Muestra el estado de carga
+
+                try { // Enviamos una solicitud GET para obtener todos los cursos.
+                    const response = await fetch(process.env.BACKEND_URL+'/api/cursos/<int:id>'); // Solicita los datos del curso
+                    const data = await response.json(); // Convierte la respuesta en JSON
+                    console.log('Curso cargado:', data); // Verifica los cursos cargados
+                    setStore({ ...store, curso: data, loading: false }); 
+                    // Actualizamos ambos estados tanto de cursos y cursosConFiltrado y oculta el estado de carga
+                } catch (error) {
+                    setStore({ ...store, error: error.message, loading: false }); // Maneja el error
+                    console.error('Error loading course:', error);
+                }
+            },
             
             // Aplicar filtros a los cursos
             aplicarFiltrosCursos: () => {

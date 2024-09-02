@@ -40,7 +40,7 @@ const VistaDetallada = () => {
 
     return (
         <div className="curso-vistaDetallada">
-            <h1>{curso.title}</h1>
+            <h1>{curso.nombre}</h1>
             <div className="cursoVD">
                 {/* Columna izquierda: Descripción del curso */}
                 <div className="cursoVD-col-izquierda">
@@ -132,4 +132,3 @@ const VistaDetallada = () => {
 };
 
 export default VistaDetallada;
-
