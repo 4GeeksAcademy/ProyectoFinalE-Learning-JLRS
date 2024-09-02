@@ -165,9 +165,11 @@ class Pagos(db.Model):
     __tablename__ = "pagos"
     id = db.Column(db.Integer, primary_key=True)
     matricula_id = db.Column(db.Integer(), db.ForeignKey('matricula.id'))
+    curso_id = db.Column(db.Integer(), db.ForeignKey('curso.id'))
     alumno_id = db.Column(db.Integer(), db.ForeignKey('alumno.id'))
     profesor_id = db.Column(db.Integer(), db.ForeignKey('profesor.id')) 
-    fecha_pago = db.Column(db.String(120), nullable=True)  
+    fecha_pago = db.Column(db.String(120), nullable=True)
+    cantidad = db.Column(db.Integer(), nullable=True)  
 
     def __repr__(self):
         return f'<Pagos {self.fecha_pago}>'
@@ -176,7 +178,9 @@ class Pagos(db.Model):
         return {
             "id": self.id,
             "matricula_id": self.matricula_id,
+            "curso_id": self.curso_id,
             "alumno_id": self.alumno_id,
             "profesor_id": self.profesor_id,
             "fecha_pago": self.fecha_pago,
+            "cantidad":self.cantidad,
         }

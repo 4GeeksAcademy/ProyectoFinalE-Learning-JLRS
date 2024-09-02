@@ -20,7 +20,7 @@ def get_user(user_id):
     else:
         return jsonify({"error": "User not found"}), 404
 
-@api.route('/users/', methods=['GET'])
+@api.route('/users', methods=['GET'])
 def get_users():
     users = User.query.all()
     if users:
@@ -28,22 +28,26 @@ def get_users():
     else:
         return jsonify({"error": "User not found"}), 404
 
-@api.route('/users/<int:user_id>', methods=['PUT'])
-def update_user(user_id):
+@api.route('/users', methods=['PUT'])
+@jwt_required
+def update_user():
+    id=get_jwt_identity()
     data = request.get_json()
-    if not data or 'name' not in data or 'telefono' not in data:
+    if not data or 'name' not in data or 'email' not in data:
         return jsonify({"error": "Invalid data"}), 400
-    user = User.query.get(user_id)
+    user = User.query.get(id)
     if not user:
         return jsonify({"error": "User not found"}), 404
     user.name = data['name']
-    user.telefono = data['telefono']
+    user.email = data['email']
     db.session.commit()
     return jsonify({"status": "User updated", "user": user.serialize()}), 200
 
-@api.route('/users/<int:user_id>', methods=['DELETE'])
-def delete_user(user_id):
-    user = User.query.get(user_id)
+@api.route('/users', methods=['DELETE'])
+@jwt_required
+def delete_user():
+    id=get_jwt_identity()
+    user = User.query.get(id)
     if user:
         db.session.delete(user)
         db.session.commit()
@@ -52,8 +56,8 @@ def delete_user(user_id):
         return jsonify({"error": "User not found"}), 404
 
 
-# Rutas protegidas por JWT
 @api.route('/cursos', methods=['POST'])
+@jwt_required
 def crear_curso():
     data=request.json
     title = data.get('title', None)
