@@ -190,14 +190,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 // getActions().aplicarFiltrosCursos();
             },
 
-            // Cerrar sesión Alumno
-            logoutAlumno: () => {
-                localStorage.removeItem('token');
-                setStore({ usuarioA: null, autentificacion: false, cursosAlumno: [] });
-                //Restablece el estado del usuario alumno y borra los cursos del estado, pero NO significa que los cursos se eliminen permanentemente del sistema
-                //simplemente se elimina la referencia a los cursos del usuario en la memoria de la aplicación
-            },
-
             // Acción para obtener los cursos del alumno
             obtenerCursosAlumno: async (alumnoId) => {
                 const store = getStore();
@@ -222,34 +214,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-            // Acción para iniciar sesión profe
-            // login: async (dataForm) => {
-            //     try {
-            //         // solicitud POST a la API para autenticar al usuario profe.
-            //         const response = await fetch(process.env.BACKEND_URL + '/api/login', {
-            //             method: 'POST',
-            //             headers: {
-            //                 'Content-Type': 'application/json'
-            //             },
-            //             body: JSON.stringify(dataForm) // Los datos del formulario de inicio de sesión
-            //         });
-
-            //         if (response.ok) {
-            //             const userData = await response.json();
-            //             setStore({ usuarioPr: userData.user, autentificado: true });
-            //             localStorage.setItem('token', userData.token);
-            //             return true;
-            //         } else {
-            //             console.error('Login fallido');
-            //             return false;
-            //         }
-            //     } catch (error) {
-            //         console.error('Login error:', error);
-            //         return false;
-            //     }
-            // },
-
-            // Cerrar sesión Profe
+            // Cerrar sesión
             logout: () => {
                 localStorage.removeItem('token'); // Elimina el token del localStorage
                 localStorage.removeItem('logueado');
