@@ -199,16 +199,16 @@ const BarraBusqueda = () => {
                                         {store.filtros.nivel || "Seleccione un nivel"}
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'nivel', value: "principiante" } })}>
+                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'nivel', value: "Principiante" } })}>
                                             Principiante
                                         </Dropdown.Item>
-                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'nivel', value: "intermedio" } })}>
+                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'nivel', value: "Intermedio" } })}>
                                             Intermedio
                                         </Dropdown.Item>
-                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'nivel', value: "avanzado" } })}>
+                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'nivel', value: "Avanzado" } })}>
                                             Avanzado
                                         </Dropdown.Item>
-                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'nivel', value: "master" } })}>
+                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'nivel', value: "Máster" } })}>
                                             Máster
                                         </Dropdown.Item>
                                     </Dropdown.Menu>
@@ -259,13 +259,13 @@ const BarraBusqueda = () => {
                                         {store.filtros.idioma || "Seleccionar idioma"}
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'idioma', value: "espanol" } })}>
+                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'idioma', value: "Español" } })}>
                                             Español
                                         </Dropdown.Item>
-                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'idioma', value: "ingles" } })}>
+                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'idioma', value: "Inglés" } })}>
                                             Inglés
                                         </Dropdown.Item>
-                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'idioma', value: "aleman" } })}>
+                                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'idioma', value: "Alemán" } })}>
                                             Alemán
                                         </Dropdown.Item>
                                     </Dropdown.Menu>

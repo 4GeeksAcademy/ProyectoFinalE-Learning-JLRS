@@ -87,8 +87,8 @@ export const FormularioCurso = () => {
                         <Dropdown.Item onClick={() => handleChange({ target: { name: 'nivel', value: "Avanzado" } })}>
                             Avanzado
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'nivel', value: "Master" } })}>
-                            Master
+                        <Dropdown.Item onClick={() => handleChange({ target: { name: 'nivel', value: "Máster" } })}>
+                            Máster
                         </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>

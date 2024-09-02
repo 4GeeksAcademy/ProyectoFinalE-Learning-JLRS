@@ -149,25 +149,43 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             
             // Aplicar filtros a los cursos
+            // aplicarFiltrosCursos: () => {
+            //     const store = getStore();
+            //     const { cursos, filtros } = store;
+
+            //     const cursosFiltrados = cursos.filter(curso => {
+            //         return (
+            //             (!filtros.categoria || curso.categoria === filtros.categoria) &&
+            //             (!filtros.valoracion || curso.valoracion >= filtros.valoracion) &&
+            //             (!filtros.nivel || curso.nivel === filtros.nivel) &&
+            //             (!filtros.precio || (curso.precio >= filtros.precio[0] && curso.precio <= filtros.precio[1])) &&
+            //             (!filtros.fecha_inicio || new Date(curso.fecha_inicio) >= new Date(filtros.fecha_inicio)) &&
+            //             (!filtros.idioma || curso.idioma === filtros.idioma) &&
+            //             (!filtros.busqueda || curso.title.toLowerCase().includes(filtros.busqueda.toLowerCase()))
+            //         );
+            //     });
+            //        // Actualiza el estado global con los cursos filtrados
+            //     setStore({ cursosConFiltros: cursosFiltrados });
+            // },
+
             aplicarFiltrosCursos: () => {
                 const store = getStore();
-                const { cursos, filtros } = store;
-
+                const { cursos, filtros } = store;                
                 const cursosFiltrados = cursos.filter(curso => {
                     return (
-                        (!filtros.categoria || curso.categoria === filtros.categoria) &&
-                        (!filtros.valoracion || curso.valoracion >= filtros.valoracion) &&
-                        (!filtros.nivel || curso.nivel === filtros.nivel) &&
+                        (!filtros.categoria || curso.categoria.toLowerCase() === filtros.categoria.toLowerCase()) &&
+                        (!filtros.valoraciones || curso.valoraciones >= filtros.valoraciones) &&
+                        (!filtros.nivel || curso.nivel.toLowerCase() === filtros.nivel.toLowerCase()) &&
                         (!filtros.precio || (curso.precio >= filtros.precio[0] && curso.precio <= filtros.precio[1])) &&
                         (!filtros.fecha_inicio || new Date(curso.fecha_inicio) >= new Date(filtros.fecha_inicio)) &&
-                        (!filtros.idioma || curso.idioma === filtros.idioma) &&
+                        (!filtros.idioma || curso.idioma.toLowerCase() === filtros.idioma.toLowerCase()) &&
                         (!filtros.busqueda || curso.title.toLowerCase().includes(filtros.busqueda.toLowerCase()))
                     );
                 });
                    // Actualiza el estado global con los cursos filtrados
                 setStore({ cursosConFiltros: cursosFiltrados });
             },
-
+            
             // Función para actualizar los filtros aplicados
             actualizarFiltros: (nuevosFiltros) => {
                 const store = getStore();
