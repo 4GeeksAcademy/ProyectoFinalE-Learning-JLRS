@@ -2,6 +2,10 @@ import React, { useEffect, useContext } from "react";
 import { Context } from "../store/appContext"; 
 import { useNavigate } from "react-router-dom"; // hook para navegar a diferentes rutas dentro de la aplicación.
 
+import BarraBusqueda from "../component/barraBusqueda";
+import "../../styles/barraBusqueda.css";
+import ListaCursos from "../component/listaCursos";
+
 const VistaAlumno = () => {
     // obtener el store y las acciones definidas en el contexto.
     const { store, actions } = useContext(Context);
@@ -38,6 +42,8 @@ const VistaAlumno = () => {
                     ))}
                 </ul>
             </div>
+            <BarraBusqueda />
+            <ListaCursos />
         </div>
     );
 };
