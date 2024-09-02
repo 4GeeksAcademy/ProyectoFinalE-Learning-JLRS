@@ -107,12 +107,17 @@
     color: #E0E0E2; /* Mantener el color del texto */
 }
 
+.estrellas {
+    display: flex;
+    gap: 5px; /* Puedes ajustar este valor para espaciar las estrellas como desees */
+}
 
 /* Estilo de las estrellas en la valoración */
 .estrellas .estrella {
     font-size: 20px;
     color: #E0E0E2; /* Color de la estrella vacía */
     cursor: pointer;
+    display: inline-block;
 }
 
 .estrellas .rellena {
