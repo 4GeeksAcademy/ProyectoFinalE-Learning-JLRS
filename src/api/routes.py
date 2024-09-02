@@ -29,7 +29,7 @@ def get_users():
         return jsonify({"error": "User not found"}), 404
 
 @api.route('/users', methods=['PUT'])
-@jwt_required
+@jwt_required()
 def update_user():
     id=get_jwt_identity()
     data = request.get_json()
@@ -44,7 +44,7 @@ def update_user():
     return jsonify({"status": "User updated", "user": user.serialize()}), 200
 
 @api.route('/users', methods=['DELETE'])
-@jwt_required
+@jwt_required()
 def delete_user():
     id=get_jwt_identity()
     user = User.query.get(id)
@@ -57,7 +57,7 @@ def delete_user():
 
 
 @api.route('/cursos', methods=['POST'])
-@jwt_required
+@jwt_required()
 def crear_curso():
     data=request.json
     title = data.get('title', None)
@@ -91,7 +91,7 @@ def crear_curso():
 
 
 # @api.route('/cursos/<int:curso_id>', methods=['GET'])
-# @jwt_required()  # Proteger la ruta para que solo usuarios autenticados puedan acceder
+# @jwt_required()()  # Proteger la ruta para que solo usuarios autenticados puedan acceder
 # def get_curso(curso_id):
 #     curso = Curso.query.get(curso_id)
 #     if curso:
@@ -103,7 +103,7 @@ def crear_curso():
 #         return jsonify({"error": "Curso not found"}), 404
 
 # @api.route('/cursos', methods=['GET'])
-# @jwt_required()  # Proteger la ruta para que solo usuarios autenticados puedan acceder
+# @jwt_required()()  # Proteger la ruta para que solo usuarios autenticados puedan acceder
 # def get_cursos():
 #     cursos = Curso.query.all()
 #     if cursos:
@@ -112,7 +112,7 @@ def crear_curso():
 #         return jsonify({"error": "Cursos not found"}), 404
 
 # @api.route('/curso/<int:curso_id>/videos', methods=['GET'])
-# @jwt_required()
+# @jwt_required()()
 # def get_curso_videos(curso_id):
 #     user_id = get_jwt_identity()  # Obtener el ID del usuario desde el JWT
 
