@@ -131,9 +131,23 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.error('Error loading courses:', error);
                 }
             },
-            
-        
 
+            cargarCurso: async (id) => {
+                const store = getStore();
+                setStore({ ...store, loading: true }); // Muestra el estado de carga
+
+                try { // Enviamos una solicitud GET para obtener todos los cursos.
+                    const response = await fetch(process.env.BACKEND_URL+'/api/cursos/<int:id>'); // Solicita los datos del curso
+                    const data = await response.json(); // Convierte la respuesta en JSON
+                    console.log('Curso cargado:', data); // Verifica los cursos cargados
+                    setStore({ ...store, curso: data, loading: false }); 
+                    // Actualizamos ambos estados tanto de cursos y cursosConFiltrado y oculta el estado de carga
+                } catch (error) {
+                    setStore({ ...store, error: error.message, loading: false }); // Maneja el error
+                    console.error('Error loading course:', error);
+                }
+            },
+            
             // Aplicar filtros a los cursos
             aplicarFiltrosCursos: () => {
                 const store = getStore();
@@ -192,14 +206,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 // getActions().aplicarFiltrosCursos();
             },
 
-            // Cerrar sesión Alumno
-            logoutAlumno: () => {
-                localStorage.removeItem('token');
-                setStore({ usuarioA: null, autentificacion: false, cursosAlumno: [] });
-                //Restablece el estado del usuario alumno y borra los cursos del estado, pero NO significa que los cursos se eliminen permanentemente del sistema
-                //simplemente se elimina la referencia a los cursos del usuario en la memoria de la aplicación
-            },
-
             // Acción para obtener los cursos del alumno
             obtenerCursosAlumno: async (alumnoId) => {
                 const store = getStore();
@@ -224,34 +230,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-            // Acción para iniciar sesión profe
-            // login: async (dataForm) => {
-            //     try {
-            //         // solicitud POST a la API para autenticar al usuario profe.
-            //         const response = await fetch(process.env.BACKEND_URL + '/api/login', {
-            //             method: 'POST',
-            //             headers: {
-            //                 'Content-Type': 'application/json'
-            //             },
-            //             body: JSON.stringify(dataForm) // Los datos del formulario de inicio de sesión
-            //         });
-
-            //         if (response.ok) {
-            //             const userData = await response.json();
-            //             setStore({ usuarioPr: userData.user, autentificado: true });
-            //             localStorage.setItem('token', userData.token);
-            //             return true;
-            //         } else {
-            //             console.error('Login fallido');
-            //             return false;
-            //         }
-            //     } catch (error) {
-            //         console.error('Login error:', error);
-            //         return false;
-            //     }
-            // },
-
-            // Cerrar sesión Profe
+            // Cerrar sesión
             logout: () => {
                 localStorage.removeItem('token'); // Elimina el token del localStorage
                 localStorage.removeItem('logueado');

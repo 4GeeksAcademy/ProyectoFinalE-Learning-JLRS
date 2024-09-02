@@ -132,4 +132,3 @@ const VistaDetallada = () => {
 };
 
 export default VistaDetallada;
-

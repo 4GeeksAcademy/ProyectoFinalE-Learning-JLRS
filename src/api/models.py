@@ -91,7 +91,7 @@ class Curso(db.Model):
     __tablename__ = "curso"
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(120), nullable=False)
-    portada = db.Column(db.String(250), nullable=False)
+    portada = db.Column(db.String(250), nullable=True)
     resumen = db.Column(db.String(250), nullable=False)
     categoria = db.Column(db.String(120), nullable=False)
     valoraciones = db.Column(db.Integer(), nullable=True)
