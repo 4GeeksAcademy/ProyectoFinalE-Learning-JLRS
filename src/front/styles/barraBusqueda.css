@@ -1,6 +1,6 @@
 /* Contenedor principal de la barra de búsqueda */
 .barra-busqueda {
-    background-color: #416788; /* Fondo de la barra */
+    background-color: #7389AE; /* Fondo de la barra */
     border: 1px solid #000022; /* Borde oscuro */
     box-shadow: 0 4px 8px #000022; /* Sombra con el color específico #000022 */
     padding: 10px;
@@ -36,6 +36,7 @@
     display: flex;
     flex-direction: column; /* Apilar los elementos verticalmente */
     align-items: center; /* Centra los elementos dentro del grupo */
+   
 }
 
 /* Estilo para las etiquetas en los grupos de formulario */
@@ -51,6 +52,7 @@
 /* Estilo para los controles dentro de los grupos de formulario */
 .barra-busqueda .form-control, 
 .barra-busqueda .dropdown-toggle {
+    color: #E0E0E2;
     background-color: #416788; /* Fondo de la barra */
     border: 1px solid #000022; /* Borde oscuro */
     box-shadow: 0 4px 8px #000022; /* Sombra con el color específico #000022 */
@@ -79,13 +81,14 @@
     gap: 10px; /* Espacio entre los botones */
 }
 
+
 /* Estilo para los botones "Aceptar" y "Restablecer" */
-.barra-busqueda .btn-primary, 
-.barra-busqueda .btn-secondary {
-    background-color: #000022; /* Color de fondo específico */
-    color: #E0E0E2; /* Color de texto específico */
+.barra-busqueda .btn-aceptar, 
+.barra-busqueda .btn-restablecer {
+    background-color: #7389AE; /* Color de fondo específico */
+    color: #000022; /* Color de texto específico */
+    font-weight: 500;
     box-shadow: 0 4px 8px #000022; /* Sombra con el color específico #000022 */
-    border: none;
     padding: 8px 16px; /* Ajusta el padding para igualar el tamaño */
     border-radius: 5px;
     cursor: pointer;
@@ -98,12 +101,20 @@
     display: flex; /* Usar flexbox para alinear verticalmente el texto */
     align-items: center; /* Centra verticalmente el texto dentro del botón */
     box-sizing: border-box; /* Incluye padding y border en el ancho/alto del elemento */
+    border: 1px solid #E0E0E2; /* Borde oscuro */
 }
 
 /* Efecto hover para los botones "Aceptar" y "Restablecer" */
-.barra-busqueda .btn-primary:hover, 
-.barra-busqueda .btn-secondary:hover {
-    background-color: #7389AE; /* Cambio de color al pasar el mouse */
+.barra-busqueda .btn-aceptar:hover, 
+.barra-busqueda .btn-restablecer:hover {
+    background-color: #000022; /* Cambio de color al pasar el mouse */
+    color: #E0E0E2; /* Mantener el color del texto */
+    border: 1px solid #E0E0E2; /* Borde oscuro */
+}
+
+/* Efecto hover para otros botones primarios y secundarios */ 
+.button#dropdown:hover {
+    background-color: #416788; /* Cambio de color al pasar el mouse */
     color: #E0E0E2; /* Mantener el color del texto */
 }
 
@@ -125,21 +136,71 @@
 }
 
 /* Estilos para los errores del formulario */
-.error {
-    color: #000022;
-    font-size: 0.9em;
-    margin-top: 5px;
+.form-group {
+    display: flex;
+    flex-direction: column;
 }
+
+.error {
+    color: #E0E0E2;
+    font-size: 0.9em;
+    margin-top: 0px; /* Ajusta el margen superior para dar espacio sin mover otros campos */
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    width: 100%; /* Asegura que el <span> ocupe todo el ancho disponible */
+    text-align: center; /* Centra el texto dentro del <span> */
+}
+
 
 /* Estilos para la barra de búsqueda */
 .buscadorContenedor {
     position: relative;
+    color: #E0E0E2;
+}
+
+
+.buscadorContenedor .form-control::placeholder {
+    color: #E0E0E2; /* Color del texto del placeholder */
+    opacity: 1; /* La opacidad puede ser ajustada; por defecto es menor a 1 */
 }
 
 .iconoBuscador {
     position: absolute;
-    top: 50%;
-    right: 10px;
+    top: 40%;
+    right: 8px;
     transform: translateY(-50%);
-    color: #000022;
+    color: #E0E0E2;
+
+}
+.contenedorPrecio {
+    top: -1px;
+    display: flex; /* Utilizamos flexbox para alinear los elementos en línea */
+    align-items: center; /* Alinea verticalmente los elementos (el rango y la etiqueta) al centro */
+    justify-content: space-between; /* Distribuye el espacio entre los elementos para evitar que se solapen */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho posible */
+    margin-bottom: 10px; /* Añade un pequeño margen inferior para igualar el espaciado con otros elementos */
+    position: relative; /* Añadido para asegurar el posicionamiento relativo del contenedor */
+}
+
+
+.rango-precio-label {
+    position: absolute; /* Mantiene la posición absoluta */
+    top: 22px; /* Sube la etiqueta un poco más para alinearla mejor con las demás etiquetas */
+    left: 50%; /* Centra horizontalmente */
+    transform: translateX(-50%); /* Ajusta el centrado exacto */
+    background-color: transparent; /* Fondo transparente */
+    color: #E0E0E2; /* Color de texto */
+    pointer-events: none; /* Desactiva la interacción del ratón */
+    font-size: 0.7em; /* Aumenta el tamaño de la fuente para mayor visibilidad */
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    width: 100%; /* Asegura que el <span> ocupe todo el ancho disponible */
+    text-align: center; /* Centra el texto dentro del <span> */
+}
+
+.filtro-precio-select {
+    width: 100%;
+    appearance: none;
+    background: #416788;
+    border-radius: 5px;
+    height: 8px; /* Aumenta la altura del control de rango para hacerlo más visible */
+    position: relative;
 }

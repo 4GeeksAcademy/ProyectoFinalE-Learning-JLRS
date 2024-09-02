@@ -222,15 +222,17 @@ const BarraBusqueda = () => {
                         <Form.Group controlId="formPrecio">
                             <Form.Label>Precios</Form.Label>
                             <div className="contenedorPrecio">
+                                <span className="rango-precio-label">
+                                {`€0 - €${store.filtros.precio[1]}`}
+                                </span>
                                 <Form.Control 
                                     type="range" 
                                     min="0" 
                                     max="350" 
-                                    value={store.filtros.precio[1]} /* Flux */
+                                    value={store.filtros.precio[1]} 
                                     onChange={(e) => handleChange({ target: { name: 'precio', value: [0, e.target.value] } })} 
                                     className="filtro-precio-select"
                                 />
-                                <span>{`€0 - €${store.filtros.precio[1]}`}</span>
                                 {erroresFormulario.precio && <div className="error">{erroresFormulario.precio}</div>}
                             </div>
                         </Form.Group>
@@ -292,10 +294,10 @@ const BarraBusqueda = () => {
                     </Col>
                     <Col className="colunBotones">
                         <div className="botones">
-                            <Button className="btn-primary" onClick={filtrosAplicar} disabled={loading}>
+                            <Button className="btn-aceptar" onClick={filtrosAplicar} disabled={loading}>
                                 {loading ? 'Cargando...' : 'Aceptar'}
                             </Button>
-                            <Button className="btn-secondary" onClick={resetFiltros}>
+                            <Button className="btn-restablecer" onClick={resetFiltros}>
                                 Restablecer
                             </Button>
                         </div>
