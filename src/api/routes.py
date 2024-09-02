@@ -159,10 +159,20 @@ def sign_up():
     if not email or not password:
         return jsonify({"error": "Email and password are required."}), 400
     
+    if User.query.filter_by(email=email).first():
+        return jsonify({"error": "User with this email already exists."}), 400
+    
     new_user = User(email=email, password=password, is_teacher=is_teacher)
     
-    # Add the new user to the session and commit
     db.session.add(new_user)
+    db.session.commit()
+    if is_teacher:
+        new_teacher = Profesor(user_id=new_user.id)
+        db.session.add(new_teacher)
+    else:
+        new_student = Alumno(user_id=new_user.id)
+        db.session.add(new_student)
+    
     db.session.commit()
     
     return jsonify(new_user.serialize()), 201
