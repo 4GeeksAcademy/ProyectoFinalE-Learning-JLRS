@@ -245,7 +245,7 @@ def delete_video(id):
 
 @api.route('/videos/<int:id>', methods=['PUT'])
 @jwt_required()
-def create_video(id):
+def edit_video(id):
     edited_video = Videos.query.get(id)
     data=request.json
     title = data.get('title', None)
