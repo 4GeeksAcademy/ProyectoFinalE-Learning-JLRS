@@ -37,10 +37,11 @@ export const FormularioCurso = () => {
     }
 
     return (<div>
-        <div>
-            <h1 className="text-center mt-5">Subir un curso nuevo</h1>
-        </div>
+        
         <form className="formularioCurso w-50 mx-auto" onSubmit={handleSubmit}>
+            <div>
+                <h1 className="text-center mt-5">Crea tu curso</h1>
+            </div>
             <label>Título
                 <input className="form-control" name="title" value={dataForm.title} placeholder="" onChange={handleChange} type="text"></input>
             </label>
