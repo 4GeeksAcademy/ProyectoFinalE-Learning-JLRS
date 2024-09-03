@@ -327,4 +327,30 @@ def compra():
 
 #### RUTA PUT DEL ALUMNO Y PROFESOR
 
+@api.route("/users/<int:id>", methods=["PUT"])
+@jwt_required()
+def edit_perfil_profe(id):
+    edited_perfil = Profesor.query.get(id)
+    data=request.json
+    edited_perfil.name = data.get('name', None) if data.get('name') else edited_perfil.name
+    edited_perfil.lastname = data.get('lastname', None) if data.get('lastname') else edited_perfil.lastname
+    edited_perfil.telefono = data.get('telefono', None) if data.get('telefono') else edited_perfil.telefono
+    edited_perfil.address = data.get('address', None) if data.get('address') else edited_perfil.address
+    edited_perfil.avatar = data.get('avatar', None) if data.get('avatar') else edited_perfil.avatar
 
+    db.session.commit()
+    return jsonify(edited_perfil.serialize()), 200
+
+@api.route("/users/<int:id>", methods=["PUT"])
+@jwt_required()
+def edit_perfil_alumno(id):
+    edited_perfil = Alumno.query.get(id)
+    data=request.json
+    edited_perfil.name = data.get('name', None) if data.get('name') else edited_perfil.name
+    edited_perfil.lastname = data.get('lastname', None) if data.get('lastname') else edited_perfil.lastname
+    edited_perfil.telefono = data.get('telefono', None) if data.get('telefono') else edited_perfil.telefono
+    edited_perfil.address = data.get('address', None) if data.get('address') else edited_perfil.address
+    edited_perfil.avatar = data.get('avatar', None) if data.get('avatar') else edited_perfil.avatar
+
+    db.session.commit()
+    return jsonify(edited_perfil.serialize()), 200
