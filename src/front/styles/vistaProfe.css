@@ -2,7 +2,7 @@
 .contenedorProfe {
     display: flex;
     flex-direction: column;
-    height: 25vh; /* Ocupa un cuarto de la altura de la ventana */
+    height: 15vh; /* Ocupa un cuarto de la altura de la ventana */
     background-color: #416788; /* Color de fondo para la sección superior (opcional) */
     }
     
@@ -10,10 +10,14 @@
     .seccionSuperiorP {
     flex: 1; /* Toma toda la altura del contenedor principal */
     padding: 20px;
-    background-color: #416788; /* Color de fondo para la sección superior */
+    background: linear-gradient(to bottom, #000022, #333366, #416788);
     overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado largo */
     }
     
+    .seccionSuperiorP h4 {
+        color: #e0e0e0;
+    }
+
     /* Contenedor para la sección inferior */
     .seccionInferior {
     flex: 1; /* Toma el espacio restante */
@@ -22,12 +26,15 @@
     overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado largo */
     }
     
+    
     /* Estilo para los cursos */
     .cursosVP {
     margin-top: 20px;
     color: #e0e0e0;
     }
     
+ 
+
     /* Lista de cursos */
     .vPlista-grupo {
     list-style: none;
