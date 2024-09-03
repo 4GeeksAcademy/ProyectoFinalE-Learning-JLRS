@@ -331,8 +331,21 @@ def compra():
 #Cloudinary // no tocar
 @api.route('/upload', methods=['POST'])
 def upload():
-    file_to_upload = request.files['file']
+    file_to_upload = request.files.get('file')
     if file_to_upload:
-        upload = cloudinary.uploader.upload(file_to_upload,resource_type="video")
+        # Determina el tipo de archivo basado en la extensión
+        file_type = file_to_upload.filename.split('.')[-1].lower()
+        if file_type in ['jpg', 'jpeg', 'png', 'gif']:
+            resource_type = 'image'
+        elif file_type in ['mp4', 'mov', 'avi', 'mkv']:
+            resource_type = 'video'
+        else:
+            return jsonify({"error": "Unsupported file type"}), 400
+
+        upload = cloudinary.uploader.upload(
+            file_to_upload,
+            resource_type=resource_type,
+            chunk_size=6000000  # Opcional: Agrega chunk_size para manejar archivos grandes.
+        )
         return jsonify(upload)
     return jsonify({"error": "No file uploaded"}), 400
