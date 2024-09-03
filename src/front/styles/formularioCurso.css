@@ -1,21 +1,16 @@
-/* Estilos para el body */
-body {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; /* Incluye padding y border en el ancho/alto total para todo el documento */
+/* Estilos para el formulario */
+.formularioCurso {
+    width: 100%; /* El formulario ocupa todo el ancho del modal */
+    max-width: 100%; /* Asegúrate de que no exceda el tamaño del modal */
+    margin: 0 auto; /* Centra el formulario horizontalmente */
+    padding: 1.5rem; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: #E0E0E2; /* Color de fondo */
+    box-shadow: 0 4px 8px #000022; /* Sombra */
+    overflow-y: auto; /* Habilitar desplazamiento si el contenido es demasiado largo */
+    box-sizing: border-box; /* Incluye padding y border en el ancho/alto total */
 }
 
-/* Contenedor padre */
-.contenedorPadre {
-    width: 100%;
-    max-width: 1200px; /* Ancho máximo para limitar la expansión en pantallas grandes */
-    margin: 0 auto; /* Centra el contenedor en la pantalla */
-    padding: 0 20px; /* Espaciado lateral */
-    
-}
-
-/* Estilo del título h1 dentro del formulario */
 /* Estilo del título h1 dentro del formulario */
 .formularioCurso h1 {
     font-size: 2.5rem; /* Tamaño grande para el título */
@@ -26,35 +21,10 @@ body {
     padding-bottom: 0; /* Elimina el espaciado inferior para la línea decorativa */
 }
 
-/* Ajustar márgenes del contenedor del formulario */
-.formularioCurso {
-    max-width: 1000px; /* Ancho máximo del formulario */
-    width: 100%; /* Ocupa todo el ancho del contenedor padre */
-    margin: 120px auto 60px; /* Márgenes para separación vertical */
-    padding: 1rem; /* Espaciado interno aumentado para mayor comodidad */
-    border-radius: 10px; /* Bordes redondeados */
-    background-color: #E0E0E2; /* Color de fondo blanco para un contraste nítido */
-    box-shadow: 0 4px 8px #000022; /* Sombra con el color específico #000022 */
-    overflow-y: auto; /* Agrega desplazamiento si el contenido excede la altura máxima */
-    /* Puedes ajustar estos márgenes si es necesario */
-}
-/* regla de medios Ajustes para pantallas más pequeñas */
-@media (max-width: 768px) {
-    .formularioCurso {
-        max-width: 90%; /* Ajusta el ancho máximo en pantallas más pequeñas */
-        margin: 60px auto; /* Márgenes más reducidos para pantallas pequeñas */
-    }
-}
-
-/* Esto es un selector universal: Aplica el estilo a todos los elementos del documento. */
-*, *::before, *::after {
-    box-sizing: border-box; /* Incluye padding y border en el ancho/alto total para todo el documento */
-}
-
 /* Estilo de los labels */
 label {
     display: block; /* El label ocupa toda la línea */
-    margin-bottom: 8px;
+    margin-bottom: 16px; /* Margen inferior para separar los campos */
     font-weight: bold;
     color: #000022; /* Color de texto más suave y legible */
 }
@@ -73,7 +43,6 @@ textarea.form-control,
     color: #000022; /* Color del texto */
 }
 
-
 /* Estilo del texto secundario */
 .text-secondary {
     color: #666; /* Color de texto gris suave */
@@ -83,7 +52,7 @@ textarea.form-control,
 
 /* Estilo del dropdown */
 .dropdown-toggle {
-    background-color: #ffffff; /* Fondo blanco para el dropdown */
+    background-color: #E0E0E2; /* Fondo blanco para el dropdown */
     color: #416788; /* Color del texto */
     border: 1px solid #000022; /* Borde suave */
     border-radius: 4px; /* Esquinas redondeadas */
@@ -130,12 +99,6 @@ span {
     margin-top: 5px; /* Margen superior para separar del control de rango */
     font-weight: bold; /* Texto en negrita */
     color: #416788; /* Color principal */
-}
-
-/* Ajusta el footer si es necesario */
-footer {
-    margin-top: 0; /* Elimina el margen superior si es necesario */
-    padding: 20px; /* Asegúrate de que el footer tenga suficiente espaciado interno */
 }
 
 /* Estilo del botón de envío */

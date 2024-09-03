@@ -38,7 +38,7 @@ export const FormularioCurso = () => {
 
     return (<div>
         
-        <form className="formularioCurso w-50 mx-auto" onSubmit={handleSubmit}>
+        <form className="formularioCurso" onSubmit={handleSubmit}>
             <div>
                 <h1 className="text-center mt-5">Crea tu curso</h1>
             </div>
