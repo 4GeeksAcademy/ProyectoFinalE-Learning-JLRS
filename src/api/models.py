@@ -1,4 +1,4 @@
-from flak_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 # Crear una instancia global de SQLAlchemy
 db = SQLAlchemy()
