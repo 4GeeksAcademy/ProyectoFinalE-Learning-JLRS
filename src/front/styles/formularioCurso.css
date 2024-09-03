@@ -94,7 +94,7 @@ input[type="range"] {
 }
 
 /* Estilo del span que muestra el valor del precio */
-span {
+.precio-span {
     display: block; /* El span ocupa toda la línea */
     margin-top: 5px; /* Margen superior para separar del control de rango */
     font-weight: bold; /* Texto en negrita */

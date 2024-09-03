@@ -341,27 +341,31 @@ def compra():
         return jsonify({'success': False, 'error': 'Error creando pago'})
 
 #ruta GET para que el profesor sepa sus pagos, no necesita ver el alumno, solo el curso y precio
-@api.route('/pagos/<int:id>',methods=['GET'])
-@jwt_required()
-def get_pagos_profe():
+# @api.route('/pagos/<int:id>',methods=['GET'])
+# @jwt_required()
+# def get_pagos_profe():
+#     id = get_jwt_identity()
+#     try:
 
-@api.route('/mis_cursos', methods=['GET'])
-@jwt_required()
-def mis_cursos():
-    id = get_jwt_identity()
-    try:
-        aux = []
-        matriculas = Matricula.query.all()
-        for matricula in matriculas:
-            print(matricula.serialize())
-            curso = Curso.query.get(matricula.curso_id)
-            aux.append(curso)
-        print(aux)
 
-        return jsonify({'success': True, 'misCursos': [curso.serialize() for curso in aux]}), 200
-    except Exception as e: 
-        print(e)
-        return jsonify({'message': str(e)}), 400
+
+# @api.route('/mis_cursos', methods=['GET'])
+# @jwt_required()
+# def mis_cursos():
+#     id = get_jwt_identity()
+#     try:
+#         aux = []
+#         matriculas = Matricula.query.all()
+#         for matricula in matriculas:
+#             print(matricula.serialize())
+#             curso = Curso.query.get(matricula.curso_id)
+#             aux.append(curso)
+#         print(aux)
+
+#         return jsonify({'success': True, 'misCursos': [curso.serialize() for curso in aux]}), 200
+#     except Exception as e: 
+#         print(e)
+#         return jsonify({'message': str(e)}), 400
 
 
 ##### RUTA PUT DEL ALUMNO Y PROFESOR #####

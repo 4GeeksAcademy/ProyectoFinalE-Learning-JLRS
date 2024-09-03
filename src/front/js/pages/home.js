@@ -103,14 +103,14 @@ return (
         <div className="BarraDeEmpresas">
             <h4>Más de 7500 empresas y millones de estudiantes de todo el mundo confían en nosotros</h4>
             <div className="icon-container mt-4">
-            <span className="fa-brands fa-apple"></span>
-            <span className="fa-brands fa-windows"></span>
-            <span className="fa-brands fa-google"></span>
-            <span className="fa-brands fa-playstation"></span>
-            <span className="fa-brands fa-youtube"></span>
-            <span className="fa-brands fa-instagram"></span>
-            <span className="fa-brands fa-paypal"></span>
-            <span className="fa-brands fa-linkedin"></span>
+                <span className="fa-brands fa-apple"></span>
+                <span className="fa-brands fa-windows"></span>
+                <span className="fa-brands fa-google"></span>
+                <span className="fa-brands fa-playstation"></span>
+                <span className="fa-brands fa-youtube"></span>
+                <span className="fa-brands fa-instagram"></span>
+                <span className="fa-brands fa-paypal"></span>
+                <span className="fa-brands fa-linkedin"></span>
             </div>
         </div>
         </div>
