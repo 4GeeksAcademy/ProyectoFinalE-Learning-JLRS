@@ -174,9 +174,12 @@ def create_curso():
 @jwt_required()
 def delete_curso(id):
     curso = Curso.query.get(id)
-    db.session.delete(curso)
-    db.session.commit()
-    return jsonify("curso borrado"), 200
+    if curso:
+        db.session.delete(curso)
+        db.session.commit()
+        return jsonify({"status": "curso deleted"}), 200
+    else:
+        return jsonify({"error": "Curso not found"}), 404
 
 @api.route("/cursos/<int:id>", methods=["PUT"])
 @jwt_required()
