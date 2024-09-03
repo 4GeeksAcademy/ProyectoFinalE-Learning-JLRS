@@ -1,6 +1,9 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import os
+import cloudinary
+import cloudinary.uploader
+
 
 import stripe #plataforma de pago. Para instalar el paquete de Stripe, tuve que poner: pip install stripe ,en la consola Backend y: npm install @stripe/react-stripe-js @stripe/stripe-js ,en el Fronted
 from api.models import db, User, Curso, Profesor, Alumno, Videos, Matricula, Pagos
@@ -325,3 +328,11 @@ def compra():
 #### RUTA PUT DEL ALUMNO Y PROFESOR
 
 
+#Cloudinary // no tocar
+@api.route('/upload', methods=['POST'])
+def upload():
+    file_to_upload = request.files['file']
+    if file_to_upload:
+        upload = cloudinary.uploader.upload(file_to_upload,resource_type="video")
+        return jsonify(upload)
+    return jsonify({"error": "No file uploaded"}), 400
