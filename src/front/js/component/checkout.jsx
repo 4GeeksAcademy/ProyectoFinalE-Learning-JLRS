@@ -23,7 +23,7 @@ export const CheckoutForm = () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           //la cantidad ha pagar esta puesta fija, pero puede recibir un objeto desde el contexto
-          body: JSON.stringify({ amount: 1000 , currency: 'usd' }) // coger el precio del curso seleccionado. store.cursoSeleccionado.precio
+          body: JSON.stringify({curso_id: store.cursoSeleccionado?.id, amount: 1000 , currency: 'usd' }) // coger el precio del curso seleccionado. store.cursoSeleccionado.precio
         })
           .then((res) => res.json())
           .then((data) => setClientSecret(data.clientSecret)); //client_secret, que se almacena en el estado local (setClientSecret)
@@ -53,6 +53,8 @@ export const CheckoutForm = () => {
       if (error) {
         console.log('[error]', error);
       } else if (paymentIntent.status === 'succeeded') {
+          actions.setPaymentInfo(paymentIntent)
+          actions.nuevaCompra(paymentIntent.id)
         console.log('Payment succeeded!');
         navigate("/completoDisWeb"); // Cambia "/completoDisWeb" por la ruta que corresponda a tu página
       }

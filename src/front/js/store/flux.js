@@ -16,10 +16,11 @@
 
 
 const getState = ({ getStore, getActions, setStore }) => {
-    
+
 
     return {
         store: {
+            paymentInfo: {},
             cursos: [
                 // {
                 //     id: 1,
@@ -54,7 +55,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 //     fecha: "2023-11-01",
                 //     idioma: "aleman"
                 // }
-                
+
             ], //  Almacena todos los cursos obtenidos del mockup mientras no funciona la API del el backend. Siempre tiene los cursos sin filtrar.
             cursosConFiltros: [], // Almacena los cursos después de aplicar filtros. Se actualiza cuando aplicas filtros
             //categorias: [], // Asegúrate de tener categorías en el estado
@@ -65,7 +66,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             cursosAlumno: [], // Almacena los cursos en los que el alumno está inscrito
             cursoSeleccionado: [], //Almacena los cursos seleccionados por el alumno para comprar.
             autentificacion: false, // Indica si el usuarioProfe está autenticado.
-            usuarioPr:  null,  // Usuario que es un profesor.
+            usuarioPr: null,  // Usuario que es un profesor.
             usuarioA: null, //información del usuario que se ha autenticado como alumno.
             filtros: { // Define los filtros aplicados para la búsqueda de cursos.
                 categoria: "",
@@ -75,18 +76,21 @@ const getState = ({ getStore, getActions, setStore }) => {
                 fecha_inicio: "",
                 idioma: "",
                 busqueda: "",
-                
+
             },
-            
+
         },
         actions: {
             //FUNCIONES DE JAVIER (mirar abajo)
             crearCurso: async (dataForm) => {
+
                 try {
                     const response = await fetch(process.env.BACKEND_URL + '/api/cursos', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+
                         },
                         body: JSON.stringify(dataForm)
                     });
@@ -111,7 +115,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         success: false,
                         message: 'Error de conexión o servidor no disponible'
                     };
-                } 
+                }
             },
             //FUNCIONES DE JAVIER (mirar arriba)
 
@@ -121,10 +125,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({ ...store, loading: true }); // Muestra el estado de carga
 
                 try { // Enviamos una solicitud GET para obtener todos los cursos.
-                    const response = await fetch(process.env.BACKEND_URL+'/api/cursos'); // Solicita los datos de cursos
+                    const response = await fetch(process.env.BACKEND_URL + '/api/cursos'); // Solicita los datos de cursos
                     const data = await response.json(); // Convierte la respuesta en JSON
                     console.log('Cursos cargados:', data); // Verifica los cursos cargados
-                    setStore({ ...store, cursos: data, cursosConFiltros: data, loading: false }); 
+                    setStore({ ...store, cursos: data, cursosConFiltros: data, loading: false });
                     // Actualizamos ambos estados tanto de cursos y cursosConFiltrado y oculta el estado de carga
                 } catch (error) {
                     setStore({ ...store, error: error.message, loading: false }); // Maneja el error
@@ -137,17 +141,17 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({ ...store, loading: true }); // Muestra el estado de carga
 
                 try { // Enviamos una solicitud GET para obtener todos los cursos.
-                    const response = await fetch(process.env.BACKEND_URL+'/api/cursos/<int:id>'); // Solicita los datos del curso
+                    const response = await fetch(process.env.BACKEND_URL + '/api/cursos/<int:id>'); // Solicita los datos del curso
                     const data = await response.json(); // Convierte la respuesta en JSON
                     console.log('Curso cargado:', data); // Verifica los cursos cargados
-                    setStore({ ...store, curso: data, loading: false }); 
+                    setStore({ ...store, curso: data, loading: false });
                     // Actualizamos ambos estados tanto de cursos y cursosConFiltrado y oculta el estado de carga
                 } catch (error) {
                     setStore({ ...store, error: error.message, loading: false }); // Maneja el error
                     console.error('Error loading course:', error);
                 }
             },
-            
+
             // Aplicar filtros a los cursos
             // aplicarFiltrosCursos: () => {
             //     const store = getStore();
@@ -170,7 +174,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             aplicarFiltrosCursos: () => {
                 const store = getStore();
-                const { cursos, filtros } = store;                
+                const { cursos, filtros } = store;
                 const cursosFiltrados = cursos.filter(curso => {
                     return (
                         (!filtros.categoria || curso.categoria.toLowerCase() === filtros.categoria.toLowerCase()) &&
@@ -182,16 +186,16 @@ const getState = ({ getStore, getActions, setStore }) => {
                         (!filtros.busqueda || curso.title.toLowerCase().includes(filtros.busqueda.toLowerCase()))
                     );
                 });
-                   // Actualiza el estado global con los cursos filtrados
+                // Actualiza el estado global con los cursos filtrados
                 setStore({ cursosConFiltros: cursosFiltrados });
             },
-            
+
             // Función para actualizar los filtros aplicados
             actualizarFiltros: (nuevosFiltros) => {
                 const store = getStore();
                 // Combina los filtros existentes con los nuevos filtros proporcionados
                 const filtrosActualizados = { ...store.filtros, ...nuevosFiltros };
-                
+
                 // Si el filtro de precio se actualiza, asegúrate de manejar el caso del rango.
                 if (nuevosFiltros.precio) {
                     filtrosActualizados.precio = nuevosFiltros.precio;
@@ -218,19 +222,18 @@ const getState = ({ getStore, getActions, setStore }) => {
                         idioma: '',
                         busqueda: ''
                     }, // Restablece los filtros a sus valores predeterminados.
-                cursosConFiltros: [] // Limpia los cursos filtrados.
+                    cursosConFiltros: [] // Limpia los cursos filtrados.
                 });
                 // //  filtros vacíos para mostrar todos los cursos
                 // getActions().aplicarFiltrosCursos();
             },
 
             // Acción para obtener los cursos del alumno
-            obtenerCursosAlumno: async (alumnoId) => {
-                const store = getStore();
+            obtenerCursosAlumno: async () => {
                 const token = localStorage.getItem('token');
 
                 try {
-                    const response = await fetch(`/api/students/${alumnoId}/courses`, {
+                    const response = await fetch(process.env.BACKEND_URL + `/api/mis_cursos`, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
@@ -238,8 +241,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     });
 
                     if (response.ok) {
-                        const cursosAlumno = await response.json();
-                        setStore({ ...store, cursosAlumno });
+                        const data = await response.json();
+                        setStore({ misCursos: data.misCursos });
                     } else {
                         console.error('Error al obtener los cursos del alumno');
                     }
@@ -251,7 +254,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             // Cerrar sesión
             logout: () => {
                 localStorage.removeItem('token'); // Elimina el token del localStorage
-                localStorage.removeItem('logueado');
                 setStore({ usuarioPr: null, autentificado: false, cursosProfe: [] });
             },
 
@@ -261,7 +263,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const token = localStorage.getItem('token'); // Obtén el token de autenticación
 
                 try {
-                    const response = await fetch(`/api/tutors/${profesorId}/courses`, {
+                    const response = await fetch(process.env.BACKEND_URL + `/api/tutors/${profesorId}/courses`, {
                         headers: {
                             'Authorization': `Bearer ${token}`, // Autorización de la solicitud con el token.
                             'Content-Type': 'application/json'
@@ -277,7 +279,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 } catch (error) {
                     console.error('Error fetching courses:', error);
                 }
-            },            
+            },
 
             // Acción para manejar errores
             handleError: (error) => {
@@ -333,7 +335,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.log('Response data:', data);
 
                     if (response.ok) {
-                        localStorage.setItem("logueado", data.token)
+                        localStorage.setItem("token", data.token)
+                        setStore({ user: data.user })
                         return {
                             success: true,
                             user: data.user,
@@ -356,6 +359,44 @@ const getState = ({ getStore, getActions, setStore }) => {
                     };
                 }
             },
+            seleccionarCurso: (val) => {
+                setStore({ cursoSeleccionado: val })
+            },
+            setPaymentInfo: (val) => {
+                setStore({ paymentInfo: val })
+            },
+            nuevaCompra: async (paymentId) => {
+                const store = getStore()
+                let date = Date()
+                date.toString()
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + '/api/compra', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: JSON.stringify({
+                            curso_id: store.cursoSeleccionado.id,
+                            profesor_id: store.cursoSeleccionado.profesor_id,
+                            fecha_pago: date,
+                            cantidad: store.cursoSeleccionado.precio,
+                            pago_stripe_id: paymentId
+                        })
+                    });
+
+                    const data = await response.json();
+                    console.log('Response data:', data);
+
+
+                } catch (error) {
+                    console.error('Error en pago:', error);
+                    return {
+                        success: false,
+                        message: 'Error en pago'
+                    };
+                }
+            }
         }
     };
 };
@@ -364,20 +405,20 @@ export default getState;
 
 
 
-            // // Ejemplo de función para cargar categorías y subcategorías
-            // cargarCategorias: async () => {
-            //     const store = getStore();
-            //     setStore({ ...store, loading: true });
+// // Ejemplo de función para cargar categorías y subcategorías
+// cargarCategorias: async () => {
+//     const store = getStore();
+//     setStore({ ...store, loading: true });
 
-            //     try {
-            //         const response = await fetch(process.env.BACKEND_URL+'/api/categorias');
-            //         const data = await response.json();
-            //         setStore({ categorias: data, loading: false });
-            //     } catch (error) {
-            //         setStore({ error: error.message, loading: false });
-            //         console.error('Error loading categories:', error);
-            //     }
-            // },
+//     try {
+//         const response = await fetch(process.env.BACKEND_URL+'/api/categorias');
+//         const data = await response.json();
+//         setStore({ categorias: data, loading: false });
+//     } catch (error) {
+//         setStore({ error: error.message, loading: false });
+//         console.error('Error loading categories:', error);
+//     }
+// },
 
 // Llama a cargarCategorias en algún lugar de tu aplicación para que las categorías estén disponibles
 

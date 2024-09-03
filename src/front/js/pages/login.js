@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { Context } from "../store/appContext"; // Importa el Contexto desde el store
 import { useNavigate } from "react-router-dom";
 import "../../styles/login.css";
@@ -13,6 +13,14 @@ export const Login = () => {
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    const submitButtonRef = useRef(null); // Crea una referencia para el botón de "Iniciar sesión"
+
+    useEffect(() => {
+        if (submitButtonRef.current) {
+            submitButtonRef.current.focus(); // Establece el foco en el botón al montar el componente
+        }
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -29,28 +37,19 @@ export const Login = () => {
         setLoading(true); // Comienza a cargar antes de realizar cualquier acción
     
         try {
-            // Usa la función loginUser del contexto
             const result = await actions.loginUser(dataForm);
     
             if (result.success && result.user) {
-                // Guarda el token en el almacenamiento local
-                localStorage.setItem('token', result.data.token);
-    
-                // Determina el rol del usuario y navega a la página correspondiente
                 const userRole = result.user.is_teacher;
-                console.log("userRole:", userRole); // Muestra el rol en la consola para depuración
-    
                 if (userRole) {
                     navigate('/vistaProfe'); // Redirige a vista del profesor
                 } else {
                     navigate('/vistaAlumno'); // Redirige a vista del alumno
                 }
             } else {
-                // Maneja el caso en que el inicio de sesión no fue exitoso
                 setMessage('Inicio de sesión fallido. Verifica tus credenciales.');
             }
         } catch (error) {
-            // Maneja errores que puedan ocurrir durante el proceso de inicio de sesión
             console.error('Error en handleSubmit:', error);
             setMessage('Error en la solicitud de inicio de sesión. Inténtalo de nuevo.');
         } finally {
@@ -60,7 +59,7 @@ export const Login = () => {
     
     return (
         <div>
-            <form className="container d-flex flex-column align-items-center mt-5 p-3" id="formularioLogin" onSubmit={handleSubmit}>
+            <form className="container d-flex flex-column align-items-center mt-5 p-3" id="formularioLogin" onSubmit={handleSubmit} autoComplete="off">
                 <h4 className="mt-2 mb-4">Inicia sesión</h4>
                 <label>Email
                     <input
@@ -71,6 +70,7 @@ export const Login = () => {
                         onChange={handleChange}
                         type="email"
                         required
+                        autoComplete="off"
                     />
                 </label>
                 <label>Contraseña
@@ -83,6 +83,7 @@ export const Login = () => {
                             onChange={handleChange}
                             type={visible ? "text" : "password"}
                             required
+                            autoComplete="off"
                         />
                         {visible ? 
                             <span className="fa-solid fa-eye-slash icon" onClick={handleClick}></span> 
@@ -96,6 +97,7 @@ export const Login = () => {
                     value="Iniciar sesión"
                     type="submit"
                     disabled={loading}
+                    ref={submitButtonRef} // Asigna la referencia al botón de "Iniciar sesión"
                 />
                 <p>{message}</p>
             </form>
