@@ -2,12 +2,26 @@
     background-color: #b5bad0;
     width: 500px;
     border-radius: 20px;
+    box-shadow: 0 4px 8px #416788;
 }
 
 .contenedor-password {
     position: relative;
     display: flex;
     align-items: right;
+    
+}
+.contenedor-email {
+    position: relative;
+    display: flex;
+    align-items: right;
+    box-shadow: 0 4px 8px #416788;
+}
+
+.emailPassword{
+
+    margin-top: 5px;
+    margin-bottom: 1px;
 }
 
 .icon {
