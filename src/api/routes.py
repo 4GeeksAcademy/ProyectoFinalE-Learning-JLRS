@@ -141,9 +141,6 @@ def cargarCursos():
     except Exception as e: 
         return jsonify({'message': str(e)}), 500
 
-
-
-
 @api.route('/cursos/<int:id>', methods=['GET'])
 def get_curso(id):
     curso = Curso.query.get(id)
@@ -285,6 +282,11 @@ def edit_video(id):
 
 # RUTAS MATRICULAS
 
+#GET matriculas por curso segun ID del profesor
+
+
+
+
 # RUTAS PAGOS 
 
 @api.route('/compra', methods=['POST'])
@@ -314,6 +316,12 @@ def compra():
         return jsonify({'success': True, 'compra': compra.serialize(), 'matricula': nueva_matricula.serialize() })
     except Exception as e:
         db.session.rollback()
-        print('error-----> ', e)
         return jsonify({'success': False, 'error': 'Error creando pago'})
+
+#ruta GET para que el profesor sepa sus pagos, no necesita ver el alumno, solo el curso y precio
+
+
+
+#### RUTA PUT DEL ALUMNO Y PROFESOR
+
 
