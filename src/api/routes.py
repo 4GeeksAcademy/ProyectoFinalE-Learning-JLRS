@@ -115,9 +115,11 @@ stripe.api_key = os.getenv("STRIPE_PRIVATE") #establece la clave secreta de Stri
 def create_payment():
     try: # Recibe los datos de la cantidad y moneda.
         data = request.json
+        print('-------------------------------------------------------',data)
+        curso = Curso.query.get(data['curso_id'])
         #PODEMOS PASAR TODOS LOS ELEMENTOS QUE PERMITA EL OBJETO DE PAYMENTINTENT.CREATE 
         intent = stripe.PaymentIntent.create(
-            amount=data['amount'], # se deberia de calcular el precio en el back, no recibirse del front
+            amount=curso.precio, # se deberia de calcular el precio en el back, no recibirse del front
             currency=data['currency'],
             automatic_payment_methods={
                 'enabled': True
@@ -138,7 +140,7 @@ def cargarCursos():
         return jsonify(cursos_list), 200
     except Exception as e: 
         return jsonify({'message': str(e)}), 500
-    
+
 @api.route('/cursos/<int:id>', methods=['GET'])
 def get_curso(id):
     curso = Curso.query.get(id)
@@ -148,6 +150,26 @@ def get_curso(id):
     except Exception as e: 
         return jsonify({'message': str(e)}), 500
     
+@api.route('/mis_cursos', methods=['GET'])
+@jwt_required()
+def mis_cursos():
+    id = get_jwt_identity()
+    try:
+        aux = []
+        matriculas = Matricula.query.all()
+        for matricula in matriculas:
+            print(matricula.serialize())
+            curso = Curso.query.get(matricula.curso_id)
+            aux.append(curso)
+        print(aux)
+
+        return jsonify({'success': True, 'misCursos': [curso.serialize() for curso in aux]}), 200
+    except Exception as e: 
+        print(e)
+        return jsonify({'message': str(e)}), 400
+
+
+
 @api.route('/cursos', methods=['POST'])
 @jwt_required()
 def create_curso():
@@ -263,5 +285,46 @@ def edit_video(id):
 
 # RUTAS MATRICULAS
 
+#GET matriculas por curso segun ID del profesor
+
+
+
 
 # RUTAS PAGOS 
+
+@api.route('/compra', methods=['POST'])
+@jwt_required()
+def compra():
+    try:
+        id = get_jwt_identity()
+        data = request.json
+        check = Pagos.query.filter_by(alumno_id= id,
+            curso_id= data['curso_id']).first()
+        print(check)
+        if check:
+            return jsonify({'success': False, 'error': 'Ya posee este curso'}), 418
+        compra = Pagos(
+            alumno_id= id,
+            curso_id= data['curso_id'],
+            profesor_id= data['profesor_id'],
+            fecha_pago= data['fecha_pago'],
+            cantidad= data['cantidad'],
+            pago_stripe_id= data['pago_stripe_id']
+            )
+        db.session.add(compra)
+        nueva_matricula = Matricula(curso_id=data['curso_id'], alumno_id=id)
+        db.session.add(nueva_matricula)
+        db.session.commit()
+         
+        return jsonify({'success': True, 'compra': compra.serialize(), 'matricula': nueva_matricula.serialize() })
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'error': 'Error creando pago'})
+
+#ruta GET para que el profesor sepa sus pagos, no necesita ver el alumno, solo el curso y precio
+
+
+
+#### RUTA PUT DEL ALUMNO Y PROFESOR
+
+

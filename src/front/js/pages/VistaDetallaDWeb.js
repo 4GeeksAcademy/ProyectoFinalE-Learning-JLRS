@@ -11,36 +11,35 @@ const VistaDetallada = () => {
     const { id } = useParams(); // Obtiene el id del curso desde la URL
     const { store, actions } = useContext(Context); // Obtiene el estado global
     const navigate = useNavigate(); // Hook para navegación
-    const [curso, setCurso]=useState({});
 
     // Convierte el id de la URL a un número entero
     const cursoId = parseInt(id, 10);
 
     console.log('ID desde la URL:', cursoId); // Verifica el ID obtenido de la URL
-     
+
 
     useEffect(() => {
         store.cursos.find(curso => curso.id === cursoId); // Encuentra el curso por ID en el estado global
 
     }, []);
 
-    
+
     console.log('Cursos en store:', store.cursosConFiltros); // Verifica los cursos en el estado global
-    console.log('Curso encontrado:', curso); // Verifica el curso encontrado
+    console.log('Curso encontrado:', store.cursoSeleccionado); // Verifica el curso encontrado
 
     // Al hacer clic en el botón "Ir a pagar", el usuario es redirigido a la vista de pago (VistaPago)
     const handleGoToPayment = () => {
-        navigate('/vistaPago', { state: { curso } }); // Pasa información del curso a VistaPago
+        navigate('/vistaPago', { state: store.cursoSeleccionado }); // Pasa información del curso a VistaPago
     };
 
 
-    if (!curso) {
+    if (!store.cursoSeleccionado) {
         return <p>Curso no encontrado</p>; // Mensaje si el curso no existe
     }
 
     return (
         <div className="curso-vistaDetallada">
-            <h1>{curso.nombre}</h1>
+            <h1>{store.cursoSeleccionado.title}</h1>
             <div className="cursoVD">
                 {/* Columna izquierda: Descripción del curso */}
                 <div className="cursoVD-col-izquierda">
@@ -116,12 +115,15 @@ const VistaDetallada = () => {
                 </div>
 
                 {/* Columna derecha: Resumen del curso */}
+                {
+                    //si no esta en misCursos, aparece para comprar
+                }
                 <div className="cursoVD-col-derecha">
-                    <h2 className="cursoVD-titulo">{store.cursos.find(curso => curso.id === cursoId).nombre}</h2> {/* Nombre del curso */}
+                    <h2 className="cursoVD-titulo">{store.cursoSeleccionado?.title}</h2> {/* Nombre del curso */}
                     <div className="fotoVD">
-                        <img src={store.cursos.find(curso => curso.id === cursoId).imagenUrl} alt={store.cursos.find(curso => curso.id === cursoId).nombre} className="cursoVD-imagen" />
+                        <img src={store.cursoSeleccionado?.portada} alt={store.cursoSeleccionado?.title} className="cursoVD-imagen" />
                     </div>
-                    <p className="cursoVD-precio">€{store.cursos.find(curso => curso.id === cursoId).precio}</p>    
+                    <p className="cursoVD-precio">€{store.cursoSeleccionado?.precio}</p>
                     <button onClick={handleGoToPayment} className="btn btn-primary_pagar">
                         Adquirir nuestro curso
                     </button>

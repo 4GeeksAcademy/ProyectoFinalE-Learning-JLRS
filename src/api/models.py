@@ -11,8 +11,8 @@ class User(db.Model):
     is_teacher = db.Column(db.Boolean, default=False)
     is_active = db.Column(db.Boolean, default=True)
 
-    profesor = db.relationship('Profesor', backref='user', lazy=True)
-    alumno = db.relationship('Alumno', backref='user', lazy=True)
+    profesor = db.relationship('Profesor', backref='user', lazy=True, uselist=False)
+    alumno = db.relationship('Alumno', backref='user', lazy=True, uselist=False)
 
     def serialize(self):
         return {
@@ -91,13 +91,13 @@ class Curso(db.Model):
     __tablename__ = "curso"
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(120), nullable=False)
-    portada = db.Column(db.String(250), nullable=True)
+    portada = db.Column(db.String(250), nullable=False)
     resumen = db.Column(db.String(250), nullable=False)
     categoria = db.Column(db.String(120), nullable=False)
     valoraciones = db.Column(db.Integer(), nullable=True)
-    nivel = db.Column(db.String(120), nullable=True)
-    precio = db.Column(db.Integer(), nullable=True)
-    fecha_inicio = db.Column(db.String(120), nullable=True)
+    nivel = db.Column(db.String(120), nullable=False)
+    precio = db.Column(db.Integer(), nullable=False)
+    fecha_inicio = db.Column(db.String(120), nullable=False)
     idioma = db.Column(db.String(120), nullable=False)
     profesor_id = db.Column(db.Integer(), db.ForeignKey('profesor.id')) 
 
@@ -153,6 +153,9 @@ class Matricula(db.Model):
     curso_id = db.Column(db.Integer(), db.ForeignKey('curso.id'))
     alumno_id = db.Column(db.Integer(), db.ForeignKey('alumno.id'))
 
+    def __repr__(self):
+        return f'<Matricula {self.alumno_id}-{self.curso_id}>'
+
     def serialize(self):
         return {
             "id": self.id,
@@ -169,10 +172,11 @@ class Pagos(db.Model):
     alumno_id = db.Column(db.Integer(), db.ForeignKey('alumno.id'))
     profesor_id = db.Column(db.Integer(), db.ForeignKey('profesor.id')) 
     fecha_pago = db.Column(db.String(120), nullable=True)
-    cantidad = db.Column(db.Integer(), nullable=True)  
+    cantidad = db.Column(db.Integer(), nullable=False)  
+    pago_stripe_id = db.Column(db.String(250), nullable=False)
 
     def __repr__(self):
-        return f'<Pagos {self.fecha_pago}>'
+        return f'<Pagos {self.pago_stripe_id}>'
 
     def serialize(self):
         return {

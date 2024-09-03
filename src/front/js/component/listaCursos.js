@@ -37,7 +37,7 @@ const ListaCursos = () => {
                                     </p>
                                 </div>
                                 <Link to={`/curso/${curso.id}`}><div className="cardCursos-footer">
-                                    <div className="btn btn-primary">Informacion del curso</div> {/* Enlace para ir al detalle del curso */}
+                                    <div className="btn btn-primary" onClick={()=>actions.seleccionarCurso(curso)}>Informacion del curso</div> {/* Enlace para ir al detalle del curso */}
                                 </div></Link>
                             </div>
                         </div>

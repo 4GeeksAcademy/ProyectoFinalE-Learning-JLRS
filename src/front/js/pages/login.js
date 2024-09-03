@@ -34,7 +34,6 @@ export const Login = () => {
     
             if (result.success && result.user) {
                 // Guarda el token en el almacenamiento local
-                localStorage.setItem('token', result.data.token);
     
                 // Determina el rol del usuario y navega a la página correspondiente
                 const userRole = result.user.is_teacher;
