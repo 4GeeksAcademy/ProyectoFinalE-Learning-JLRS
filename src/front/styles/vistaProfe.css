@@ -14,8 +14,8 @@
     overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado largo */
     }
     
-    .seccionSuperiorP h4 {
-        color: #e0e0e0;
+    .seccionSuperiorP h4{
+        color: #e0e0e0
     }
 
     /* Contenedor para la sección inferior */
@@ -63,3 +63,76 @@
     background-color: #e0e0e0; /* Color de fondo para la sección del formulario */
     overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado largo */
     }
+
+
+
+/* Ajuste del contenedor del modal */
+.modalVP {
+    position: fixed; /* Asegura que el modal esté fijo en la pantalla */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Ancho completo de la ventana */
+    height: 100vh; /* Alto completo de la ventana */
+    background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    z-index: 999; /* Asegúrate de que esté por encima de otros contenidos */
+}
+
+.modalContentVP {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    max-width: 700px; /* Ancho máximo del modal */
+    min-width: 400px; /* Ancho mínimo del modal */
+    width: 90%; /* Ajuste el tamaño del modal */
+    max-height: 80vh; /* Altura máxima del modal */
+    overflow-y: auto; /* Habilitar scroll vertical si el contenido es largo */
+    box-sizing: border-box; /* Incluye padding y border en el ancho/alto total */
+    display: flex;
+    flex-direction: column; /* Asegura que el contenido sea en columna */
+}
+
+/* Estilo del botón para cerrar el modal */
+.btnCloseVPModal {
+    background-color: #d9534f; /* Color de fondo rojo */
+    color: #fff; /* Color de texto blanco */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-end; /* Alinea el botón en la esquina superior derecha */
+    margin-top: 10px; /* Margen superior */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.btnCloseVPModal:hover {
+    background-color: #c9302c; /* Color más oscuro para hover */
+}
+
+/* Ajustes para el botón de apertura del modal */
+.btnFormulario {
+    background-color: #416788; /* Color de fondo específico */
+    color: #E0E0E2; /* Color de texto específico */
+    padding: 12px 24px; /* Espaciado interno aumentado */
+    border: none; /* Sin bordes */
+    border-radius: 6px; /* Esquinas redondeadas */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transición suave */
+    font-size: 16px; /* Tamaño de fuente adecuado */
+    display: block; /* Hace que el botón ocupe una línea completa */
+    margin: 25px auto; /* Centra el botón horizontalmente */
+    
+}
+
+.btnFormulario:hover {
+    background-color: #5a6a8e; /* Color más oscuro para hover */
+    transform: scale(1.05); /* Efecto de agrandamiento */
+}
+
+.btnFormulario:active {
+    background-color: #4a5b78; /* Color más oscuro cuando se hace clic */
+    transform: scale(0.98); /* Efecto de compresión */
+}
