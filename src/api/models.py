@@ -30,7 +30,7 @@ class User(db.Model):
 class Profesor(db.Model):
     __tablename__ = "profesor"
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(120), nullable=True)
+    name = db.Column(db.String(120), nullable=True) 
     lastname = db.Column(db.String(120), nullable=True)
     telefono = db.Column(db.String(15), nullable=True)
     address = db.Column(db.String(120), nullable=True)
@@ -129,8 +129,8 @@ class Curso(db.Model):
 class Videos(db.Model):
     __tablename__ = "videos"
     id = db.Column(db.Integer(), primary_key=True)
-    title = db.Column(db.String(120), nullable=True)
-    url = db.Column(db.String(250), nullable=True)
+    title = db.Column(db.String(120), nullable=False)
+    url = db.Column(db.String(250), nullable=False)
     text = db.Column(db.String(250), nullable=False)
     curso_id = db.Column(db.Integer(), db.ForeignKey('curso.id'))
 
