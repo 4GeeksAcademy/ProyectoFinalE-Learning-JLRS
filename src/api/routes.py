@@ -55,6 +55,17 @@ def delete_user():
         return jsonify({"status": "User deleted"}), 200
     else:
         return jsonify({"error": "User not found"}), 404
+
+@api.route('/users/<int:id>', methods=['PUT'])
+@jwt_required()
+def edit_user(id):
+    edited_user = User.query.get(id)
+    data=request.json
+    edited_user.email = data.get('email', None) if data.get('email') else edited_user.email
+    edited_user.password = data.get('password', None) if data.get('password') else edited_user.password
+
+    db.session.commit()
+    return jsonify(edited_user.serialize()), 200
     
 ##### RUTAS LOGIN Y SIGNUP #####
 @api.route('/login', methods=['POST'])
@@ -278,7 +289,23 @@ def edit_video(id):
 ##### RUTAS MATRICULAS #####
 
 #GET matriculas por curso segun ID del profesor
+# @api.route('/matriculas', methods=['GET'])
+# @jwt_required()
+# def mis_cursos():
+#     id = get_jwt_identity()
+#     try:
+#         aux = []
+#         matriculas = Matricula.query.all()
+#         for matricula in matriculas:
+#             print(matricula.serialize())
+#             curso = Curso.query.get(matricula.curso_id)
+#             aux.append(curso)
+#         print(aux)
 
+#         return jsonify({'success': True, 'misCursos': [curso.serialize() for curso in aux]}), 200
+#     except Exception as e: 
+#         print(e)
+#         return jsonify({'message': str(e)}), 400
 
 
 
@@ -314,7 +341,27 @@ def compra():
         return jsonify({'success': False, 'error': 'Error creando pago'})
 
 #ruta GET para que el profesor sepa sus pagos, no necesita ver el alumno, solo el curso y precio
+@api.route('/pagos/<int:id>',methods=['GET'])
+@jwt_required()
+def get_pagos_profe():
 
+@api.route('/mis_cursos', methods=['GET'])
+@jwt_required()
+def mis_cursos():
+    id = get_jwt_identity()
+    try:
+        aux = []
+        matriculas = Matricula.query.all()
+        for matricula in matriculas:
+            print(matricula.serialize())
+            curso = Curso.query.get(matricula.curso_id)
+            aux.append(curso)
+        print(aux)
+
+        return jsonify({'success': True, 'misCursos': [curso.serialize() for curso in aux]}), 200
+    except Exception as e: 
+        print(e)
+        return jsonify({'message': str(e)}), 400
 
 
 ##### RUTA PUT DEL ALUMNO Y PROFESOR #####
