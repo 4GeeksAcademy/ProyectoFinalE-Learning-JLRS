@@ -7,15 +7,12 @@ import { Context } from "../store/appContext";
 
 export const SignUp = () => {
     const { store, actions } = useContext(Context);
-
-
-    const handleRadioChange = (value) => setDataForm({ ...dataForm, type: value })
-
+    const handleRadioChange = (value) => setDataForm({ ...dataForm, is_teacher: value })
     const [dataForm, setDataForm] = useState({
         email: '',
         password: '',
         confirmPassword: '',
-        type: '',  // Nuevo campo para registrar como profesor
+        is_teacher: false,  // Nuevo campo para registrar como profesor
 
     });
     const [visible, setVisible] = useState(false);
@@ -36,11 +33,11 @@ export const SignUp = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         actions.register(dataForm)
-        // setDataForm({
-        //     email: '',
-        //     password: '',
-        //     confirmPassword: '',
-        // }) 
+        setDataForm({
+            email: '',
+            password: '',
+            confirmPassword: '',
+        }) 
         console.log(dataForm)
     }
 
@@ -51,13 +48,13 @@ export const SignUp = () => {
                 <label>Email
                     <input className="form-control" name="email" value={dataForm.email} placeholder="Introduce tu email aquí" onChange={handleChange} type="text"></input>
                 </label>
-                <label>Password
+                <label>Contraseña
                     <div className="contenedor-password2">
                         <input className="form-control" name="password" value={dataForm.password} placeholder="" onChange={handleChange} type={visible ? "text" : "password"}></input>
                         {visible ? <span class="fa-solid fa-eye-slash icon2" onClick={handleClick}></span> : <span className="fa-solid fa-eye icon" onClick={handleClick}></span>}
                     </div>
                 </label>
-                <label>Confirm Password
+                <label>Confirma contraseña
                     <div className="contenedor-password2">
                         <input className="form-control" name="confirmPassword" value={dataForm.confirmPassword} placeholder="" onChange={handleChange} type={visible ? "text" : "password"}></input>
                         {visible ? <span class="fa-solid fa-eye-slash icon2" onClick={handleClick}></span> : <span className="fa-solid fa-eye icon" onClick={handleClick}></span>}
@@ -68,15 +65,15 @@ export const SignUp = () => {
                     <input className="form-check-input"
                         value={'alumno'}
                         checked={
-                            dataForm.type ===
-                            "alumno"
+                            dataForm.is_teacher === false
                         }
                         onChange={() =>
                             handleRadioChange(
-                                "alumno"
+                                false
                             )
                         }
-                        type="radio" name="flexRadioDefault" id="flexRadioDefault1"></input>
+                        type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    </input>
                     <label className="form-check-label"
                         for="flexRadioDefault1">
                         Alumno
@@ -86,15 +83,15 @@ export const SignUp = () => {
                     <input className="form-check-input"
                         value={'profesor'}
                         checked={
-                            dataForm.type ===
-                            "profesor"
+                            dataForm.is_teacher === true
                         }
                         onChange={() =>
                             handleRadioChange(
-                                "profesor"
+                                true
                             )
                         }
-                        type="radio" name="flexRadioDefault" id="flexRadioDefault2"></input>
+                        type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    </input>
                     <label className="form-check-label" for="flexRadioDefault2">
                         Profesor
                     </label>

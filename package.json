@@ -73,6 +73,8 @@
 		]
 	},
 	"dependencies": {
+		"@stripe/react-stripe-js": "^2.8.0",
+		"@stripe/stripe-js": "^4.4.0",
 		"bootstrap": "^5.3.3",
 		"bootstrap-icons": "^1.11.3",
 		"cors": "^2.8.5",

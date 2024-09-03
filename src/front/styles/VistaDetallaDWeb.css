@@ -1,0 +1,158 @@
+/* Estilo principal para la vista detallada del curso */
+.curso-vistaDetallada {
+    max-width: 1200px; /* Limita el ancho máximo de la vista detallada a 1200px, para evitar que se extienda demasiado en pantallas grandes */
+    margin: 0 auto; /* Centra la vista detallada horizontalmente en la página */
+    padding: 20px; /* Añade un espacio interior de 20px alrededor del contenido */
+    color: #000022; /* Establece el color del texto principal */
+    
+}
+
+
+/* Encabezado del curso */
+.curso-vistaDetallada h1 {
+    font-size: 2.5rem; /* Define un tamaño grande para el título del curso */
+    font-weight: bold; /* Hace que el texto sea negrita para destacar el título */
+    color: #000022; /* Establece el color del texto del título */
+    margin-bottom: 20px; /* Añade un espacio debajo del título para separar el resto del contenido */
+}
+
+/* Contenedor principal con dos columnas */
+.cursoVD {
+    display: flex; /* Utiliza el sistema de flexbox para organizar las dos columnas */
+    flex-wrap: wrap; /* Permite que las columnas se envuelvan en caso de que el espacio disponible sea insuficiente */
+    gap: 30px; /* Añade un espacio de 30px entre las dos columnas */
+    
+}
+
+
+/* Columna izquierda: Descripción detallada del curso */
+.cursoVD-col-izquierda {
+    flex: 1 1 65%; /* Establece que esta columna ocupará el 65% del espacio disponible, con la posibilidad de ajustarse */
+    background-color: #416788; /* Color de fondo gris claro para diferenciar visualmente esta columna */
+    padding: 20px; /* Añade un espacio interior de 20px dentro de la columna */
+    border-radius: 10px; /* Redondea las esquinas de la columna */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Sección "Lo que aprenderás" */
+.cursoVD-aprenderas h3 {
+    font-size: 1.5rem; /* Define un tamaño de fuente grande para el subtítulo */
+    margin-bottom: 15px; /* Añade un espacio debajo del subtítulo para separar el contenido */
+    color: #000022; /* Establece el color del texto del subtítulo */
+}
+
+.cursoVD-aprenderas ul {
+    list-style-type: disc; /* Utiliza discos como viñetas para la lista */
+    padding-left: 20px; /* Añade un margen interior izquierdo para alinear las viñetas */
+    color: #e0e0e2; /* Define el color del texto de la lista */
+}
+
+.cursoVD-aprenderas ul li {
+    margin-bottom: 10px; /* Añade un espacio entre los elementos de la lista para mejorar la legibilidad */
+}
+
+/* Sección "Este curso incluye" */
+.cursoVD-incluye h3 {
+    font-size: 1.5rem; /* Tamaño de fuente grande para el subtítulo de esta sección */
+    margin-top: 30px; /* Añade un espacio en la parte superior para separar de la sección anterior */
+    margin-bottom: 15px; /* Añade un espacio debajo del subtítulo para separar el contenido */
+    color: #000022; /* Establece el color del texto del subtítulo */
+}
+
+.cursoVD-incluye ul {
+    list-style-type: disc; /* Utiliza discos como viñetas para la lista */
+    padding-left: 20px; /* Añade un margen interior izquierdo para alinear las viñetas */
+    color: #e0e0e2; /* Define el color del texto de la lista */
+}
+
+.cursoVD-incluye ul li {
+    margin-bottom: 10px; /* Añade un espacio entre los elementos de la lista para mejorar la legibilidad */
+    
+}
+.accordion-button {
+    background-color: #354d66; /* Color de fondo por defecto */
+    color: #B5BAD0; /* Color del texto por defecto */
+    box-shadow: 0 4px 8px rgba(224, 224, 226, 0.5); /* Sombra con color #e0e0e2 y opacidad del 50% */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Suaviza la transición de colores y sombra */
+}
+
+.accordion-button:focus,
+.accordion-button:active {
+    background-color: #354d66; /* Color de fondo cuando está enfocado o activo */
+    color: #e0e0e2; /* Color del texto cuando está enfocado o activo */
+    box-shadow: 0 4px 8px rgba(224, 224, 226, 0.7); /* Sombra con color #e0e0e2 y mayor opacidad */
+}
+.accordionVC-item{
+    background-color: #B5BAD0; /* Color de fondo gris azulado para diferenciar visualmente esta columna */
+}
+
+/* Sección "Contenido del curso" */
+.cursoVD-contenido h3 {
+    font-size: 1.5rem; /* Tamaño de fuente grande para el subtítulo de esta sección */
+    margin-top: 30px; /* Añade un espacio en la parte superior para separar de la sección anterior */
+    margin-bottom: 15px; /* Añade un espacio debajo del subtítulo para separar el contenido */
+    color: #000022; /* Establece el color del texto del subtítulo */
+}
+
+/* Columna derecha: Resumen del curso */
+.cursoVD-col-derecha {
+    height: fit-content;
+    flex: 1 1 30%; /* Establece que esta columna ocupará el 30% del espacio disponible, con la posibilidad de ajustarse */
+    background-color: #B5BAD0; /* Color de fondo gris azulado para diferenciar visualmente esta columna */
+    padding: 20px; /* Añade un espacio interior de 20px dentro de la columna */
+    border-radius: 10px; /* Redondea las esquinas de la columna */
+    text-align: center; /* Centra el texto y otros elementos dentro de esta columna */
+    display: flex; /* Utiliza flexbox para organizar el contenido en una columna vertical */
+    flex-direction: column; /* Alinea los elementos de manera vertical */
+    justify-content: flex-start; /* Alinea el contenido en la parte superior de la columna */
+    align-items: center; /* Centra horizontalmente el contenido dentro de la columna */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    
+}
+
+.cursoVD-titulo {
+    font-size: 1.8rem; /* Tamaño de fuente grande para el título */
+    font-weight: bold; /* Hace que el texto sea negrita para destacar el título */
+    color: #000022; /* Establece el color del texto del título */
+    margin-bottom: 15px; /* Añade un espacio debajo del título para separar el resto del contenido */
+}
+
+
+/* Imagen del curso */
+.cursoVD-imagen {
+    max-width: 100%; /* La imagen ocupará el 100% del ancho disponible, sin excederlo */
+    height: auto; /* La altura de la imagen se ajustará automáticamente para mantener la proporción */
+    margin-bottom: 15px; /* Añade un espacio debajo de la imagen para separar el contenido siguiente */
+    border-radius: 10px; /* Redondea las esquinas de la imagen */
+}
+
+
+/* Precio del curso */
+.cursoVD-precio {
+    font-size: 2rem; /* Tamaño de fuente grande para el precio */
+    font-weight: bold; /* Hace que el texto sea negrita para destacar el precio */
+    margin-bottom: 20px; /* Añade un espacio debajo del precio para separar el contenido siguiente */
+    color: #000022; /* Establece el color del texto del precio */
+}
+
+/* Botón de pago */
+.btn-primary_pagar {
+    background-color: #000022; /* Color de fondo azul oscuro para el botón */
+    color: #e0e0e2; /* Color claro para el texto del botón */
+    border: none; /* Elimina cualquier borde predeterminado del botón */
+    padding: 12px 25px; /* Añade un espacio interno al botón para hacerlo más grande y cómodo de hacer clic */
+    font-size: 1.2rem; /* Define un tamaño de fuente grande para el texto del botón */
+    font-weight: bold; /* Hace que el texto sea negrita */
+    border-radius: 5px; /* Redondea las esquinas del botón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Añade una sombra para dar profundidad al botón */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Añade una transición suave cuando se interactúa con el botón */
+    width: 100%; /* El botón ocupa todo el ancho disponible de la columna */
+    margin-top: auto; /* Empuja el botón hacia abajo para estar al final del contenido */
+}
+
+.btn-primary_pagar:hover {
+    background-color: #354d66; /* Cambia el color de fondo cuando se pasa el ratón por encima */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Aumenta la sombra cuando se pasa el ratón por encima para un efecto más profundo */
+}
+

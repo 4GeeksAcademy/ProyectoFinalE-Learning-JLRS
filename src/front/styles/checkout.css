@@ -1,0 +1,46 @@
+/* Estilo general para el formulario */
+.tarjetaCredito {
+    background-color: #E0E0E2; /* Color de fondo del formulario */
+    padding: 20px; /* Espaciado interno del formulario */
+    border-radius: 15px; /* Bordes redondeados para darle apariencia de tarjeta */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra suave para darle profundidad */
+    max-width: 400px; /* Ancho máximo del formulario */
+    margin: 40px auto; /* Centrado del formulario y espacio superior/inferior */
+    border: 1px solid #B5BAD0; /* Borde sutil */
+}
+
+/* Estilo del contenedor del CardElement */
+.StripeElement {
+    background-color: #FFFFFF; /* Fondo blanco para el área de entrada de la tarjeta */
+    padding: 15px; /* Espacio interno más amplio para el área de entrada */
+    border-radius: 10px; /* Bordes redondeados para simular la apariencia de una tarjeta */
+    border: 1px solid #B5BAD0; /* Borde alrededor del área de entrada */
+    margin-bottom: 25px; /* Separación inferior */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra interna */
+    color: #000022; /* Color del texto dentro del campo de la tarjeta */
+    font-size: 16px; /* Tamaño de la fuente del texto dentro del campo */
+}
+
+/* Estilo del botón de pago */
+button[type="submit"] {
+    background-color: #416788; /* Color de fondo del botón */
+    color: #FFFFFF; /* Color del texto del botón */
+    padding: 15px 20px; /* Espacio interno del botón */
+    font-size: 16px; /* Tamaño de la fuente */
+    border: none; /* Sin borde */
+    border-radius: 10px; /* Bordes redondeados */
+    cursor: pointer; /* Manito de cursor */
+    transition: background-color 0.3s ease; /* Transición suave */
+    width: 100%; /* Ancho completo del botón */
+}
+
+/* Estilo del botón en hover */
+button[type="submit"]:hover {
+    background-color: #7389AE; /* Color del botón al pasar el mouse */
+}
+
+/* Estilo del botón cuando está deshabilitado */
+button[type="submit"]:disabled {
+    background-color: #B5BAD0; /* Color del botón cuando está deshabilitado */
+    cursor: not-allowed; /* Cursor de no permitido */
+}

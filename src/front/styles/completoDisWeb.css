@@ -1,0 +1,30 @@
+/* completoDisWeb.css */
+
+.containerDisWeb {
+    background-color: #000022; /* Color de fondo principal */
+    color: #E0E0E2; /* Color del texto */
+    padding: 2rem; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidad */
+    max-width: 800px; /* Ancho máximo del contenedor */
+    margin: 2rem auto; /* Centrado del contenedor */
+    text-align: center; /* Centra el texto */
+}
+
+/* Estilo para el título */
+.containerDisWeb h1 {
+    font-size: 2.5rem; /* Tamaño grande del título */
+    color: #b5bad0; /* Color del título */
+    margin-bottom: 1rem; /* Espaciado inferior */
+}
+
+
+
+/* Estilo para el párrafo */
+.containerDisWeb p {
+    font-size: 1.2rem; /* Tamaño del texto del párrafo */
+    color: #E0E0E2; /* Color del texto del párrafo */
+    margin-bottom: 1.5rem; /* Espaciado inferior */
+}
+
+/* Puedes añadir más clases según los detalles adicionales que quieras agregar en el futuro */

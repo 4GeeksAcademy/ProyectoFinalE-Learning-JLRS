@@ -7,13 +7,17 @@
     padding: 0 20px;
     margin-left: 30px;
 }
-.card-body{
+.card-1{
     text-align: center;
     max-width: 90%; 
     margin: 0 auto;
     letter-spacing: 2px;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 20px;
+    
 }
-.containerCurso{
+.containerCurso3{
       width: 45%;
       float: right;
       margin: 2.3%;
@@ -24,3 +28,13 @@
 .btn{
     margin: 2px;  
 }
+
+.course-content-list {
+    list-style-type: none; /* Elimina los puntos o números de la lista */
+    padding-left: 0;       /* Elimina el padding izquierdo de la lista */
+  }
+  
+  .course-content-list li {
+    margin-bottom: 0.5rem; /* Espacio entre las líneas de contenido */
+  }
+  

@@ -41,9 +41,9 @@ export const Login = () => {
                 console.log("userRole:", userRole); // Muestra el rol en la consola para depuración
     
                 if (userRole) {
-                    navigate('/dashboard-profesor'); // Redirige al panel del profesor
+                    navigate('/vistaProfe'); // Redirige a vista del profesor
                 } else {
-                    navigate('/dashboard-alumno'); // Redirige al panel del alumno
+                    navigate('/vistaAlumno'); // Redirige a vista del alumno
                 }
             } else {
                 // Maneja el caso en que el inicio de sesión no fue exitoso
@@ -73,7 +73,7 @@ export const Login = () => {
                         required
                     />
                 </label>
-                <label>Password
+                <label>Contraseña
                     <div className="contenedor-password">
                         <input
                             className="form-control"

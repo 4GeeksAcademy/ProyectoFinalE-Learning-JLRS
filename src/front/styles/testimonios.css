@@ -1,0 +1,66 @@
+.testimonials {
+    padding: 40px 0;
+    background-color: #ffff; /* Fondo claro */
+    text-align: center;
+}
+  
+.testimonials-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+  
+.testimonial {
+    background-color: #ffff; /* Fondo de los testimonios */
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 320px; /* Aumenta el tamaño máximo si es necesario */
+    box-shadow: 0 0 15px rgba(0, 0, 34, 0.1); /* Sombra con tono oscuro */
+}
+
+  
+.testimonial-image {
+    width: 120px; /* Ajusta  lo grande que quieras el círculo */
+    height: 120px; /* altura coincida con el ancho */
+    border-radius: 50%; /* la imagen se muestre en forma de círculo */
+    object-fit: cover; /*  la imagen cubra el área del círculo sin distorsionarse */
+    margin-bottom: 20px; /* Espacio debajo de la imagen */
+}
+
+  
+.testimonial-name {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #416788; /* Encabezado en color importante */
+}
+  
+.testimonial-title {
+    font-family: 'Lato', sans-serif;
+    font-weight: normal;
+    font-size: 1em;
+    color: #7389AE; /* Textos secundarios */
+}
+  
+.testimonial-country {
+    font-family: 'Lato', sans-serif;
+    font-weight: normal;
+    font-size: 0.9em;
+    color: #7389AE; /* Textos secundarios */
+}
+  
+.testimonial-divider {
+    width: 50px;
+    margin: 10px auto;
+    border: 1px solid #416788; /* Divider en color importante */
+}
+  
+.testimonial-feedback {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.9em;
+    color: #000022; /* Texto principal oscuro */
+}

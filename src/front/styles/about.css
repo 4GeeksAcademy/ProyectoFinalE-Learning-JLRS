@@ -1,8 +1,10 @@
 
-.Titulo-principal{
+.Titulo-principal-about{
     font-size: 48px;
-    color: #000022; 
+    color: #416788; 
     text-align: center;
+    font-family: 'Lora', serif;
+    margin-top: 4%;
 }
 .about{
     display:flex;
@@ -10,11 +12,12 @@
     justify-content: space-between;
     align-items: flex-start;
     gap: 1rem;
-    background-color: #000022;
     margin-left: 10%;
     margin-right: 10%;
-    margin-block-end: 10%;
-    margin-top: 4%;
+    margin-block-end: 5%;
+    margin-top: 2%;
+    border: 4px; /* Borde de 4px de grosor*/
+    border-radius: 12px; /* Bordes redondeados para la imagen */
 }
 .about__main-content{
     display:flex;
@@ -23,14 +26,24 @@
     align-items: stretch;
     width: 100%;  
     padding: 1rem;
+    
 
 }
-.card-body{
+.card-body-about{
     text-align: center;
     max-width: 80%; 
-    margin: 0 auto;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-block-end: 5%;
+    margin-top: 5%;
     letter-spacing: 2px;
+    font-family: 'Roboto', sans-serif;
+    color: #416788;
 }
-.card-img-top{
+.card-img-top-about{
     height: 450px;
+    box-shadow: 0 4px 8px #416788;
+}
+.cartaAbout{
+    background-color: white;
 }

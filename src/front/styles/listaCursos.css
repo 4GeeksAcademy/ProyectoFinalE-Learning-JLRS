@@ -1,0 +1,82 @@
+/* Contenedor general de la lista de cursos */
+.listaDeCursos {
+    max-width: 1500px;
+    margin: 15px auto 0;
+    box-shadow: 0 4px 8px #000022;
+    padding: 1rem;
+    border-radius: 10px;
+    max-height: 800px;
+    overflow-y: auto;
+}
+
+/* Estilos para el contenedor de la tarjeta */
+.cardCursos {
+    background-color: #416788;
+    border: none;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    height: 40%; /* Hace que la tarjeta ocupe todo el espacio disponible */
+    display: flex;
+    flex-direction: column; /* Organiza los hijos en columnas (imagen arriba, contenido abajo) */
+}
+
+/* Estilos para la imagen en la parte superior de la tarjeta */
+.cardCursos-img-top {
+    width: 100%; /* La imagen ocupará todo el ancho del contenedor */
+    height: 50%; /* La imagen ocupará la mitad del contenedor de la tarjeta */
+    object-fit: cover; /* Asegura que la imagen cubra completamente su contenedor */
+}
+
+/* Estilos para el cuerpo de la tarjeta */
+.cardCursos-body-ListaCurso {
+    padding: 1.25rem;
+    background-color: #416788;
+    color: #e0e0e2;
+    flex: 1; /* El contenido textual ocupa el espacio restante */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye el contenido en todo el espacio disponible */
+}
+
+/* Estilos para el pie de la tarjeta */
+.cardCursos-footer {
+    background-color: #000022;
+    border-top: 1px solid #dee2e6;
+    padding: 0.75rem;
+}
+
+/* Estilo para el botón en el pie de la tarjeta */
+.cardCursos-footer .btn-primary {
+    width: 100%;
+    text-align: center;
+    background-color: #416788;
+    border: none;
+    color: #e0e0e2;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.cardCursos-footer .btn-primary:hover {
+    background-color: #354d66;
+}
+
+.cardCursos-footer .btn-primary:disabled {
+    background-color: #B5BAD0;
+    cursor: not-allowed;
+}
+
+/* Estilo para el mensaje cuando no hay cursos disponibles */
+.noCursos {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    background-color: #416788;
+    color: #e0e0e2;
+    border-radius: 0.25rem;
+    box-shadow: 0 4px 8px #000022;
+    font-size: 1.25rem;
+    font-weight: bold;
+}

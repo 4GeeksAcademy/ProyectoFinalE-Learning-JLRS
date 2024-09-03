@@ -1,0 +1,6 @@
+/* Estilos para la lista de cursos */
+.w-50 {
+    padding: 20px; /* Espaciado interno */
+    margin-top: 20px; /* Espaciado superior para separar del perfil */
+    justify-content: space-between;
+}

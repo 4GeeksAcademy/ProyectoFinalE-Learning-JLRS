@@ -24,6 +24,24 @@
     transform: scale(1.1);
 }
 
+/* Perfil del profesor */
+.foto-perfil-toggle { 
+    border: none; 
+    background: transparent; 
+    cursor: pointer; }
+    
+    /* Estilo para la imagen del perfil */
+.foto-perfilProfe {
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%;
+    background-color: antiquewhite;
+}
+.dropdown-menu { 
+    right: 0; 
+    left: auto; 
+}
+
 .btn-secondary {
     background-color: #416788;
     border-color: #416788;
@@ -39,11 +57,4 @@
 .navbar-buttons {
     display: flex;
     gap: 1rem; /* Espacio entre botones */
-}
-
-.imgPerfil {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%; /* Opcional: para hacer la imagen redonda */
-    margin-right: 0.5rem;
 }

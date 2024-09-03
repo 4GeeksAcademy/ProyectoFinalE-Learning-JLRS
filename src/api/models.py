@@ -19,9 +19,9 @@ class User(db.Model):
             "id": self.id,
             "email": self.email,
             "is_teacher": self.is_teacher,
-            "profesor": self.profesor.serialize() if self.profesor else None,
-            "alumno": self.alumno.serialize() if self.alumno else None
-        }
+            "profesor": [p.serialize() for p in self.profesor] if isinstance(self.profesor, list) else (self.profesor.serialize() if self.profesor else None),
+            "alumno": [a.serialize() for a in self.alumno] if isinstance(self.alumno, list) else (self.alumno.serialize() if self.alumno else None)
+    }
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -30,7 +30,7 @@ class User(db.Model):
 class Profesor(db.Model):
     __tablename__ = "profesor"
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(120), nullable=True)
+    name = db.Column(db.String(120), nullable=True) 
     lastname = db.Column(db.String(120), nullable=True)
     telefono = db.Column(db.String(15), nullable=True)
     address = db.Column(db.String(120), nullable=True)
@@ -91,15 +91,14 @@ class Curso(db.Model):
     __tablename__ = "curso"
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(120), nullable=False)
-    portada = db.Column(db.String(250), nullable=False)
-    resumen = db.Column(db.String(250), nullable=True)
-    categoria = db.Column(db.String(120), nullable=True)
+    portada = db.Column(db.String(250), nullable=True)
+    resumen = db.Column(db.String(250), nullable=False)
+    categoria = db.Column(db.String(120), nullable=False)
     valoraciones = db.Column(db.Integer(), nullable=True)
-    niveles = db.Column(db.String(120), nullable=True)
+    nivel = db.Column(db.String(120), nullable=True)
     precio = db.Column(db.Integer(), nullable=True)
     fecha_inicio = db.Column(db.String(120), nullable=True)
-    idioma = db.Column(db.String(120), nullable=True)
-    modulos = db.Column(db.String(120), nullable=True)
+    idioma = db.Column(db.String(120), nullable=False)
     profesor_id = db.Column(db.Integer(), db.ForeignKey('profesor.id')) 
 
     videos = db.relationship('Videos', backref='curso', lazy=True)
@@ -116,11 +115,10 @@ class Curso(db.Model):
             "resumen": self.resumen,
             "categoria": self.categoria,
             "valoraciones": self.valoraciones,
-            "niveles": self.niveles,
+            "nivel": self.nivel,
             "precio": self.precio,
             "fecha_inicio": self.fecha_inicio,
             "idioma": self.idioma,
-            "modulos": self.modulos,
             "profesor_id": self.profesor_id,
             "portada": self.portada,
             "matriculas": [matricula.serialize() for matricula in self.matriculas] if self.matriculas else None,
@@ -131,8 +129,8 @@ class Curso(db.Model):
 class Videos(db.Model):
     __tablename__ = "videos"
     id = db.Column(db.Integer(), primary_key=True)
-    title = db.Column(db.String(120), nullable=True)
-    url = db.Column(db.String(250), nullable=True)
+    title = db.Column(db.String(120), nullable=False)
+    url = db.Column(db.String(250), nullable=False)
     text = db.Column(db.String(250), nullable=False)
     curso_id = db.Column(db.Integer(), db.ForeignKey('curso.id'))
 
@@ -167,9 +165,11 @@ class Pagos(db.Model):
     __tablename__ = "pagos"
     id = db.Column(db.Integer, primary_key=True)
     matricula_id = db.Column(db.Integer(), db.ForeignKey('matricula.id'))
+    curso_id = db.Column(db.Integer(), db.ForeignKey('curso.id'))
     alumno_id = db.Column(db.Integer(), db.ForeignKey('alumno.id'))
     profesor_id = db.Column(db.Integer(), db.ForeignKey('profesor.id')) 
-    fecha_pago = db.Column(db.String(120), nullable=True)  
+    fecha_pago = db.Column(db.String(120), nullable=True)
+    cantidad = db.Column(db.Integer(), nullable=True)  
 
     def __repr__(self):
         return f'<Pagos {self.fecha_pago}>'
@@ -178,7 +178,9 @@ class Pagos(db.Model):
         return {
             "id": self.id,
             "matricula_id": self.matricula_id,
+            "curso_id": self.curso_id,
             "alumno_id": self.alumno_id,
             "profesor_id": self.profesor_id,
             "fecha_pago": self.fecha_pago,
+            "cantidad":self.cantidad,
         }

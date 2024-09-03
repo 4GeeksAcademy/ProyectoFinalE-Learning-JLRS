@@ -1,0 +1,23 @@
+.Pago{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    background-color: #000022;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-block-end: 10%;
+    margin-top: 3%;
+}
+.pago__main-content{
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-start;
+    align-items: stretch;
+    width: 100%;  
+    padding: 1rem;
+}
+.card-body-vistaPago{
+    background-color: #E0E0E2;
+}

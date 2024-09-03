@@ -25,17 +25,20 @@
     margin-top: 50px;
     text-indent:24px;
     padding-top: 20px;
-    
+    font-family: 'Roboto', sans-serif;
+    color: #416788;
 }
 
 .confiDere {
     border-radius: 2%;
     background-color: #b5bad0;
-    height: 1000px;
+    height: 1200px;
     width: 800px;
     margin-right: 100px;
     margin-top: 50px;
     margin-bottom: 50px;
+    color: #416788;
+    font-family: 'Lora', serif;
 }
 
 
@@ -64,7 +67,7 @@
     margin-right: 400px;
 }
 .nombrePersona{
-    margin-top: ;
+    margin-top: 10px ;
     margin-left: 20px;
 }
 
