@@ -9,7 +9,7 @@ export const Navbar = () => {
     const{store,actions}=useContext(Context)
 	//localStorage, almacenar datos en el navegador del usuario de manera persistente, después de que el navegador se cierra o la página se recarga
     // Leer el estado de autenticación y la imagen de perfil desde localStorage
-    const logueado = localStorage.getItem('logueado'); //Verifica si el usuario está autenticado.
+    const logueado = localStorage.getItem('token'); //Verifica si el usuario está autenticado.
     const usuarioImage = localStorage.getItem('usuarioImage'); //Obtiene la URL de la imagen del perfil del usuario.
     useEffect(
         ()=>{

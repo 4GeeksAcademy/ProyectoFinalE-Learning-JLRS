@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: ab3fdaf47074
+Revision ID: 499fe2c2a0a8
 Revises: 
-Create Date: 2024-08-29 09:45:35.506081
+Create Date: 2024-09-03 08:15:28.488861
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ab3fdaf47074'
+revision = '499fe2c2a0a8'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -52,7 +52,7 @@ def upgrade():
     op.create_table('curso',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=120), nullable=False),
-    sa.Column('portada', sa.String(length=250), nullable=False),
+    sa.Column('portada', sa.String(length=250), nullable=True),
     sa.Column('resumen', sa.String(length=250), nullable=False),
     sa.Column('categoria', sa.String(length=120), nullable=False),
     sa.Column('valoraciones', sa.Integer(), nullable=True),
@@ -60,7 +60,6 @@ def upgrade():
     sa.Column('precio', sa.Integer(), nullable=True),
     sa.Column('fecha_inicio', sa.String(length=120), nullable=True),
     sa.Column('idioma', sa.String(length=120), nullable=False),
-    sa.Column('modulos', sa.String(length=120), nullable=True),
     sa.Column('profesor_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['profesor_id'], ['profesor.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -75,8 +74,8 @@ def upgrade():
     )
     op.create_table('videos',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(length=120), nullable=True),
-    sa.Column('url', sa.String(length=250), nullable=True),
+    sa.Column('title', sa.String(length=120), nullable=False),
+    sa.Column('url', sa.String(length=250), nullable=False),
     sa.Column('text', sa.String(length=250), nullable=False),
     sa.Column('curso_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['curso_id'], ['curso.id'], ),
@@ -85,10 +84,13 @@ def upgrade():
     op.create_table('pagos',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('matricula_id', sa.Integer(), nullable=True),
+    sa.Column('curso_id', sa.Integer(), nullable=True),
     sa.Column('alumno_id', sa.Integer(), nullable=True),
     sa.Column('profesor_id', sa.Integer(), nullable=True),
     sa.Column('fecha_pago', sa.String(length=120), nullable=True),
+    sa.Column('cantidad', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['alumno_id'], ['alumno.id'], ),
+    sa.ForeignKeyConstraint(['curso_id'], ['curso.id'], ),
     sa.ForeignKeyConstraint(['matricula_id'], ['matricula.id'], ),
     sa.ForeignKeyConstraint(['profesor_id'], ['profesor.id'], ),
     sa.PrimaryKeyConstraint('id')
