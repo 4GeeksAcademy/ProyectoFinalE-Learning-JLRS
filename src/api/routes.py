@@ -182,7 +182,8 @@ def mis_cursos():
     except Exception as e: 
         print(e)
         return jsonify({'message': str(e)}), 400
-    
+
+
 @api.route('/cursos_profe', methods=['GET'])
 @jwt_required()
 def cursos_profe():
@@ -191,7 +192,7 @@ def cursos_profe():
         profesor = Profesor.query.filter_by(user_id=user_id).first()
         if not profesor:
             return jsonify({'error': 'Profesor not found'}), 404        
-        cursos = Curso.query.filter_by(profesor_id=profesor.id).all()
+        cursos = Curso.query.filter_by(profesor_id=profesor.id)
         cursos_list = [curso.serialize() for curso in cursos]
         return jsonify({'success': True, 'misCursos': cursos_list}), 200
     except Exception as e:
@@ -201,6 +202,10 @@ def cursos_profe():
 @jwt_required()
 def create_curso():
     data=request.json
+    id=get_jwt_identity()
+    profesor=Profesor.query.filter_by(user_id=id)
+    if not profesor:
+        return jsonify ({"success": False, "msg":"No se encontró profesor"}), 404
     title = data.get('title', None)
     portada = data.get('portada', None)
     resumen = data.get('resumen', None)
@@ -214,7 +219,7 @@ def create_curso():
     curso = Curso.query.filter_by(title=title).first()
     if curso:
         return jsonify({'success': False, 'msg': 'El curso ya existe, intenta otro título'}), 400
-    new_curso = Curso(title=title, portada=portada, resumen=resumen, categoria=categoria, nivel=nivel,idioma=idioma,fecha_inicio=fecha_inicio,precio=precio)
+    new_curso = Curso(title=title, portada=portada, resumen=resumen, categoria=categoria, nivel=nivel,idioma=idioma,fecha_inicio=fecha_inicio,precio=precio,profesor=profesor.id)
     db.session.add(new_curso)
     db.session.commit()
     return jsonify(new_curso.serialize()), 200
