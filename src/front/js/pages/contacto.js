@@ -27,17 +27,18 @@ function Contacto() {
       </div>
 
       <p className="text-center-contacto" id="textoCentralContact">
-        <strong>¡Nos encantaría saber de ti!</strong><br /><br />
+        <h2>¡Nos encantaría saber de ti!</h2>
         En <strong>Learning Network</strong>, valoramos cada oportunidad de conectar y brindar apoyo a nuestros usuarios. Si tienes alguna consulta, necesitas información adicional o simplemente quieres ponerte en contacto con nosotros, estamos aquí para ayudarte.
         <br /><br />
-        Puedes visitarnos en nuestra oficina ubicada en <strong>Plaza España 123, Piso 5to Puerta 123, Código Postal 08070109, Madrid - España</strong>. Nuestro equipo estará encantado de recibirte y asistirte en persona durante nuestro horario de atención.
+        Puedes visitarnos en nuestra oficina ubicada en <strong>Plaza España 123, Piso 5to Puerta 123, Código Postal 08070109, Madrid - España</strong>. Nuestro equipo estará encantado de recibirte y asistirte en persona durante nuestro horario de atención de L/V de 9am a 18pm.
         <br /><br />
         Si prefieres contactarnos por teléfono, no dudes en llamarnos al <strong>6008500178</strong>. Estamos disponibles para resolver tus dudas y ofrecerte la información que necesites.
         <br /><br />
         También puedes enviarnos un correo electrónico a <strong>Info@learningnetwork.com</strong>. Responderemos a tus preguntas y comentarios a la mayor brevedad posible.
         <br /><br />
-        Tu satisfacción es nuestra prioridad, y estamos comprometidos a ofrecerte el mejor servicio. No dudes en ponerte en contacto con nosotros a través de cualquiera de estos medios. <br /><br /> <strong>¡Esperamos saber de ti pronto!</strong>
+        Tu satisfacción es nuestra prioridad, y estamos comprometidos a ofrecerte el mejor servicio. No dudes en ponerte en contacto con nosotros a través de cualquiera de estos medios. <br /><br />
       </p>
+      <h2>¡Esperamos saber de ti pronto!</h2>
     </div>
 
 

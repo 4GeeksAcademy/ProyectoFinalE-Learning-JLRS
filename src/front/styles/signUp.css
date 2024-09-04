@@ -2,6 +2,8 @@
     background-color: #b5bad0;
     width: 500px;
     border-radius: 20px;
+    box-shadow: 0 4px 8px #416788;
+    margin-bottom: 80px;
 }
 
 .contenedor-password2{

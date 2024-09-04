@@ -114,7 +114,7 @@ export const FormularioCurso = () => {
             </label>
             <label>Precio
                 <input className="form-control" name="precio" value={dataForm.precio} placeholder="" onChange={handleChange} type="range" min="0" max="350"></input>
-                <span ClassName="precio-span">{dataForm.precio}</span>
+                <span ClassName="precio-span" className="precio-span">{dataForm.precio}</span>
             </label>
             <label>Idioma
                 <Dropdown>

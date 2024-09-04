@@ -184,7 +184,7 @@
 
 .rango-precio-label {
     position: absolute; /* Mantiene la posición absoluta */
-    top: 22px; /* Sube la etiqueta un poco más para alinearla mejor con las demás etiquetas */
+    top: 26px; /* Sube la etiqueta un poco más para alinearla mejor con las demás etiquetas */
     left: 50%; /* Centra horizontalmente */
     transform: translateX(-50%); /* Ajusta el centrado exacto */
     background-color: transparent; /* Fondo transparente */

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FormularioCurso } from "../component/formularioCurso";
 import "../../styles/vistaProfe.css";
 import ListaCursosProfe from "../component/listaCursosProfe";
+import { Uploader } from "../component/cloudinary";
 
 const VistaProfe = () => {
     const { store, actions } = useContext(Context);
@@ -31,6 +32,7 @@ const VistaProfe = () => {
             <div className="contenedorProfe">
                 <div className="seccionSuperiorP">
                     <div className="cursosVP mt-4">
+                        <Uploader></Uploader>
                         <h4>Dashboard de {store.user?.profesor.name}</h4>
                     </div>
                     <div className="cursosLC mt-4">
@@ -39,7 +41,6 @@ const VistaProfe = () => {
                 </div>
             </div>
             <button onClick={toggleModal} className="btnFormulario"> Crea tu Curso </button>
-
             {isModalOpen && (
                 <div className="modalVP">
                     <div className="modalContentVP">
