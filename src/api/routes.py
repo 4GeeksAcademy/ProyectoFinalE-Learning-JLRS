@@ -178,6 +178,21 @@ def mis_cursos():
     except Exception as e: 
         print(e)
         return jsonify({'message': str(e)}), 400
+    
+@api.route('/cursos_profe', methods=['GET'])
+@jwt_required()
+def cursos_profe():
+    user_id = get_jwt_identity()        # Buscar el profesor asociado con el usuario logueado
+    try:
+        # Obtener el ID del usuario logueado
+        profesor = Profesor.query.filter_by(user_id=user_id).first()
+        if not profesor:
+            return jsonify({'error': 'Profesor not found'}), 404        # Obtener los cursos del profesor
+        cursos = Curso.query.filter_by(profesor_id=profesor.id).all()        # Serializar los cursos
+        cursos_list = [curso.serialize() for curso in cursos]
+        return jsonify({'success': True, 'misCursos': cursos_list}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @api.route('/cursos', methods=['POST'])
 @jwt_required()
