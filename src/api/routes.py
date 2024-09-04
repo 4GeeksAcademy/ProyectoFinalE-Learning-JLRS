@@ -190,7 +190,7 @@ def cursos_profe():
         profesor = Profesor.query.filter_by(user_id=user_id).first()
         if not profesor:
             return jsonify({'error': 'Profesor not found'}), 404        
-        cursos = Curso.query.filter_by(profesor_id=profesor.id).all()
+        cursos = Curso.query.filter_by(profesor_id=profesor.id)
         cursos_list = [curso.serialize() for curso in cursos]
         return jsonify({'success': True, 'misCursos': cursos_list}), 200
     except Exception as e:
