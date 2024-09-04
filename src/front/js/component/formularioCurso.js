@@ -13,26 +13,44 @@ export const FormularioCurso = () => {
         nivel: '',
         precio: '',
         idioma: '',
+        fecha_inicio: ''
     })
 
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setDataForm({ ...dataForm, [name]: value })
-    }
-
+   // Maneja los cambios en los campos de texto y en el archivo
+   const handleChange = (e) => {
+        const { name, value, type, files } = e.target;
+        if (type === 'file') {
+            // Si el tipo de campo es 'file', actualiza el estado con el archivo seleccionado
+            setDataForm({ ...dataForm, [name]: files[0] });
+        } else {
+            // Para campos de texto, simplemente actualiza el estado con el valor ingresado
+            setDataForm({ ...dataForm, [name]: value });
+        }
+    };
+    // Maneja el envío del formulario
     const handleSubmit = (e) => {
         e.preventDefault() //evita que se recargue la página
-        actions.crearCurso(dataForm)
-        setDataForm({
-            title: '',
-            portada: '',
-            resumen: '',
-            categoria: '',
-            nivel: '',
-            precio: '',
-            idioma: '',
-            fecha_inicio: ''
-        })
+
+         // Crear un objeto FormData para manejar archivos e enviar datos al servidor, incluidos archivos.
+         const formData = new FormData();
+         Object.keys(dataForm).forEach(key => { //Object.keys(dataForm) obtiene un array con los nombres de los campos del formulario
+             formData.append(key, dataForm[key]); // añade cada par clave-valor al objeto, por ejemplo formData.append('title', 'Curso de React');
+         });
+ 
+         actions.crearCurso(formData); 
+ 
+         // Restablece el formulario
+         setDataForm({
+             title: '',
+             portada: '',
+             resumen: '',
+             categoria: '',
+             nivel: '',
+             precio: '',
+             idioma: '',
+             fecha_inicio: ''
+         });
+
         console.log(dataForm)
     }
 
@@ -96,7 +114,7 @@ export const FormularioCurso = () => {
             </label>
             <label>Precio
                 <input className="form-control" name="precio" value={dataForm.precio} placeholder="" onChange={handleChange} type="range" min="0" max="350"></input>
-                <span>{dataForm.precio}</span>
+                <span ClassName="precio-span">{dataForm.precio}</span>
             </label>
             <label>Idioma
                 <Dropdown>

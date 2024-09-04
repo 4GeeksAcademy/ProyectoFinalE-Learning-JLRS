@@ -5,6 +5,9 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+body{
+  background:  #E0E0E2;
+}
 
 /* Estilo general para el contenedor del carrusel */
 #carouselExampleFade {
@@ -75,12 +78,9 @@
 }
 .BarraDeEmpresas{
     padding: 1.25rem; /* Espaciado interno del cuerpo de la tarjeta */
-    background-color: #416788; /* Color de fondo para el cuerpo de la tarjeta */
-    color: #e0e0e2; /* Color del texto dentro del cuerpo de la tarjeta */
+    background:  #E0E0E2;
     text-align: center;
-    border: none; /* Elimina el borde por defecto de la tarjeta */
-    border-radius: 0.25rem; /* Bordes redondeados de la tarjeta */
-    box-shadow: 0 4px 8px #000022; /* Sombra con el color específico #000022 */
+    
 }
 .icon-container{
     font-size:40px; /* Tamaño del icono */
@@ -101,7 +101,7 @@
   .card-elegirnos {
     width: 100%; /* Hace que la card ocupe todo el ancho disponible del contenedor */
     max-width: 1200px; /* Aumenta el ancho máximo de la card */
-    background-color: #fff;
+    background:  #E0E0E2;
     margin: 0 auto; /* Centra la card horizontalmente */
   }
   
@@ -128,14 +128,16 @@
   /* Estilos para el texto */
   .card-body-elegirnos {
     padding: 20px; /* Aumenta el padding interno para más espacio */
+    box-shadow: 0 4px 8px #000022; /* Contorno suave de color personalizado */
   }
   
   .card-title-elegirnos {
     font-size: 2rem; /* Tamaño de fuente más grande para el título */
     margin-bottom: 15px; /* Espacio debajo del título */
     text-align: justify; /* Justifica el texto del título */
-    color: #416788;
+    color: #000022;
     font-family: 'Lora', serif;
+   
   }
   
   .card-text {
@@ -144,7 +146,7 @@
     margin-bottom: 15px; /* Espacio entre párrafos */
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-    color: #416788;
+    color: #000022;
   }
   .text-body-secondary {
     font-size: 1rem; /* Ajusta el tamaño de la fuente secundaria */

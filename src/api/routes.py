@@ -140,7 +140,8 @@ def cargarCursos():
         return jsonify(cursos_list), 200
     except Exception as e: 
         return jsonify({'message': str(e)}), 500
-
+    
+# CURSO concreto.
 @api.route('/cursos/<int:id>', methods=['GET'])
 def get_curso(id):
     curso = Curso.query.get(id)

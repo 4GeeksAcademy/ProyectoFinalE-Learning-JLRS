@@ -1,6 +1,6 @@
 .testimonials {
     padding: 40px 0;
-    background-color: #ffff; /* Fondo claro */
+    background:  #E0E0E2; /* Fondo claro */
     text-align: center;
 }
   
@@ -14,7 +14,7 @@
 }
   
 .testimonial {
-    background-color: #ffff; /* Fondo de los testimonios */
+    
     border-radius: 10px;
     padding: 20px;
     max-width: 320px; /* Aumenta el tamaño máximo si es necesario */
@@ -42,7 +42,7 @@
     font-family: 'Lato', sans-serif;
     font-weight: normal;
     font-size: 1em;
-    color: #7389AE; /* Textos secundarios */
+    color: #000022; /* Textos secundarios */
 }
   
 .testimonial-country {
