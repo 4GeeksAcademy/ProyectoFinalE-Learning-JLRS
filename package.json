@@ -73,10 +73,13 @@
 		]
 	},
 	"dependencies": {
+		"@strapi/provider-upload-cloudinary": "^4.25.9",
 		"@stripe/react-stripe-js": "^2.8.0",
 		"@stripe/stripe-js": "^4.4.0",
+		"axios": "^1.7.7",
 		"bootstrap": "^5.3.3",
 		"bootstrap-icons": "^1.11.3",
+		"cloudinary": "^2.4.0",
 		"cors": "^2.8.5",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",

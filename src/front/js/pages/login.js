@@ -66,7 +66,7 @@ export const Login = () => {
                         className="form-control"
                         name="email"
                         value={dataForm.email}
-                        placeholder="Introduce tu email aquí"
+                        placeholder="Correo electrónico"
                         onChange={handleChange}
                         type="email"
                         required
@@ -79,7 +79,7 @@ export const Login = () => {
                             className="form-control"
                             name="password"
                             value={dataForm.password}
-                            placeholder=""
+                            placeholder="Contraseña"
                             onChange={handleChange}
                             type={visible ? "text" : "password"}
                             required
