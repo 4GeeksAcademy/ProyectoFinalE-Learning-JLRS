@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { FormularioCurso } from "../component/formularioCurso";
 import "../../styles/vistaProfe.css";
+import { Uploader } from "../component/cloudinary";
 
 const VistaProfe = () => {
     const { store, actions } = useContext(Context);
@@ -30,6 +31,7 @@ const VistaProfe = () => {
             <div className="contenedorProfe">
                 <div className="seccionSuperiorP">
                     <div className="cursosVP mt-4">
+                        <Uploader></Uploader>
                         <h4>Dashboard de {store.user?.profesor.name}</h4>
                         <ul className="vPlista-grupo">
                             {store.cursos.map(cursoProfe => (
@@ -43,7 +45,6 @@ const VistaProfe = () => {
             </div>
             {/* Botón para abrir el modal */}
             <button onClick={toggleModal} className="btnFormulario"> Crea tu Curso </button>
-
             {/* Modal */}
             {isModalOpen && (
                 <div className="modalVP">

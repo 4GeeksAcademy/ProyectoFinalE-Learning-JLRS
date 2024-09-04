@@ -13,6 +13,7 @@ import Contacto from "./pages/contacto";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
+import { Cloudinary } from "./component/cloudinary"; 
 
 import { Login } from "./pages/login";
 import { SignUp } from "./pages/signUp";

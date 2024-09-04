@@ -1,6 +1,9 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import os
+import cloudinary
+import cloudinary.uploader
+
 
 import stripe #plataforma de pago. Para instalar el paquete de Stripe, tuve que poner: pip install stripe ,en la consola Backend y: npm install @stripe/react-stripe-js @stripe/stripe-js ,en el Fronted
 from api.models import db, User, Curso, Profesor, Alumno, Videos, Matricula, Pagos
@@ -404,3 +407,25 @@ def edit_perfil_alumno(id):
 
     db.session.commit()
     return jsonify(edited_perfil.serialize()), 200
+
+##### RUTA Cloudinary // no tocar
+@api.route('/upload', methods=['POST'])
+def upload():
+    file_to_upload = request.files.get('file')
+    if file_to_upload:
+        # Determina el tipo de archivo basado en la extensión
+        file_type = file_to_upload.filename.split('.')[-1].lower()
+        if file_type in ['jpg', 'jpeg', 'png', 'gif']:
+            resource_type = 'image'
+        elif file_type in ['mp4', 'mov', 'avi', 'mkv']:
+            resource_type = 'video'
+        else:
+            return jsonify({"error": "Unsupported file type"}), 400
+
+        upload = cloudinary.uploader.upload(
+            file_to_upload,
+            resource_type=resource_type,
+            chunk_size=6000000  # Opcional: Agrega chunk_size para manejar archivos grandes.
+        )
+        return jsonify(upload)
+    return jsonify({"error": "No file uploaded"}), 400

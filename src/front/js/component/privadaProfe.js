@@ -6,6 +6,7 @@ import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
+
 // Componente PrivateRoute que verifica la autenticación y redirige al usuario si no cumple con los requisitos. Funciona con react-router-dom versión 6
 const PrivateRoute = ({ vista: VistaProfe, ...rest }) => { //  = componente = vista es el nombre del prop que representa el componente a renderizar y ...rest: Captura todos los props adicionales que se pasan al componente PrivateRoute y los pasa al componente VistaProfe
     const { store } = useContext(Context);
