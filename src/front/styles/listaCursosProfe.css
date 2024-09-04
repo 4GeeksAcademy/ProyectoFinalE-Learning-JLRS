@@ -1,0 +1,52 @@
+/* ListaCursosProfe.css */
+
+/* Contenedor principal para la lista de cursos */
+.rowCP {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Espacio entre los elementos */
+}
+
+/* Columna para el diseño de los cursos */
+.colCP-md-4 {
+    flex: 1 1 calc(33.333% - 16px); /* Tres columnas con espacio entre ellas */
+    max-width: calc(33.333% - 16px);
+}
+
+/* Estilo para cada tarjeta de curso */
+.cardCP {
+    background-color: #416788;
+    border: 1px solid #E0E0E2; /* Borde suave */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px #000022; /* Sombra */
+    transition: transform 0.2s, box-shadow 0.2s; /* Transición suave */
+    max-width: 250px; /* Establece el ancho máximo de la tarjeta */
+}
+
+/* Efecto hover para la tarjeta del curso */
+.cardCP:hover {
+    transform: translateY(-5px); /* Elevación de la tarjeta */
+    box-shadow: 0 8px 16px #000022; /* Sombra */
+}
+
+/* Imagen del curso */
+.cardCP .card-img-top {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+    height: 100px; /* Altura fija para la imagen */
+    
+}
+
+/* Cuerpo de la tarjeta del curso */
+.cardCP .card-body {
+    padding: 16px; /* Espaciado interno */
+}
+
+/* Título de la tarjeta */
+.cardCP .card-title {
+    font-size: 1.25rem; /* Tamaño de fuente para el título */
+    font-weight: bold; /* Negrita para el título */
+    margin: 0; /* Sin margen adicional */
+    color: #000022; /* Color del texto */
+}
