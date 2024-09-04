@@ -15,7 +15,7 @@ api = Blueprint('api', __name__)
 def root():
     return "Home"
 
-# RUTAS USER
+##### RUTAS USER #####
 @api.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
     user = User.query.get(id)
@@ -58,8 +58,19 @@ def delete_user():
         return jsonify({"status": "User deleted"}), 200
     else:
         return jsonify({"error": "User not found"}), 404
+
+@api.route('/users/<int:id>', methods=['PUT'])
+@jwt_required()
+def edit_user(id):
+    edited_user = User.query.get(id)
+    data=request.json
+    edited_user.email = data.get('email', None) if data.get('email') else edited_user.email
+    edited_user.password = data.get('password', None) if data.get('password') else edited_user.password
+
+    db.session.commit()
+    return jsonify(edited_user.serialize()), 200
     
-# RUTAS LOGIN Y SIGNUP
+##### RUTAS LOGIN Y SIGNUP #####
 @api.route('/login', methods=['POST'])
 def login():
     data = request.json
@@ -110,7 +121,7 @@ def sign_up():
     
     return jsonify(new_user.serialize()), 201
   
-## RUTAS con API stripe   
+##### RUTAS con API stripe  ### 
 #El backend maneja la creación del PaymentIntent y devuelve el client_secret.
 stripe.api_key = os.getenv("STRIPE_PRIVATE") #establece la clave secreta de Stripe, esencial para realizar operaciones seguras con la API de Stripe.
 
@@ -134,7 +145,7 @@ def create_payment():
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
 
-# RUTAS CURSO
+##### RUTAS CURSO #####
 @api.route('/cursos', methods=['GET'])
 def cargarCursos():
     cursos = Curso.query.all()
@@ -170,8 +181,20 @@ def mis_cursos():
     except Exception as e: 
         print(e)
         return jsonify({'message': str(e)}), 400
-
-
+    
+@api.route('/cursos_profe', methods=['GET'])
+@jwt_required()
+def cursos_profe():
+    user_id = get_jwt_identity()
+    try:
+        profesor = Profesor.query.filter_by(user_id=user_id).first()
+        if not profesor:
+            return jsonify({'error': 'Profesor not found'}), 404        
+        cursos = Curso.query.filter_by(profesor_id=profesor.id).all()
+        cursos_list = [curso.serialize() for curso in cursos]
+        return jsonify({'success': True, 'misCursos': cursos_list}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @api.route('/cursos', methods=['POST'])
 @jwt_required()
@@ -199,31 +222,31 @@ def create_curso():
 @jwt_required()
 def delete_curso(id):
     curso = Curso.query.get(id)
-    db.session.delete(curso)
-    db.session.commit()
-    return jsonify("curso borrado"), 200
+    if curso:
+        db.session.delete(curso)
+        db.session.commit()
+        return jsonify({"status": "curso deleted"}), 200
+    else:
+        return jsonify({"error": "Curso not found"}), 404
 
 @api.route("/cursos/<int:id>", methods=["PUT"])
 @jwt_required()
 def edit_curso(id):
     edited_curso = Curso.query.get(id)
     data=request.json
-    title = data.get('title', None)
-    portada = data.get('portada', None)
-    resumen = data.get('resumen', None)
-    categoria = data.get('categoria', None)
-    nivel = data.get('nivel', None)
-    idioma = data.get('idioma', None)
-    fecha_inicio = data.get('fecha_inicio', None)
-    precio = data.get('precio', None)
-    if not title or not resumen or not categoria or not nivel or not idioma:
-        return jsonify({'success': False, 'msg': 'Todos los campos son necesarios'}), 400
-    edited_curso = Curso(title=title, portada=portada, resumen=resumen, categoria=categoria, nivel=nivel,idioma=idioma,fecha_inicio=fecha_inicio,precio=precio)
-    db.session.add(edited_curso)
+    edited_curso.title = data.get('title', None) if data.get('title') else edited_curso.title
+    edited_curso.portada = data.get('portada', None) if data.get('portada') else edited_curso.portada
+    edited_curso.resumen = data.get('resumen', None) if data.get('resumen') else edited_curso.resumen
+    edited_curso.categoria = data.get('categoria', None) if data.get('categoria') else edited_curso.categoria
+    edited_curso.nivel = data.get('nivel', None) if data.get('nivel') else edited_curso.nivel
+    edited_curso.idioma = data.get('idioma', None) if data.get('idioma') else edited_curso.idioma
+    edited_curso.fecha_inicio = data.get('fecha_inicio', None) if data.get('fecha_inicio') else edited_curso.fecha_inicio
+    edited_curso.precio = data.get('precio', None) if data.get('precio') else edited_curso.precio
+    
     db.session.commit()
     return jsonify(edited_curso.serialize()), 200
 
-# RUTAS VIDEOS
+##### RUTAS VIDEOS #####
 
 @api.route('/videos', methods=['GET'])
 @jwt_required()
@@ -273,24 +296,46 @@ def delete_video(id):
 def edit_video(id):
     edited_video = Videos.query.get(id)
     data=request.json
-    title = data.get('title', None)
-    url = data.get('url', None)
-    text = data.get('text', None)
-    if not title or not url or not text:
-        return jsonify({'success': False, 'msg': 'Todos los campos son necesarios'}), 400
-    edited_video = Videos(title=title, url=url, text=text)
-    db.session.add(edited_video)
+    edited_video.title = data.get('title', None) if data.get('title') else edited_video.title
+    edited_video.url = data.get('url', None) if data.get('url') else edited_video.url
+    edited_video.text = data.get('text', None) if data.get('text') else edited_video.text
+
     db.session.commit()
     return jsonify(edited_video.serialize()), 200
 
-# RUTAS MATRICULAS
+##### RUTAS MATRICULAS #####
 
 #GET matriculas por curso segun ID del profesor
+# @api.route('/matriculas_curso', methods=['GET'])
+# @jwt_required()
+# def matriculas_curso():
+#     user_id = get_jwt_identity()
+#     try:
+#         profesor = Profesor.query.filter_by(user_id=user_id).first()
+#         if not profesor:
+#             return jsonify({'error': 'Profesor not found'}), 404
+#         cursos = Curso.query.filter_by(profesor_id=profesor.id).all() 
+        
+#     except Exception as e: 
+#         return jsonify({'error': str(e)}), 500
+
+# @api.route('/cursos_profe', methods=['GET'])
+# @jwt_required()
+# def cursos_profe():
+#     user_id = get_jwt_identity()
+#     try:
+#         profesor = Profesor.query.filter_by(user_id=user_id).first()
+#         if not profesor:
+#             return jsonify({'error': 'Profesor not found'}), 404        
+#         cursos = Curso.query.filter_by(profesor_id=profesor.id).all()
+#         cursos_list = [curso.serialize() for curso in cursos]
+#         return jsonify({'success': True, 'misCursos': cursos_list}), 200
+#     except Exception as e:
+#         return jsonify({'error': str(e)}), 500
 
 
 
-
-# RUTAS PAGOS 
+##### RUTAS PAGOS #####
 
 @api.route('/compra', methods=['POST'])
 @jwt_required()
@@ -322,10 +367,18 @@ def compra():
         return jsonify({'success': False, 'error': 'Error creando pago'})
 
 #ruta GET para que el profesor sepa sus pagos, no necesita ver el alumno, solo el curso y precio
+# @api.route('/pagos/<int:id>',methods=['GET'])
+# @jwt_required()
+# def get_pagos_profe():
+#     id = get_jwt_identity()
+#     try:
 
 
 
-#### RUTA PUT DEL ALUMNO Y PROFESOR
+
+
+
+##### RUTA PUT DEL ALUMNO Y PROFESOR #####
 
 @api.route("/users/<int:id>", methods=["PUT"])
 @jwt_required()
