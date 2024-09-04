@@ -99,6 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.log('Response data:', data);
 
                     if (response.ok) {
+                      getActions().obtenerCursosProfesor()
                         return {
                             success: true,
                             message: 'Curso creado con éxito'
@@ -258,12 +259,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             // Acción para obtener los cursos del profesor
-            obtenerCursosProfesor: async (profesorId) => {
-                const store = getStore();// Obtenemos el estado actual del store.
+            obtenerCursosProfesor: async () => {
                 const token = localStorage.getItem('token'); // Obtén el token de autenticación
 
                 try {
-                    const response = await fetch(process.env.BACKEND_URL + `/api/tutors/${profesorId}/courses`, {
+                    const response = await fetch(process.env.BACKEND_URL + `/api/cursos_profe`, {
                         headers: {
                             'Authorization': `Bearer ${token}`, // Autorización de la solicitud con el token.
                             'Content-Type': 'application/json'
@@ -272,7 +272,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                     if (response.ok) {
                         const cursosProfe = await response.json();
-                        setStore({ ...store, cursosProfe });
+                        setStore({cursosProfe: cursosProfe.misCursos });
                     } else {
                         console.error('Error al obtener los cursos del profesor');
                     }

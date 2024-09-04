@@ -2,67 +2,69 @@
 .contenedorProfe {
     display: flex;
     flex-direction: column;
-    height: 15vh; /* Ocupa un cuarto de la altura de la ventana */
+    height: 60vh; /* Ocupa un cuarto de la altura de la ventana */
     background-color: #416788; /* Color de fondo para la sección superior (opcional) */
     }
     
     /* Contenedor para la sección superior */
-    .seccionSuperiorP {
+.seccionSuperiorP {
     flex: 1; /* Toma toda la altura del contenedor principal */
     padding: 20px;
     background: linear-gradient(to bottom, #000022, #333366, #416788);
     overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado largo */
-    }
+}
     
-    .seccionSuperiorP h4{
-        color: #e0e0e0
-    }
+   /* Estilos para la sección superior */
+.seccionSuperiorP h4 {
+    color: #B5BAD0; /* Color del texto para todo el <h4> */
+}
+
 
     /* Contenedor para la sección inferior */
-    .seccionInferior {
+.seccionInferior {
     flex: 1; /* Toma el espacio restante */
     padding: 20px;
     background-color: #416788; /* Color de fondo para la sección inferior */
     overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado largo */
-    }
+}
     
     
     /* Estilo para los cursos */
-    .cursosVP {
+.cursosVP {
     margin-top: 20px;
     color: #e0e0e0;
-    }
+}
     
  
 
     /* Lista de cursos */
-    .vPlista-grupo {
+.vPlista-grupo {
     list-style: none;
     padding: 0;
-    }
+}
     
     /* Elementos de la lista */
-    .vPlista-grupo-item {
+.vPlista-grupo-item {
     padding: 10px;
     border-bottom: 1px solid #ddd;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    }
+}
     
     /* Hover en los elementos de la lista */
-    .lista-grupo-item:hover {
+.lista-grupo-item:hover {
     background-color: #f0f0f0;
-    }
+}
     
     /* Estilo para el contenedor del formulario para que no se superponga al pie de página */
-    .formularioContenedor {
+.formularioContenedor {
     flex: 1; /* Ocupa el espacio restante */
     display: flex;
     flex-direction: column;
     padding: 20px;
     background-color: #e0e0e0; /* Color de fondo para la sección del formulario */
     overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado largo */
-    }
+}
 
 
 
@@ -136,3 +138,5 @@
     background-color: #4a5b78; /* Color más oscuro cuando se hace clic */
     transform: scale(0.98); /* Efecto de compresión */
 }
+
+
