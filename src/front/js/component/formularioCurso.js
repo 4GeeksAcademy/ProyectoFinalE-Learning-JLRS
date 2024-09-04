@@ -1,10 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Dropdown } from 'react-bootstrap';
 import { Context } from "../store/appContext";
 import "../../styles/formularioCurso.css";
+import { useNavigate } from "react-router-dom";
 
-export const FormularioCurso = () => {
+export const FormularioCurso = ({ modalToggle }) => {
     const { store, actions } = useContext(Context);
+    const [file, setFile] = useState();
+    const [uploadedUrl, setUploadedUrl] = useState('');
+    const navigate = useNavigate();
+
     const [dataForm, setDataForm] = useState({
         title: '',
         portada: '',
@@ -16,8 +21,8 @@ export const FormularioCurso = () => {
         fecha_inicio: ''
     })
 
-   // Maneja los cambios en los campos de texto y en el archivo
-   const handleChange = (e) => {
+    // Maneja los cambios en los campos de texto y en el archivo
+    const handleChange = (e) => {
         const { name, value, type, files } = e.target;
         if (type === 'file') {
             // Si el tipo de campo es 'file', actualiza el estado con el archivo seleccionado
@@ -27,35 +32,64 @@ export const FormularioCurso = () => {
             setDataForm({ ...dataForm, [name]: value });
         }
     };
+
+    useEffect(() => {
+        handleUpload()
+    }, [file])
+
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
+
+    const handleUpload = async () => {
+        console.log('-------------------------------------------')
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const response = await fetch(`${process.env.BACKEND_URL}/api/upload`, {
+
+            method: 'POST',
+            body: formData,
+        });
+
+        const data = await response.json();
+        console.log(data)
+        if (data.secure_url) {
+            setUploadedUrl(data.secure_url);
+        }
+    };
     // Maneja el envío del formulario
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault() //evita que se recargue la página
 
-         // Crear un objeto FormData para manejar archivos e enviar datos al servidor, incluidos archivos.
-         const formData = new FormData();
-         Object.keys(dataForm).forEach(key => { //Object.keys(dataForm) obtiene un array con los nombres de los campos del formulario
-             formData.append(key, dataForm[key]); // añade cada par clave-valor al objeto, por ejemplo formData.append('title', 'Curso de React');
-         });
- 
-         actions.crearCurso(formData); 
- 
-         // Restablece el formulario
-         setDataForm({
-             title: '',
-             portada: '',
-             resumen: '',
-             categoria: '',
-             nivel: '',
-             precio: '',
-             idioma: '',
-             fecha_inicio: ''
-         });
+        // Crear un objeto FormData para manejar archivos e enviar datos al servidor, incluidos archivos.
+        // const formData = new FormData();
+        // Object.keys(dataForm).forEach(key => { //Object.keys(dataForm) obtiene un array con los nombres de los campos del formulario
+        //     formData.append(key, dataForm[key]); // añade cada par clave-valor al objeto, por ejemplo formData.append('title', 'Curso de React');
+        // });
+        dataForm.portada = uploadedUrl
+        const resp = await actions.crearCurso(dataForm);
+
+        // Restablece el formulario
+        setDataForm({
+            title: '',
+            portada: '',
+            resumen: '',
+            categoria: '',
+            nivel: '',
+            precio: '',
+            idioma: '',
+            fecha_inicio: ''
+        });
 
         console.log(dataForm)
+        if (resp.success) modalToggle()
+        navigate('/vistaProfe')
     }
 
     return (<div>
-        
+
         <form className="formularioCurso" onSubmit={handleSubmit}>
             <div>
                 <h1 className="text-center mt-5">Crea tu curso</h1>
@@ -64,7 +98,7 @@ export const FormularioCurso = () => {
                 <input className="form-control" name="title" value={dataForm.title} placeholder="" onChange={handleChange} type="text"></input>
             </label>
             <label>Portada
-                <input className="form-control" name="portada" value={dataForm.portada} placeholder="" onChange={handleChange} type="file"></input>
+                <input type="file" onChange={handleFileChange} />
             </label>
             <label>Resumen
                 {/*<input className="form-control" name="resumen" value={dataForm.resumen} placeholder="" onChange={handleChange} type="text"></input>*/}

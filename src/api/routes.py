@@ -201,28 +201,33 @@ def cursos_profe():
 @api.route('/cursos', methods=['POST'])
 @jwt_required()
 def create_curso():
-    data=request.json
-    id=get_jwt_identity()
-    profesor=Profesor.query.filter_by(user_id=id)
-    if not profesor:
-        return jsonify ({"success": False, "msg":"No se encontró profesor"}), 404
-    title = data.get('title', None)
-    portada = data.get('portada', None)
-    resumen = data.get('resumen', None)
-    categoria = data.get('categoria', None)
-    nivel = data.get('nivel', None)
-    idioma = data.get('idioma', None)
-    fecha_inicio = data.get('fecha_inicio', None)
-    precio = data.get('precio', None)
-    if not title or not resumen or not categoria or not nivel or not idioma:
-        return jsonify({'success': False, 'msg': 'Todos los campos son necesarios'}), 400
-    curso = Curso.query.filter_by(title=title).first()
-    if curso:
-        return jsonify({'success': False, 'msg': 'El curso ya existe, intenta otro título'}), 400
-    new_curso = Curso(title=title, portada=portada, resumen=resumen, categoria=categoria, nivel=nivel,idioma=idioma,fecha_inicio=fecha_inicio,precio=precio,profesor=profesor.id)
-    db.session.add(new_curso)
-    db.session.commit()
-    return jsonify(new_curso.serialize()), 200
+    try:
+        data=request.json
+        id=get_jwt_identity()
+        profesor=Profesor.query.filter_by(user_id=id).first()
+        if not profesor:
+            return jsonify ({"success": False, "msg":"No se encontró profesor"}), 404
+        title = data.get('title', None)
+        portada = data.get('portada', None)
+        resumen = data.get('resumen', None)
+        categoria = data.get('categoria', None)
+        nivel = data.get('nivel', None)
+        idioma = data.get('idioma', None)
+        fecha_inicio = data.get('fecha_inicio', None)
+        precio = data.get('precio', None)
+        if not title or not resumen or not categoria or not nivel or not idioma:
+            return jsonify({'success': False, 'msg': 'Todos los campos son necesarios'}), 403
+        curso = Curso.query.filter_by(title=title).first()
+        if curso:
+            return jsonify({'success': False, 'msg': 'El curso ya existe, intenta otro título'}), 401
+        new_curso = Curso(title=title, portada=portada, resumen=resumen, categoria=categoria, nivel=nivel,idioma=idioma,fecha_inicio=fecha_inicio,precio=precio, profesor=profesor)
+        print(new_curso)
+        db.session.add(new_curso)
+        db.session.commit()
+        return jsonify({'success': True, 'msg': 'Curso creado satisfactoriamente'}), 200
+    except Exception as e:
+        print('error', e)
+        return jsonify ({"success": False, "msg":"Error al crear curso"}), 418
 
 @api.route("/cursos/<int:id>", methods=["DELETE"])
 @jwt_required()

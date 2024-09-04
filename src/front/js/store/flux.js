@@ -99,6 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.log('Response data:', data);
 
                     if (response.ok) {
+                      getActions().obtenerCursosProfesor()
                         return {
                             success: true,
                             message: 'Curso creado con éxito'
@@ -259,7 +260,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             // Acción para obtener los cursos del profesor
             obtenerCursosProfesor: async () => {
-                const store = getStore();// Obtenemos el estado actual del store.
                 const token = localStorage.getItem('token'); // Obtén el token de autenticación
 
                 try {
@@ -272,7 +272,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                     if (response.ok) {
                         const cursosProfe = await response.json();
-                        setStore({ ...store, cursosProfe });
+                        setStore({cursosProfe: cursosProfe.misCursos });
                     } else {
                         console.error('Error al obtener los cursos del profesor');
                     }
