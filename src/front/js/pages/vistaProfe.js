@@ -35,7 +35,6 @@ const VistaProfe = () => {
             <div className="contenedorProfe">
                 <div className="seccionSuperiorP">
                     <div className="cursosVP mt-4">
-                        <Uploader></Uploader>
                         <h4>Dashboard de {store.user?.profesor.name}</h4>
                     </div>
                     <div className="cursosLC mt-4">
