@@ -45,8 +45,6 @@ const VistaProfe = () => {
             </div>
             {/* Botón para abrir el modal */}
             <button onClick={toggleModal} className="btnFormulario"> Crea tu Curso </button>
-            
-
             {/* Modal */}
             {isModalOpen && (
                 <div className="modalVP">

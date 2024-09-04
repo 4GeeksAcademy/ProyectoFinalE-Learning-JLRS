@@ -12,12 +12,11 @@
     justify-content: space-between;
     align-items: flex-start;
     gap: 1rem;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 15%;
+    margin-right: 15%;
     margin-block-end: 5%;
     margin-top: 2%;
-    border: 4px; /* Borde de 4px de grosor*/
-    border-radius: 12px; /* Bordes redondeados para la imagen */
+    
 }
 .about__main-content{
     display:flex;
@@ -43,7 +42,10 @@
 .card-img-top-about{
     height: 450px;
     box-shadow: 0 4px 8px #416788;
+    border: 4px; /* Borde de 4px de grosor*/
+    border-radius: 12px; /* Bordes redondeados para la imagen */
 }
 .cartaAbout{
     background-color: white;
+    border: none;
 }
