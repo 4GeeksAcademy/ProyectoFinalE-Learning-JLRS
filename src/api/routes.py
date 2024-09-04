@@ -182,13 +182,12 @@ def mis_cursos():
 @api.route('/cursos_profe', methods=['GET'])
 @jwt_required()
 def cursos_profe():
-    user_id = get_jwt_identity()        # Buscar el profesor asociado con el usuario logueado
+    user_id = get_jwt_identity()
     try:
-        # Obtener el ID del usuario logueado
         profesor = Profesor.query.filter_by(user_id=user_id).first()
         if not profesor:
-            return jsonify({'error': 'Profesor not found'}), 404        # Obtener los cursos del profesor
-        cursos = Curso.query.filter_by(profesor_id=profesor.id).all()        # Serializar los cursos
+            return jsonify({'error': 'Profesor not found'}), 404        
+        cursos = Curso.query.filter_by(profesor_id=profesor.id).all()
         cursos_list = [curso.serialize() for curso in cursos]
         return jsonify({'success': True, 'misCursos': cursos_list}), 200
     except Exception as e:
@@ -304,23 +303,32 @@ def edit_video(id):
 ##### RUTAS MATRICULAS #####
 
 #GET matriculas por curso segun ID del profesor
-# @api.route('/matriculas', methods=['GET'])
+# @api.route('/matriculas_curso', methods=['GET'])
 # @jwt_required()
-# def mis_cursos():
-#     id = get_jwt_identity()
+# def matriculas_curso():
+#     user_id = get_jwt_identity()
 #     try:
-#         aux = []
-#         matriculas = Matricula.query.all()
-#         for matricula in matriculas:
-#             print(matricula.serialize())
-#             curso = Curso.query.get(matricula.curso_id)
-#             aux.append(curso)
-#         print(aux)
-
-#         return jsonify({'success': True, 'misCursos': [curso.serialize() for curso in aux]}), 200
+#         profesor = Profesor.query.filter_by(user_id=user_id).first()
+#         if not profesor:
+#             return jsonify({'error': 'Profesor not found'}), 404
+#         cursos = Curso.query.filter_by(profesor_id=profesor.id).all() 
+        
 #     except Exception as e: 
-#         print(e)
-#         return jsonify({'message': str(e)}), 400
+#         return jsonify({'error': str(e)}), 500
+
+# @api.route('/cursos_profe', methods=['GET'])
+# @jwt_required()
+# def cursos_profe():
+#     user_id = get_jwt_identity()
+#     try:
+#         profesor = Profesor.query.filter_by(user_id=user_id).first()
+#         if not profesor:
+#             return jsonify({'error': 'Profesor not found'}), 404        
+#         cursos = Curso.query.filter_by(profesor_id=profesor.id).all()
+#         cursos_list = [curso.serialize() for curso in cursos]
+#         return jsonify({'success': True, 'misCursos': cursos_list}), 200
+#     except Exception as e:
+#         return jsonify({'error': str(e)}), 500
 
 
 
@@ -364,23 +372,7 @@ def compra():
 
 
 
-# @api.route('/mis_cursos', methods=['GET'])
-# @jwt_required()
-# def mis_cursos():
-#     id = get_jwt_identity()
-#     try:
-#         aux = []
-#         matriculas = Matricula.query.all()
-#         for matricula in matriculas:
-#             print(matricula.serialize())
-#             curso = Curso.query.get(matricula.curso_id)
-#             aux.append(curso)
-#         print(aux)
 
-#         return jsonify({'success': True, 'misCursos': [curso.serialize() for curso in aux]}), 200
-#     except Exception as e: 
-#         print(e)
-#         return jsonify({'message': str(e)}), 400
 
 
 ##### RUTA PUT DEL ALUMNO Y PROFESOR #####
