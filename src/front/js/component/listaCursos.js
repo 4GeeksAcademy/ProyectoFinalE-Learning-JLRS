@@ -21,10 +21,10 @@ const ListaCursos = () => {
                         <div className="col" key={curso.id} name={curso.title} id={curso.id}> {/* Columna para cada tarjeta y usa el id del curso como la clave única */}
                             <div className="cardCursos h-100">
                                 <img 
-                                    src={curso.portada} /* direccion del models.py donde aparezca cursos y sus imagenes*/
+                                    src={curso.portada}
                                     className="cardCursos-img-top" 
                                     alt={curso.title} 
-                                /> {/* Muestra la imagen del curso, o una imagen por defecto si no hay imagen */}
+                                />
                                 <div className="cardCursos-body-ListaCurso">
                                     <h5 className="cardCursos-title">{curso.title}</h5> {/* Muestra el nombre del curso en el título de la tarjeta */}
                                     <p className="cardCursos-text">
