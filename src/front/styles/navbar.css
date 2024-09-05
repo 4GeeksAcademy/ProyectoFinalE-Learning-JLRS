@@ -23,6 +23,15 @@
 .logo:hover {
     transform: scale(1.1);
 }
+.text-overlay{
+    position: absolute; /* Posición absoluta respecto al contenedor */
+    top: 50%; /* Posiciona en el centro vertical */
+    left: 50%; /* Posiciona en el centro horizontal */
+    color: #E0E0E2;
+    font-size: 40px; /* Tamaño del texto */
+    transform: translate(-50%, -50%);
+    font-family: 'Playfair Display', serif;
+}
 
 /* Perfil del profesor */
 .foto-perfil-toggle { 
