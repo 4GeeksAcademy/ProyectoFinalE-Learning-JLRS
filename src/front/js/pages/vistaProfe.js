@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FormularioCurso } from "../component/formularioCurso";
 import "../../styles/vistaProfe.css";
 import ListaCursosProfe from "../component/listaCursosProfe";
+import { Uploader } from "../component/cloudinary";
 
 const VistaProfe = () => {
     const { store, actions } = useContext(Context);
@@ -18,7 +19,10 @@ const VistaProfe = () => {
         if (store.user?.profesor) {
             actions.obtenerCursosProfesor(store.user?.profesor.id); // Si el usuario está autenticado y es profesor, obtenemos los cursos del profesor del store.
         }
-    }, []);
+        // return () => {
+        //     actions.obtenerCursosProfesor(store.user?.profesor.id)
+        // };
+    }, []); //useEffect se ejecutará cada vez que cualquiera de estos valores cambie
 
     // Función para manejar la apertura y cierre del modal
     const toggleModal = () => {

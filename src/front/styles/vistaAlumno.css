@@ -2,7 +2,7 @@
 .contenedor_Alumno {
     display: flex;
     flex-direction: column;
-    height: 50vh; /* Ocupa toda la altura de la ventana */
+    height: 25vh; /* Ocupa toda la altura de la ventana */
     background-color: #416788; /* Color de fondo para la sección superior */
 }
 
