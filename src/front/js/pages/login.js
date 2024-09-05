@@ -60,7 +60,7 @@ export const Login = () => {
     return (
         <div>
             <form className="container d-flex flex-column align-items-center mt-5 p-3" id="formularioLogin" onSubmit={handleSubmit} autoComplete="off">
-                <h4 className="mt-2 mb-4">Inicia sesión</h4>
+                <h4 className="mt-2 mb-4"><b>Inicia sesión</b></h4>
                 <label>Email
                     <input
                         className="form-control"
