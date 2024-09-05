@@ -1,12 +1,17 @@
 /* Contenedor general de la lista de cursos */
 .listaDeCursos {
-    max-width: 1500px;
-    margin: 15px auto 0;
+    max-width: 1000px; /* Ajusta el max-width según el diseño */
+    margin: 6px auto 0;
     box-shadow: 0 4px 8px #000022;
     padding: 1rem;
     border-radius: 10px;
     max-height: 800px;
     overflow-y: auto;
+    display: grid; /* Usa CSS Grid para el contenedor de las tarjetas */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Ajusta el tamaño de las columnas según el espacio disponible */
+    gap: 0.5rem; /* Espacio entre tarjetas en todas las direcciones */
+    background: linear-gradient(to bottom, #e0e0e2, #b5bad0); /* Aplicar el degradado */
+    
 }
 
 /* Estilos para el contenedor de la tarjeta */
@@ -15,9 +20,11 @@
     border: none;
     border-radius: 0.25rem;
     overflow: hidden;
-    height: 40%; /* Hace que la tarjeta ocupe todo el espacio disponible */
+    height: 250px; /* Ajusta la altura fija para la tarjeta */
+    width: 100%; /* La tarjeta ocupará todo el ancho de su celda en la cuadrícula */
     display: flex;
     flex-direction: column; /* Organiza los hijos en columnas (imagen arriba, contenido abajo) */
+    margin: 0; /* Asegúrate de que no haya margen adicional en las tarjetas */
 }
 
 /* Estilos para la imagen en la parte superior de la tarjeta */
@@ -29,20 +36,39 @@
 
 /* Estilos para el cuerpo de la tarjeta */
 .cardCursos-body-ListaCurso {
-    padding: 1.25rem;
+    padding: 0.5rem; /* Ajusta el padding para que el contenido no esté tan pegado a los bordes */
     background-color: #416788;
     color: #e0e0e2;
     flex: 1; /* El contenido textual ocupa el espacio restante */
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Distribuye el contenido en todo el espacio disponible */
+    overflow: hidden; /* Asegura que el contenido que excede la altura del contenedor no se muestre */
+}
+
+/* Estilo para el título en el cuerpo de la tarjeta */
+.cardCursos-title {
+    font-size: 1rem; /* Tamaño de fuente ajustado */
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Estilo para el texto en el cuerpo de la tarjeta */
+.cardCursos-text {
+    font-size: 0.75rem; /* Tamaño de fuente ajustado */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 0.5rem;
 }
 
 /* Estilos para el pie de la tarjeta */
 .cardCursos-footer {
     background-color: #000022;
     border-top: 1px solid #dee2e6;
-    padding: 0.75rem;
+    padding: 0.5rem; /* Ajusta el padding para que el pie de la tarjeta no ocupe mucho espacio */
 }
 
 /* Estilo para el botón en el pie de la tarjeta */
@@ -66,6 +92,21 @@
     background-color: #B5BAD0;
     cursor: not-allowed;
 }
+
+/* Estilo para el mensaje cuando no hay cursos disponibles */
+.noCursos {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    background-color: #7389AE;
+    color: #e0e0e2;
+    border-radius: 0.25rem;
+    box-shadow: 0 4px 8px #000022;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
 
 /* Estilo para el mensaje cuando no hay cursos disponibles */
 .noCursos {
