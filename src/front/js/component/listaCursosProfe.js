@@ -23,7 +23,7 @@ const ListaCursosProfe = ({ cursos }) => {
                             <h3 className="cardProfe__title">{curso.title}</h3>
                         </div>
                         <div className="cardProfe__content">
-                            <p className="cardProfe__matriculas">{curso.matriculas}</p>
+                            <p className="cardProfe__matriculas">Nº Alumnos: {curso.matriculas.length}</p>
                         </div>
                     </div>
                 </div>

@@ -54,7 +54,7 @@
     color: #000022; /* Color blanco para el título */
     font-size: 12px; /* Tamaño de fuente */
     font-weight: 500; /* Negrita */
-    background: rgba(248, 244, 244, 0.413); /* Fondo semitransparente para el título */
+    background: rgba(248, 244, 244, 0.682); /* Fondo semitransparente para el título */
     padding: 5px 10px; /* Espaciado interno */
     border-radius: 5px; /* Bordes redondeados */
     white-space: nowrap; /* Evita que el texto se rompa en varias líneas */

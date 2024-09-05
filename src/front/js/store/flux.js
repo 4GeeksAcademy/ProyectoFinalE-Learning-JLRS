@@ -384,23 +384,3 @@ const getState = ({ getStore, getActions, setStore }) => {
 };
 
 export default getState;
-
-
-
-// // Ejemplo de función para cargar categorías y subcategorías
-// cargarCategorias: async () => {
-//     const store = getStore();
-//     setStore({ ...store, loading: true });
-
-//     try {
-//         const response = await fetch(process.env.BACKEND_URL+'/api/categorias');
-//         const data = await response.json();
-//         setStore({ categorias: data, loading: false });
-//     } catch (error) {
-//         setStore({ error: error.message, loading: false });
-//         console.error('Error loading categories:', error);
-//     }
-// },
-
-// Llama a cargarCategorias en algún lugar de tu aplicación para que las categorías estén disponibles
-

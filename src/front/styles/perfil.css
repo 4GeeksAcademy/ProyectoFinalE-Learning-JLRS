@@ -1,16 +1,3 @@
-.divEditarPerfil {
-    border-radius: 2%;
-    background-color: #b5bad0;
-    height: 1200px;
-    width: 800px;
-    margin-right: 100px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    color: #416788;
-    font-family: 'Lora', serif;
-}
-
-
 .imagen2 img{
     height: 200px;
     width: 200px;
@@ -20,50 +7,7 @@
     max-width: 100%;
 }
 
-
-.lado2{
-    flex-direction: column;
-    justify-content: center; /* Alinea verticalmente el contenido */
-    margin-left: -300px;
-    margin-top: 120px;
-    justify-content: right;
-}
-
-.firstName{
-    margin-top: 30px;
-    text-indent:24px;
-    margin-left: 40px;
-    margin-right: 400px;
-}
 .nombrePersona{
     margin-top: 10px ;
     margin-left: 20px;
-}
-
-.saveChanges {
-    margin-top: 80px;
-    text-align: center;
-    align-items: center;
-}
-
-#boton {
-    background-color: #416788; /* Color de fondo azul */
-    color: white; /* Texto blanco */
-    border: none; /* Sin borde */
-    padding: 10px 50px; /* Espaciado interno, mayor horizontalmente */
-    font-size: 18px; /* Tamaño de la fuente */
-    border-radius: 5px; /* Bordes redondeados */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    transition: background-color 0.3s ease, transform 0.1s ease; /* Transiciones suaves */
-}
-
-/* Cambiar color al pasar el ratón sobre el botón */
-#boton:hover {
-    background-color: #416788; /* Color de fondo más oscuro */
-}
-
-/* Cambiar color y agregar un efecto de presión cuando se presiona el botón */
-#boton:active {
-    background-color: #b5bad0; /* Color de fondo aún más oscuro */
-    transform: scale(0.98); /* Efecto de reducción para simular presión */
 }

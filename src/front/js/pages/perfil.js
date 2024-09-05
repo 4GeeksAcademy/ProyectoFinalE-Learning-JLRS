@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../styles/perfil.css";
 import { Row } from 'react-bootstrap';
+import { FormularioPassword } from "../component/formularioContraseña";
 
 function Perfil() {
   const { store, actions } = useContext(Context);
@@ -15,7 +16,6 @@ function Perfil() {
       telefono: '',
       address: '',
       avatar: '',
-      precio: '',
   })
 
   // Maneja los cambios en los campos de texto y en el archivo
@@ -63,102 +63,50 @@ function Perfil() {
       // Object.keys(dataForm).forEach(key => { //Object.keys(dataForm) obtiene un array con los nombres de los campos del formulario
       //     formData.append(key, dataForm[key]); // añade cada par clave-valor al objeto, por ejemplo formData.append('title', 'Curso de React');
       // });
-      dataForm.portada = uploadedUrl
+      dataForm.avatar = uploadedUrl
       const resp = await actions.crearCurso(dataForm);
-
-      console.log(dataForm)
-      if (resp.success) modalToggle()
-      navigate('/vistaProfe')
   }
+
+
   
   return (
-    <div className="text-center containerPrincipalcontainer d-flex flex-column align-items-center mt-5 p-3">
-      <div className="row gx-3" >
-        <form className="formularioCurso" onSubmit={handleSubmit}>
+    <div>
+      <form className="formularioPerfil" onSubmit={handleSubmit}>
+        <div>
           <div className='nombrePersona'> <h1><b>{store.user?.profesor.name} {store.user?.profesor?.lastname}</b></h1></div>
-          <div className='nombrePersona'> <h4> <b>Cambia tu foto y edita tu información de perfil.</b></h4></div>
-          <label>Portada
-            <input type="file" onChange={handleFileChange} />
-          </label>
-          <div className="container">
-            <b>Nombre</b>
-            <div className='firstName d-flex justify-content-center'>
-              <h3>{store.user?.profesor?.name}</h3>
-              <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"/>
-            </div>
-          </div>
-        </form>
-        <div className="col">
-          <div className="p-9 divEditarPerfil">
-            
-            <div className="container px-4 text-center">
-              <div className="row gx-5">
-                <div className="col">
-                  <div className="p-3 imagen2"> <img alt={store.user?.profesor?.avatar} src="https://i.pinimg.com/564x/31/ec/2c/31ec2ce212492e600b8de27f38846ed7.jpg" />
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="p-3 lado2"><button type="button" id="boton">Cambiar foto</button>
-                    <div> JPG o PNG  </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className='firstName'>
-              <b>Apellidos</b>
-              <input
-                type="text"
-                className="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm"
-              />
-            </div>
-            <div className='firstName'>
-              <b>Email</b>
-              <input
-                type="email"
-                className="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm"
-              />
-            </div>
-            <div className='firstName'>
-              <b>Contraseña</b>
-              <input
-                type="password"
-                className="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm"
-              />
-            </div>
-            <div className='firstName'>
-              <b>Dirección</b>
-              <input
-                type="text"
-                className="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm"
-              />
-            </div>
-            <div className='firstName'>
-              <b>Telefono</b>
-              <input
-                type="text"
-                className="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-sm"
-              />
-            </div>
-
-            <div className="saveChanges"  ><button type="button" id="boton">Save Changes</button></div>
-
-          </div>
+          <div className='nombrePersona'> <h3> <b>Cambia tu foto y edita tu información de perfil.</b></h3></div>
         </div>
-      </div>
+        <label>
+          <div className="container px-4 text-center">
+            <div className="row gx-5">
+              <div className="imagen2">
+                <img alt={store.user?.profesor?.avatar} src="https://i.pinimg.com/564x/31/ec/2c/31ec2ce212492e600b8de27f38846ed7.jpg" />
+              </div>
+              <input type="file" onChange={handleFileChange} />
+            </div>
+          </div>
+        </label>
+        <label>Nombre
+          <input className="form-control" name="title" value={dataForm.name} placeholder="" onChange={handleChange} type="text"></input>
+          <h5>Actual: {store.user?.profesor.name}</h5>
+        </label>
+        <label>Apellidos
+          <input className="form-control" name="title" value={dataForm.lastname} placeholder="" onChange={handleChange} type="text"></input>
+          <h5>Actual: {store.user?.profesor.lastname}</h5>
+        </label>
+        <label>Telefono
+          <input className="form-control" name="title" value={dataForm.telefono} placeholder="" onChange={handleChange} type="text"></input>
+          <h5>Actual: {store.user?.profesor.telefono}</h5>
+        </label>
+        <label>Dirección
+          <input className="form-control" name="title" value={dataForm.address} placeholder="" onChange={handleChange} type="text"></input>
+          <h5>Actual: {store.user?.profesor.address}</h5>
+        </label>
+        <input className="btnFormularioPerfil btn-primary" value="Actualizar perfil" type="submit" />
+      </form>
+      {/* <FormularioPassword/> */}
     </div>
-
   );
-}
+};
 
 export default Perfil;
