@@ -17,12 +17,13 @@ const ListaCursosProfe = ({ cursos }) => {
         <div className="rowCP">
             {cursos.map((curso) => (
                 <div className="colCP-md-4 mb-4" key={curso.id}>
-                    <Card className="cardCP" onClick={() => handleCourseClick(curso.id)} style={{ cursor: "pointer" }}>
-                        <Card.Img variant="top" src={curso.portada} alt={curso.title} />
-                        <Card.Body>
-                            <Card.Title>{curso.title}</Card.Title>
-                        </Card.Body>
-                    </Card>
+                    <div className="cardCursoProfe" onClick={() => handleCourseClick(curso.id)}>
+                        <img src={curso.portada} alt={curso.title} className="cardProfe-img-top" />
+                        <div className="cardProfe__content">
+                            <h3 className="cardProfe__title">{curso.title}</h3>
+                            <p className="cardProfe__description">{curso.resumen}</p>
+                        </div>
+                    </div>
                 </div>
             ))}
         </div>
