@@ -204,3 +204,55 @@
     height: 8px; /* Aumenta la altura del control de rango para hacerlo más visible */
     position: relative;
 }
+
+/* Media Queries para adaptarse a diferentes tamaños de pantalla */
+
+/* Pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+    .barra-busqueda {
+        padding: 5px; /* Menor padding en pantallas pequeñas */
+    }
+
+    .barra-busqueda .colunCategoria,
+    .barra-busqueda .colunNivel-col,
+    .barra-busqueda .colunPrecio,
+    .barra-busqueda .colunFecha,
+    .barra-busqueda .colunIdioma,
+    .barra-busqueda .colunBusqueda {
+        max-width: 100%; /* Ancho máximo de columna completo en pantallas pequeñas */
+    }
+
+    .barra-busqueda .form-group {
+        max-width: 100%; /* Ancho máximo completo en pantallas pequeñas */
+    }
+
+    .barra-busqueda .btn-aceptar, 
+    .barra-busqueda .btn-restablecer {
+        min-width: 80px; /* Ajusta el ancho mínimo en pantallas pequeñas */
+    }
+
+    .estrellas .estrella {
+        font-size: 18px; /* Tamaño de estrella reducido en pantallas pequeñas */
+    }
+}
+
+/* Pantallas muy pequeñas (móviles en orientación vertical) */
+@media (max-width: 480px) {
+    .barra-busqueda {
+        padding: 2px; /* Menor padding en pantallas muy pequeñas */
+    }
+
+    .barra-busqueda .form-group {
+        width: 100%; /* Ocupa todo el ancho disponible en pantallas muy pequeñas */
+        max-width: 100%; /* Ancho máximo completo en pantallas muy pequeñas */
+    }
+
+    .barra-busqueda .btn-aceptar, 
+    .barra-busqueda .btn-restablecer {
+        min-width: 70px; /* Ajusta el ancho mínimo en pantallas muy pequeñas */
+    }
+
+    .estrellas .estrella {
+        font-size: 16px; /* Tamaño de estrella aún más reducido en pantallas muy pequeñas */
+    }
+}
