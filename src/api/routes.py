@@ -171,7 +171,7 @@ def mis_cursos():
     id = get_jwt_identity()
     try:
         aux = []
-        matriculas = Matricula.query.all()
+        matriculas = Matricula.query.filter_by(alumno_id=id).all() 
         for matricula in matriculas:
             print(matricula.serialize())
             curso = Curso.query.get(matricula.curso_id)

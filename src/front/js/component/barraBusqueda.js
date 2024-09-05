@@ -80,7 +80,7 @@ const BarraBusqueda = () => {
 
     
     const resetFiltros =  () => {
-    // Resetea los filtros en el estado global
+    // Resetea los filtros en el estado global    
         actions.resetFiltros();   
         
         setSeleCategoria(null); // restablece el estado local seleCategoria a null.

@@ -18,11 +18,7 @@ const VistaAlumno = () => {
         }
     }, []);
 
-    const handleClick = (curso) => {
-        actions.seleccionarCurso(curso);
-        navigate(`/curso/${curso.id}`);
-    };
-
+   
     // Función para alternar la visibilidad de la barra de búsqueda
     const toggleBarraBusqueda = () => {
         setShowBarraBusqueda(!showBarraBusqueda);
