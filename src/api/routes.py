@@ -32,18 +32,17 @@ def get_users():
     else:
         return jsonify({"error": "User not found"}), 404
 
-@api.route('/users', methods=['PUT'])
+@api.route('/password', methods=['PUT'])
 @jwt_required()
 def update_user():
     id=get_jwt_identity()
     data = request.get_json()
-    if not data or 'name' not in data or 'email' not in data:
+    if not data or 'password' not in data:
         return jsonify({"error": "Invalid data"}), 400
     user = User.query.get(id)
     if not user:
         return jsonify({"error": "User not found"}), 404
-    user.name = data['name']
-    user.email = data['email']
+    user.password = data['password']
     db.session.commit()
     return jsonify({"status": "User updated", "user": user.serialize()}), 200
 
@@ -377,47 +376,41 @@ def compra():
         db.session.rollback()
         return jsonify({'success': False, 'error': 'Error creando pago'})
 
-#ruta GET para que el profesor sepa sus pagos, no necesita ver el alumno, solo el curso y precio
-# @api.route('/pagos/<int:id>',methods=['GET'])
-# @jwt_required()
-# def get_pagos_profe():
-#     id = get_jwt_identity()
-#     try:
-
-
-
+@api.route('/pagos',methods=['GET'])
+@jwt_required()
+def get_pagos_profe():
+    id = get_jwt_identity()
+    user = User.query.get(id)
+    profesor=Profesor.query.filter_by(user_id=user.id).first()
+    lista_pagos=Pagos.query.filter_by(profesor_id=profesor.id).all()
+    return jsonify([pagos.serialize() for pagos in lista_pagos])
 
 
 
 ##### RUTA PUT DEL ALUMNO Y PROFESOR #####
 
-@api.route("/users/<int:id>", methods=["PUT"])
+@api.route("/users", methods=["PUT"])
 @jwt_required()
-def edit_perfil_profe(id):
-    edited_perfil = Profesor.query.get(id)
-    data=request.json
-    edited_perfil.name = data.get('name', None) if data.get('name') else edited_perfil.name
-    edited_perfil.lastname = data.get('lastname', None) if data.get('lastname') else edited_perfil.lastname
-    edited_perfil.telefono = data.get('telefono', None) if data.get('telefono') else edited_perfil.telefono
-    edited_perfil.address = data.get('address', None) if data.get('address') else edited_perfil.address
-    edited_perfil.avatar = data.get('avatar', None) if data.get('avatar') else edited_perfil.avatar
-
-    db.session.commit()
-    return jsonify(edited_perfil.serialize()), 200
-
-@api.route("/users/<int:id>", methods=["PUT"])
-@jwt_required()
-def edit_perfil_alumno(id):
-    edited_perfil = Alumno.query.get(id)
-    data=request.json
-    edited_perfil.name = data.get('name', None) if data.get('name') else edited_perfil.name
-    edited_perfil.lastname = data.get('lastname', None) if data.get('lastname') else edited_perfil.lastname
-    edited_perfil.telefono = data.get('telefono', None) if data.get('telefono') else edited_perfil.telefono
-    edited_perfil.address = data.get('address', None) if data.get('address') else edited_perfil.address
-    edited_perfil.avatar = data.get('avatar', None) if data.get('avatar') else edited_perfil.avatar
-
-    db.session.commit()
-    return jsonify(edited_perfil.serialize()), 200
+def edit_perfil_profe():
+    id=get_jwt_identity()
+    try:
+        user = User.query.get(id)
+        edited_perfil={}
+        data=request.json
+        if user.is_teacher:
+            edited_perfil=Profesor.query.filter_by(user_id=user.id).first()
+        else:
+            edited_perfil = Alumno.query.fitler_by(user_id=user.id).first()
+        edited_perfil.name = data.get('name', None) if data.get('name') else edited_perfil.name
+        edited_perfil.lastname = data.get('lastname', None) if data.get('lastname') else edited_perfil.lastname
+        edited_perfil.telefono = data.get('telefono', None) if data.get('telefono') else edited_perfil.telefono
+        edited_perfil.address = data.get('address', None) if data.get('address') else edited_perfil.address
+        edited_perfil.avatar = data.get('avatar', None) if data.get('avatar') else edited_perfil.avatar
+        db.session.commit()
+        return jsonify(edited_perfil.serialize()), 200
+    except Exception as e:
+        print(e)
+        return jsonify({"success":False})
 
 ##### RUTA Cloudinary // no tocar
 @api.route('/upload', methods=['POST'])

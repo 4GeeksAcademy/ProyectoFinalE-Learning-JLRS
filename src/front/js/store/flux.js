@@ -81,7 +81,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         },
         actions: {
-            //FUNCIONES DE JAVIER (mirar abajo)
             crearCurso: async (dataForm) => {
 
                 try {
@@ -118,7 +117,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                     };
                 }
             },
-            //FUNCIONES DE JAVIER (mirar arriba)
 
             // Cargar los cursos desde el backend
             cargarCursos: async () => {
@@ -152,26 +150,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.error('Error loading course:', error);
                 }
             },
-
-            // Aplicar filtros a los cursos
-            // aplicarFiltrosCursos: () => {
-            //     const store = getStore();
-            //     const { cursos, filtros } = store;
-
-            //     const cursosFiltrados = cursos.filter(curso => {
-            //         return (
-            //             (!filtros.categoria || curso.categoria === filtros.categoria) &&
-            //             (!filtros.valoracion || curso.valoracion >= filtros.valoracion) &&
-            //             (!filtros.nivel || curso.nivel === filtros.nivel) &&
-            //             (!filtros.precio || (curso.precio >= filtros.precio[0] && curso.precio <= filtros.precio[1])) &&
-            //             (!filtros.fecha_inicio || new Date(curso.fecha_inicio) >= new Date(filtros.fecha_inicio)) &&
-            //             (!filtros.idioma || curso.idioma === filtros.idioma) &&
-            //             (!filtros.busqueda || curso.title.toLowerCase().includes(filtros.busqueda.toLowerCase()))
-            //         );
-            //     });
-            //        // Actualiza el estado global con los cursos filtrados
-            //     setStore({ cursosConFiltros: cursosFiltrados });
-            // },
 
             aplicarFiltrosCursos: () => {
                 const store = getStore();
@@ -397,6 +375,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                     };
                 }
             }
+
+            // verPagosProfe: async()=>{
+            //     const token = localStorage.getItem('token');
+            // }
         }
     };
 };

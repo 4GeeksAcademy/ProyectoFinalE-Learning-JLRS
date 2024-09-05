@@ -14,7 +14,7 @@ const VistaAlumno = () => {
         if (store.user?.id) {
             actions.obtenerCursosAlumno(store.user?.id);
         }
-    }, [store.user?.id, actions]);
+    }, []);
 
     const handleClick = (curso) => {
         actions.seleccionarCurso(curso);

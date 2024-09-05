@@ -7,7 +7,6 @@ import { Home } from "./pages/home";
 import injectContext from "./store/appContext";
 import Perfil from "./pages/perfil";
 import About from "./pages/about";
-import Vistacurso from "./pages/vistacurso";
 import Contacto from "./pages/contacto";
 
 import { Navbar } from "./component/navbar";
@@ -58,7 +57,6 @@ const Layout = () => {
                         {/*ELIMINAR LINEA 54 Y 55 AL TERMINAR ESTA RAMA*/}
                         <Route element={<VistaAlumno />} path="/vistaAlumno" />
                         <Route element={<VistaProfe />} path="/vistaProfe" />
-                        <Route element={<Vistacurso />} path="/vistacurso" />
                         <Route element={<h1>Not found!</h1>} path="*" />
                     </Routes>
                     <Footer />
