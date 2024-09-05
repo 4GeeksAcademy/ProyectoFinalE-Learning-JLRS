@@ -23,7 +23,7 @@ const ListaCursosProfe = ({ cursos }) => {
                             <h3 className="cardProfe__title">{curso.title}</h3>
                         </div>
                         <div className="cardProfe__content">
-                            <p className="cardProfe__matriculas">{curso.matriculas}</p>
+                            <p className="cardProfe__matriculas">{curso.matriculas ? curso.matriculas.length : 0} matriculados</p>
                         </div>
                     </div>
                 </div>

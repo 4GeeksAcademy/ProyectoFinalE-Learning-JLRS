@@ -245,7 +245,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                     if (response.ok) {
                         const data = await response.json();
-                        setStore({ misCursos: data.misCursos });
+                        setStore({ cursosAlumno: data.misCursos });
                     } else {
                         console.error('Error al obtener los cursos del alumno');
                     }

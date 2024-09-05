@@ -1,0 +1,9 @@
+/* Estilos generales para el layout */
+
+
+/* Media queries para ajustar el layout en pantallas pequeñas */
+@media (max-width: 768px) {
+    .layout {
+        /* Ajustes para pantallas pequeñas */
+    }
+}

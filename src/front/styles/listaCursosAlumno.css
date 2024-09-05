@@ -7,17 +7,11 @@
     padding: 10px; /* Espaciado interno del contenedor */
 }
 
-/* Columna para el diseño de los cursos */
-.colCA-md-4 {
-    flex: 1 1 calc(33.333% - 20px); /* Ancho de columna basado en un diseño de 3 columnas */
-    max-width: calc(33.333% - 20px); /* Limita el ancho máximo de las columnas */
-}
-
 /* Estilo para cada tarjeta de curso */
 .cardCursoAlumno {
     position: relative; /* Permite el uso de `position: absolute` en los elementos hijos */
-    width: 100%; /* Ancho de la tarjeta ajustado al contenedor */
-    height: 200px; /* Altura fija de la tarjeta */
+    width: 200px; /* Ancho fijo de la tarjeta */
+    height: 150px; /* Altura fija de la tarjeta */
     background: linear-gradient(135deg, #E0E0E2, #B5BAD0, #7389AE);
     border-radius: 10px; /* Bordes redondeados */
     display: flex; /* Uso de Flexbox para centrar el contenido */
@@ -30,17 +24,47 @@
     cursor: pointer; /* Cambia el cursor al pasar sobre la tarjeta */
 }
 
+/* Contenedor de la imagen y el título */
+.cardAlumno__image-container {
+    position: relative; /* Para posicionar el título sobre la imagen */
+    width: 100%; /* Ancho completo de la tarjeta */
+    height: 100%; /* Altura completa de la tarjeta */
+}
+
 .cardAlumno-img-top {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: 100%; /* La imagen ocupa todo el ancho de la tarjeta */
+    height: 100%; /* La imagen ocupa todo el alto de la tarjeta */
+    object-fit: cover; /* La imagen se ajusta sin distorsión */
+    border-radius: 10px; /* Bordes redondeados para la imagen */
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Transición suave para los cambios de estilo */
+}
+
+.cardAlumno__image-container h3 {
+    position: absolute; /* Posiciona el título sobre la imagen */
+    bottom: 10px; /* Ubicado en la parte inferior de la imagen */
+    left: 5px; /* Margen desde la izquierda */
+    color: #000022; /* Color del título */
+    font-size: 12px; /* Tamaño de fuente */
+    font-weight: 500; /* Negrita */
+    background: rgba(248, 244, 244, 0.682); /* Fondo semitransparente para el título */
+    padding: 5px 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    animation: marquee 8s linear infinite; /* La animación se repite indefinidamente */
+}
+
+@keyframes marquee { /* @keyframes en CSS se utiliza para definir una animación*/
+    0% { /* El estado inicial */
+        transform: translateX(90%);
+    }
+    100% {
+        transform: translateX(-90%);
+    }
 }
 
 .cardCursoAlumno:hover {
     transform: scale(1.05); /* Aumenta ligeramente el tamaño de la tarjeta al pasar el ratón */
-    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2); /* Sombra más pronunciada al hacer hover */
+    box-shadow: 0 4px 8px #000022; /* Sombra más pronunciada al hacer hover */
 }
 
 .cardAlumno__content {
