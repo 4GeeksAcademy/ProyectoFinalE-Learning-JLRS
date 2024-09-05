@@ -6,7 +6,7 @@
     on that page only (the ones not reused in other pages).
 */
 body{
-  background:  #E0E0E2;
+  background: white;
 }
 
 
@@ -71,7 +71,7 @@ body{
 }
 .BarraDeEmpresas{
     padding: 1.25rem; /* Espaciado interno del cuerpo de la tarjeta */
-    background:  #E0E0E2;
+    background:  #B5BAD0;
     text-align: center;
     
 }
@@ -94,7 +94,6 @@ body{
   .card-elegirnos {
     width: 100%; /* Hace que la card ocupe todo el ancho disponible del contenedor */
     max-width: 1200px; /* Aumenta el ancho máximo de la card */
-    background:  #E0E0E2;
     margin: 0 auto; /* Centra la card horizontalmente */
   }
   
@@ -122,6 +121,8 @@ body{
   .card-body-elegirnos {
     padding: 20px; /* Aumenta el padding interno para más espacio */
     box-shadow: 0 4px 8px #000022; /* Contorno suave de color personalizado */
+    border: 4px; /* Borde de 4px de grosor*/
+    border-radius: 12px; /* Bordes redondeados para la imagen */
   }
   
   .card-title-elegirnos {

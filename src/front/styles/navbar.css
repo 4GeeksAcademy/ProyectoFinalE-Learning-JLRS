@@ -55,12 +55,15 @@
     background-color: #416788;
     border-color: #416788;
     color: #E0E0E2;
+    padding: 20px 30px; /* Relleno interno para aumentar el tamaño del botón */
+    font-size: 20px; /* Tamaño de fuente del texto */
 }
 
 .btn-secondary:hover {
     background-color: #B5BAD0;
     border-color: #B5BAD0;
     color: #E0E0E2;
+    
 }
 
 .navbar-buttons {
