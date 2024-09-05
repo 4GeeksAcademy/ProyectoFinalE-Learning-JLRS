@@ -13,10 +13,10 @@ const VistaAlumno = () => {
     const [showBarraBusqueda, setShowBarraBusqueda] = useState(false); // Inicializa el estado
 
     useEffect(() => {
-        if (store.user?.id) {
-            actions.obtenerCursosAlumno(store.user?.id);
+        if (store.user?.alumno) {
+            actions.obtenerCursosAlumno(store.user?.alumno.id);
         }
-    }, [store.user?.id, actions]);
+    }, []);
 
     const handleClick = (curso) => {
         actions.seleccionarCurso(curso);

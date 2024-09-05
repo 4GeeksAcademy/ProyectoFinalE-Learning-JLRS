@@ -18,10 +18,12 @@ const ListaCursosProfe = ({ cursos }) => {
             {cursos.map((curso) => (
                 <div className="colCP-md-4 mb-4" key={curso.id}>
                     <div className="cardCursoProfe" onClick={() => handleCourseClick(curso.id)}>
-                        <img src={curso.portada} alt={curso.title} className="cardProfe-img-top" />
-                        <div className="cardProfe__content">
+                        <div className="cardProfe__image-container">
+                            <img src={curso.portada} className="cardProfe-img-top" />
                             <h3 className="cardProfe__title">{curso.title}</h3>
-                            <p className="cardProfe__description">{curso.resumen}</p>
+                        </div>
+                        <div className="cardProfe__content">
+                            <p className="cardProfe__matriculas">{curso.matriculas}</p>
                         </div>
                     </div>
                 </div>

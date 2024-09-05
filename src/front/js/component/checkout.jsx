@@ -56,7 +56,7 @@ export const CheckoutForm = () => {
           actions.setPaymentInfo(paymentIntent)
           actions.nuevaCompra(paymentIntent.id)
         console.log('Payment succeeded!');
-        navigate("/completoDisWeb"); // Cambia "/completoDisWeb" por la ruta que corresponda a tu página
+        navigate("/completoDisWeb"); 
       }
       else{
         console.log('some error')

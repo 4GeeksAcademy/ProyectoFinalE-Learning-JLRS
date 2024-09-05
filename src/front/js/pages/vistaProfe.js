@@ -22,7 +22,7 @@ const VistaProfe = () => {
         // return () => {
         //     actions.obtenerCursosProfesor(store.user?.profesor.id)
         // };
-    }, [store.user?.profesor]); //useEffect se ejecutará cada vez que cualquiera de estos valores cambie
+    }, []); //useEffect se ejecutará cada vez que cualquiera de estos valores cambie
 
     // Función para manejar la apertura y cierre del modal
     const toggleModal = () => {
