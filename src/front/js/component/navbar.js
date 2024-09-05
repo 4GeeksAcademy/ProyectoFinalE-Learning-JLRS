@@ -27,6 +27,7 @@ export const Navbar = () => {
             <Link to="/" className="navbar-brand">
                 <img src={logo} alt="Logo Elearning" className="logo" />
             </Link>
+            <div className="text-overlay">Conecta, aprende y crece</div>
             {logueado ? ( //es true, se muestra el dropdown con la imagen del perfil y las opciones del menú.
                 <div className="navbar-buttons">
                     <Link to={`${store.user?.alumno ? '/vistaAlumno' : '/vistaProfe'}`} className="btn btn-secondary">

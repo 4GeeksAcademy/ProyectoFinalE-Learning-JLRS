@@ -62,15 +62,6 @@ body{
     opacity: 0.5; /* Muestra los botones con algo de opacidad cuando el carrusel es hover */
     pointer-events: auto; /* Habilita el evento de clic en los botones cuando el carrusel es hover */
 }
-.text-overlay{
-    position: absolute; /* Posición absoluta respecto al contenedor */
-    top: 90%; /* Posiciona en el centro vertical */
-    left: 50%; /* Posiciona en el centro horizontal */
-    color: #E0E0E2;
-    font-size: 40px; /* Tamaño del texto */
-    transform: translate(-50%, -50%);
-    font-family: 'Playfair Display', serif;
-}
 .ContenedorEmpresas{
     margin-top: 10px; /* Margen superior */
     margin-right: 20px; /* Margen derecho */
@@ -136,9 +127,10 @@ body{
   .card-title-elegirnos {
     font-size: 2rem; /* Tamaño de fuente más grande para el título */
     margin-bottom: 15px; /* Espacio debajo del título */
-    text-align: justify; /* Justifica el texto del título */
+    text-align: center; /* Justifica el texto del título */
     color: #000022;
     font-family: 'Lora', serif;
+    font-size:50px;
    
   }
   
