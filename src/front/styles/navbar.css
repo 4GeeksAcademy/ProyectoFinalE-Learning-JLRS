@@ -23,6 +23,15 @@
 .logo:hover {
     transform: scale(1.1);
 }
+.text-overlay{
+    position: absolute; /* Posición absoluta respecto al contenedor */
+    top: 50%; /* Posiciona en el centro vertical */
+    left: 50%; /* Posiciona en el centro horizontal */
+    color: #E0E0E2;
+    font-size: 40px; /* Tamaño del texto */
+    transform: translate(-50%, -50%);
+    font-family: 'Playfair Display', serif;
+}
 
 /* Perfil del profesor */
 .foto-perfil-toggle { 
@@ -46,12 +55,15 @@
     background-color: #416788;
     border-color: #416788;
     color: #E0E0E2;
+    padding: 20px 30px; /* Relleno interno para aumentar el tamaño del botón */
+    font-size: 20px; /* Tamaño de fuente del texto */
 }
 
 .btn-secondary:hover {
     background-color: #B5BAD0;
     border-color: #B5BAD0;
     color: #E0E0E2;
+    
 }
 
 .navbar-buttons {

@@ -6,7 +6,7 @@
     on that page only (the ones not reused in other pages).
 */
 body{
-  background:  #E0E0E2;
+  background: white;
 }
 
 
@@ -62,15 +62,6 @@ body{
     opacity: 0.5; /* Muestra los botones con algo de opacidad cuando el carrusel es hover */
     pointer-events: auto; /* Habilita el evento de clic en los botones cuando el carrusel es hover */
 }
-.text-overlay{
-    position: absolute; /* Posición absoluta respecto al contenedor */
-    top: 90%; /* Posiciona en el centro vertical */
-    left: 50%; /* Posiciona en el centro horizontal */
-    color: #E0E0E2;
-    font-size: 40px; /* Tamaño del texto */
-    transform: translate(-50%, -50%);
-    font-family: 'Playfair Display', serif;
-}
 .ContenedorEmpresas{
     margin-top: 10px; /* Margen superior */
     margin-right: 20px; /* Margen derecho */
@@ -80,7 +71,7 @@ body{
 }
 .BarraDeEmpresas{
     padding: 1.25rem; /* Espaciado interno del cuerpo de la tarjeta */
-    background:  #E0E0E2;
+    background:  #B5BAD0;
     text-align: center;
     
 }
@@ -103,7 +94,6 @@ body{
   .card-elegirnos {
     width: 100%; /* Hace que la card ocupe todo el ancho disponible del contenedor */
     max-width: 1200px; /* Aumenta el ancho máximo de la card */
-    background:  #E0E0E2;
     margin: 0 auto; /* Centra la card horizontalmente */
   }
   
@@ -131,14 +121,17 @@ body{
   .card-body-elegirnos {
     padding: 20px; /* Aumenta el padding interno para más espacio */
     box-shadow: 0 4px 8px #000022; /* Contorno suave de color personalizado */
+    border: 4px; /* Borde de 4px de grosor*/
+    border-radius: 12px; /* Bordes redondeados para la imagen */
   }
   
   .card-title-elegirnos {
     font-size: 2rem; /* Tamaño de fuente más grande para el título */
     margin-bottom: 15px; /* Espacio debajo del título */
-    text-align: justify; /* Justifica el texto del título */
+    text-align: center; /* Justifica el texto del título */
     color: #000022;
     font-family: 'Lora', serif;
+    font-size:50px;
    
   }
   
