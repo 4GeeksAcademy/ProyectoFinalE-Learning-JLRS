@@ -21,7 +21,7 @@ const ListaCursos = () => {
                         <div className="col" key={curso.id} name={curso.title} id={curso.id}> {/* Columna para cada tarjeta y usa el id del curso como la clave única */}
                             <div className="cardCursos h-100">
                                 <img 
-                                    src={curso.portada ? `${process.env.BACKEND_URL}${curso.portada}` : "https://via.placeholder.com/150"} /* direccion del models.py donde aparezca cursos y sus imagenes*/
+                                    src={curso.portada} /* direccion del models.py donde aparezca cursos y sus imagenes*/
                                     className="cardCursos-img-top" 
                                     alt={curso.title} 
                                 /> {/* Muestra la imagen del curso, o una imagen por defecto si no hay imagen */}
