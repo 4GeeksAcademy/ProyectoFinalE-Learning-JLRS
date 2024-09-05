@@ -1,51 +1,66 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import { useNavigate, Link } from "react-router-dom"; // Importa Link para navegación
-
+import { useNavigate, Link } from "react-router-dom";
+import ListaCursosAlumno from "../component/listaCursosAlumno";
+import "../../styles/vistaAlumno.css"; 
+import ListaCursos from "../component/listaCursos";
 import BarraBusqueda from "../component/barraBusqueda";
 import "../../styles/barraBusqueda.css";
-import ListaCursos from "../component/listaCursos";
 
 const VistaAlumno = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const [showBarraBusqueda, setShowBarraBusqueda] = useState(false); // Inicializa el estado
 
     useEffect(() => {
-        if (store.user?.id) {
-            actions.obtenerCursosAlumno(store.user?.id);
+        if (store.user?.alumno) {
+            actions.obtenerCursosAlumno(store.user?.alumno.id);
         }
-    }, [store.user?.id, actions]);
+    }, []);
 
     const handleClick = (curso) => {
         actions.seleccionarCurso(curso);
         navigate(`/curso/${curso.id}`);
     };
 
+    // Función para alternar la visibilidad de la barra de búsqueda
+    const toggleBarraBusqueda = () => {
+        setShowBarraBusqueda(!showBarraBusqueda);
+    };
+
     return (
-        <div className="contenedorAlumno mt-5">
-            <div className="perfilAlumno">
-                <img src={store.user?.alumno?.photo} alt="Foto del Alumno" className="foto-perfil" />
-                <h3>{store.user?.alumno?.name}</h3>
+        <div style={{ display: "flex", flexDirection: "column", height: "150vh" }}>
+            <div className="contenedor_Alumno">
+                {/* Nueva sección superior para el alumno */}
+                <div className="seccionSuperiorAlumno">
+                    <div className="perfilAlumno mt-5">
+                        <h3>{store.user?.alumno?.name}</h3>
+                    </div>
+                    <div className="cursosAlumno mt-4">
+                        <h4>Espacio de trabajo de {store.user?.alumno?.name}</h4>
+                    </div>
+                    {/* Lista de cursos del profesor */}
+                    <div className="cursosLCA mt-4">
+                        <ListaCursosAlumno cursos={store.cursosAlumno} />
+                    </div>
+                </div>
             </div>
-            <div className="cursos mt-4">
-                <h4>Mis cursos</h4>
-                <ul className="lista-grupo">
-                    {store.misCursos?.map(cursoAlumno => (
-                        <li
-                            key={cursoAlumno.id}
-                            className="lista-grupo-item"
-                        >
-                            <Link to={`/curso/${cursoAlumno.id}`} onClick={() => handleClick(cursoAlumno)}>
-                                <h3>
-                                    {cursoAlumno.title} {/* Muestra el nombre del curso */}
-                                </h3>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+
+             {/* Sección de cursos del alumno */}
+             <div className="cursos_alumnos mt-1">
+                {/* Botón para mostrar la barra de búsqueda */}
+                <button onClick={toggleBarraBusqueda} className="btnToggleBarraBusquedaAlumno">
+                    {showBarraBusqueda ? "Ocultar Barra de Búsqueda" : "Mostrar Barra de Búsqueda"}
+                </button>
+
+                {/* Condicional para mostrar la barra de búsqueda y ListaCursos */}
+                {showBarraBusqueda && (
+                    <div className="barraBusquedaYListaCursos">
+                        <BarraBusqueda />
+                        <ListaCursos />
+                    </div>
+                )}
             </div>
-            <BarraBusqueda />
-            <ListaCursos />
         </div>
     );
 };
