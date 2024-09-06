@@ -30,7 +30,6 @@ const VistaAlumno = () => {
                 {/* Nueva sección superior para el alumno */}
                 <div className="seccionSuperiorAlumno">
                     <div className="perfilAlumno mt-5">
-                        <h3>{store.user?.alumno?.name}</h3>
                     </div>
                     <div className="cursosAlumno mt-4">
                         <h4>Espacio de trabajo de {store.user?.alumno?.name}</h4>

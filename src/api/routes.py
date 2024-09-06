@@ -169,9 +169,10 @@ def get_curso(id):
 @jwt_required()
 def mis_cursos():
     id = get_jwt_identity()
+    alumno = Alumno.query.filter_by(user_id=id).first()
     try:
         aux = []
-        matriculas = Matricula.query.filter_by(alumno_id=id).all() 
+        matriculas = Matricula.query.filter_by(alumno_id=alumno.id).all() 
         for matricula in matriculas:
             print(matricula.serialize())
             curso = Curso.query.get(matricula.curso_id)
@@ -364,14 +365,15 @@ def edit_video(id):
 def compra():
     try:
         id = get_jwt_identity()
+        alumno = Alumno.query.filter_by(user_id=id).first()
         data = request.json
-        check = Pagos.query.filter_by(alumno_id= id,
+        check = Pagos.query.filter_by(alumno_id= alumno.id,
             curso_id= data['curso_id']).first()
         print(check)
         if check:
             return jsonify({'success': False, 'error': 'Ya posee este curso'}), 418
         compra = Pagos(
-            alumno_id= id,
+            alumno_id= alumno.id,
             curso_id= data['curso_id'],
             profesor_id= data['profesor_id'],
             fecha_pago= data['fecha_pago'],
@@ -379,13 +381,14 @@ def compra():
             pago_stripe_id= data['pago_stripe_id']
             )
         db.session.add(compra)
-        nueva_matricula = Matricula(curso_id=data['curso_id'], alumno_id=id)
+        nueva_matricula = Matricula(curso_id=data['curso_id'], alumno_id=alumno.id)
         db.session.add(nueva_matricula)
         db.session.commit()
          
         return jsonify({'success': True, 'compra': compra.serialize(), 'matricula': nueva_matricula.serialize() })
     except Exception as e:
         db.session.rollback()
+        print(e)
         return jsonify({'success': False, 'error': 'Error creando pago'})
 
 #ruta GET para que el profesor sepa sus pagos, no necesita ver el alumno, solo el curso y precio

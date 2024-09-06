@@ -68,65 +68,30 @@
     overflow-y: auto; /* Permite el desplazamiento vertical */
 }
 
-/* Botón para mostrar/ocultar la barra de búsqueda */
 .btnToggleBarraBusquedaAlumno {
-    position: relative;
-    width: 150px;
-    height: 40px;
-    background-color: #000;
-    display: flex;
-    align-items: center;
-    color: white;
-    flex-direction: column;
-    justify-content: center;
-    border: none;
-    padding: 12px;
-    gap: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    z-index: 0; /* Asegura que el botón esté en el contexto de apilamiento */
-   
-    text-align: center; /* Centra el texto */
-    font-size: 12px; /* Ajusta el tamaño del texto */
+    background-color: #416788; /* Color de fondo específico */
+    color: #E0E0E2; /* Color de texto específico */
+    padding: 8px 16px; /* Espaciado interno reducido */
+    border: none; /* Sin bordes */
+    border-radius: 6px; /* Esquinas redondeadas */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transición suave */
+    font-size: 14px; /* Tamaño de fuente reducido */
+    display: block; /* Hace que el botón ocupe una línea completa */
+    margin: 20px 0; /* Espaciado superior e inferior */
+    margin-left: 0; /* Alinea el botón a la izquierda */
 }
 
-.btnToggleBarraBusquedaAlumno::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    left: -4px;
-    top: -1px;
-    margin: auto;
-    width: 128px;
-    height: 48px;
-    border-radius: 10px;
-    background: linear-gradient(to bottom, #000022, #333366, #416788);
-    z-index: -1;
-    pointer-events: none;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.btnToggleBarraBusquedaAlumno:hover {
+    background-color: #5a6a8e; /* Color más oscuro para hover */
+    transform: scale(1.05); /* Efecto de agrandamiento */
 }
 
-.btnToggleBarraBusquedaAlumno::after {
-    content: "";
-    z-index: -2;
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(-45deg, #ca89cb 30%, #7adfe1 60% );
-    transform: translate3d(0, 0, 0) scale(0.95);
-    filter: blur(20px);
+.btnToggleBarraBusquedaAlumno:active {
+    background-color: #4a5b78; /* Color más oscuro cuando se hace clic */
+    transform: scale(0.98); /* Efecto de compresión */
 }
 
-.btnToggleBarraBusquedaAlumno:hover::after {
-    filter: blur(30px);
-}
-
-.btnToggleBarraBusquedaAlumno:hover::before {
-    transform: rotate(-180deg);
-}
-
-.btnToggleBarraBusquedaAlumno:active::before {
-    scale: 0.7;
-  }
 
 .barraBusquedaYListaCurso{
     width: 30px; /* Ancho reducido */
