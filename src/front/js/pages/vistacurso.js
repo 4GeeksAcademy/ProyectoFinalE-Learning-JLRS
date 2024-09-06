@@ -1,80 +1,119 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "../../styles/vistacurso.css";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
+import { Uploader } from "../component/cloudinary";
+import ReactPlayer from "react-player";
 
-function vistacurso() {
-  return (
-    <div className='vistacurso__main-content'>
-      <div className="card-1" style={{ width: "40rem" }}>
-        <div className="card-body-vistacurso1">
-          <h1 className="card-title">React.JS, Guía desde 0 (Actualizado 2024)</h1>
-          <h6 className="card-subtitle mb-2 text-body-secondary">Aprende a crear sitios web de forma rápida y sencilla con React Js</h6>
-          <button type="button" class="btn btn-primary me-3 btn-lg">Calificaciones</button>
-          <button type="button" class="btn btn-primary btn-lg">Creado por Roberto Losada</button>
-        </div>
-      </div>
-      <div className="card-1" style={{ width: "40rem" }}>
-        <div className="card-body-vistacurso2">
-          <h5 className="card-title">Lo que aprenderás</h5>
-          <p className="card-text"></p>
-          <p>Aprenderas a Construir sitios web utilizando la libreria React JS.</p>
-          <p>Context API.</p>
-          <p>Consumir REST API (Fetch y Axios).</p>
-          <p>Pensar en componentes.</p>
-          <p>Escribir codigo óptimo de React Js.</p>
-          <p>Organización de las carpetas de tu proyecto</p>
-        </div>
-      </div>
-      <div className="card-1" style={{ width: "40rem" }}>
-        <div className="card-body-vistacurso3">
-          <h5 className="card-title">Este curso Incluye:</h5>
-          <p className="card-text"></p>
-          <p>14,5 horas de vídeo bajo demanda.</p>
-          <p>Acceso en dispositivos móviles y TV</p>
-          <p>Acceso de por vida</p>
-          <p>35 recursos descargables</p>
-          <p>Certificado de finalización</p>
-        </div>
-      </div>
-      <div className="card-1" style={{ width: "40rem" }}>
-  <div className="card-body-vistacurso4">
-    <h5 className="card-title">Contenido del Curso</h5>
-    <ul className="course-content-list">
-      <li>¿Qué es React JS?</li>
-      <li>Historia de React JS</li>
-      <li>Virtual DOM</li>
-      <li>¿Qué es JSX?</li>
-      <li>¿Qué es la Transpilación?</li>
-      <li>Renderizado por primera vez</li>
-      <li>¿Qué son los componentes? Parte 1</li>
-      <li>¿Qué son los componentes? Parte 2</li>
-      <li>Props</li>
-      <li>States</li>
-      <li>Declarando métodos en tus componentes</li>
-      <li>Eventos</li>
-      <li>Analizando setState</li>
-      <li>Creando primer proyecto con Create React App</li>
-      <li>Analizando la estructura de un proyecto con React JS</li>
-      <li>Analizando useState</li>
-      <li>Ciclo de vida de un componente</li>
-      <li>Renderizado condicional</li>
-    </ul>
-  </div>
-</div>
+const VistaProfe = () => {
+    const { store, actions } = useContext(Context);
 
-      <div className="containerCurso3">
-        <div className="clearfix">
-          <img src="https://images.unsplash.com/photo-1535982330050-f1c2fb79ff78?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="col-md-6 float-md-end mb-3 ms-md-3" alt="..." />
-          <h1>89,99 € Precio original .</h1>
-          <h5>Si realizas tu inscripcion en el mes de Agosto 2024 tendras en 30% de descuento en el valor total del curso.</h5>
-          <h5>Acceso de por vida</h5>
-          <h5>Puedes pagarlo hasta en 3 cuotas.</h5>
-          <a className="btn btn-primary" href="#" role="button">Completar Inscripcion</a>
-          <button className="btn btn-primary" type="submit">Añadir a lista de favoritos</button>
-        </div>
-      </div>
-    </div>
-  );
-}
+    const [videoUrl, setVideoUrl] = useState("");   
+    const [cursoID, setCursoID] = useState("");    
+    const [title, setTitle] = useState("");        
+    const [text, setText] = useState("");           
+    const [isModalOpen, setIsModalOpen] = useState(false); 
 
-export default vistacurso;
+    useEffect(() => {
+        if (store.user?.profesor) {
+            actions.obtenerCursosProfesor(store.user?.profesor.id);
+        }
+    }, [store.user?.profesor]);
+
+    const handleVideoUpload = (url) => {
+        setVideoUrl(url);
+       
+        fetch(`${process.env.BACKEND_URL}/api/registrarVideo`, {
+            method: 'POST',
+            body: JSON.stringify({ 
+                cursoID: cursoID,   
+                title: title,       
+                videoUrl: url,      
+                text: text         
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+          .then(data => console.log('Video registrado:', data))
+          .catch(error => console.error('Error al registrar el video:', error));
+    };
+
+
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
+    };
+
+    return (
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            {/* Botón que abre el modal */}
+            <button className="btn btn-primary" onClick={toggleModal}>
+                Subir Video
+            </button>
+
+            {/* Modal que contiene los campos para completar */}
+            {isModalOpen && (
+                <div className="modal" style={{
+                    display: 'block', 
+                    position: 'fixed', 
+                    top: 0, 
+                    left: 0, 
+                    width: '100%', 
+                    height: '100%', 
+                    backgroundColor: 'rgba(0,0,0,0.5)'
+                }}>
+                    <div className="modal-content" style={{
+                        margin: 'auto', 
+                        padding: '20px', 
+                        backgroundColor: '#fff', 
+                        width: '50%', 
+                        borderRadius: '8px'
+                    }}>
+                        <h3>Subir Video</h3>
+
+                        <label>Curso ID:</label>
+                        <input 
+                            type="text" 
+                            placeholder="Curso ID" 
+                            value={cursoID} 
+                            onChange={(e) => setCursoID(e.target.value)} 
+                            style={{ marginBottom: '10px', padding: '8px', width: '100%' }} 
+                        />
+
+                        <label>Título del video:</label>
+                        <input 
+                            type="text" 
+                            placeholder="Título del video" 
+                            value={title} 
+                            onChange={(e) => setTitle(e.target.value)} 
+                            style={{ marginBottom: '10px', padding: '8px', width: '100%' }} 
+                        />
+
+                        <label>Descripción del video:</label>
+                        <textarea 
+                            placeholder="Descripción del video" 
+                            value={text} 
+                            onChange={(e) => setText(e.target.value)} 
+                            style={{ marginBottom: '10px', padding: '8px', width: '100%', height: '100px' }}
+                        />
+
+                        {/* Componente de subida de video */}
+                        <Uploader onUpload={handleVideoUpload} />
+
+                        {/* Botón para cerrar el modal */}
+                        <button className="btn btn-secondary" onClick={toggleModal} style={{ marginTop: '10px' }}>
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Mostrar el video si ya está subido */}
+            {videoUrl && (
+                <div style={{ width: '800px', height: '450px', border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden', marginTop: '20px' }}>
+                    <ReactPlayer url={videoUrl} controls width="100%" height="100%" />
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default VistaProfe;

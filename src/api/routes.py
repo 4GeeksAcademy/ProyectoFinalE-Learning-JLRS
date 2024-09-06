@@ -277,30 +277,41 @@ def get_video(id):
     else:
         return jsonify({"error": "Video not found"}), 404
     
+
 @api.route('/videos', methods=['POST'])
 @jwt_required()
 def create_video():
-    data=request.json
+    data = request.json
+    curso_id = data.get('cursoID', None)  
     title = data.get('title', None)
-    url = data.get('url', None)
+    url = data.get('videoUrl', None)  
     text = data.get('text', None)
-    if not title or not url or not text:
+    profesor_id = data.get('profesorID', None)  
+
+    if not title or not url or not text or not curso_id or not profesor_id:
         return jsonify({'success': False, 'msg': 'Todos los campos son necesarios'}), 400
+
     video = Videos.query.filter_by(title=title).first()
     if video:
         return jsonify({'success': False, 'msg': 'El video ya existe'}), 400
-    new_video = Videos(title=title, url=url, text=text)
+
+    new_video = Videos(
+        title=title,
+        url=url,
+        text=text,
+        curso_id=curso_id,
+        profesor_id=profesor_id  # Incluye el ID del profesor en el modelo
+    )
+
     db.session.add(new_video)
     db.session.commit()
+
     return jsonify(new_video.serialize()), 200
 
-@api.route("/videos/<int:id>", methods=["DELETE"])
-@jwt_required()
-def delete_video(id):
-    video = Videos.query.get(id)
-    db.session.delete(video)
-    db.session.commit()
-    return jsonify("video borrado"), 200
+
+
+
+
 
 @api.route('/videos/<int:id>', methods=['PUT'])
 @jwt_required()
