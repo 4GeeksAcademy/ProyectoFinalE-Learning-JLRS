@@ -48,7 +48,6 @@ const VistaProfe = () => {
             <button className="btn btn-primary" onClick={toggleModal}>
                 Subir Video
             </button>
-
             {/* Modal que contiene los campos para completar */}
             {isModalOpen && (
                 <div className="modal" style={{

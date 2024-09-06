@@ -8,7 +8,8 @@ export const Uploader = ({ onUpload }) => {
         setFile(e.target.files[0]);
     };
 
-    const handleUpload = async () => {
+    const handleUpload = async e => {
+        e.preventDefault()
         if (!file) {
             alert("Por favor, selecciona un archivo primero.");
             return;

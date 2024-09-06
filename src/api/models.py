@@ -39,7 +39,7 @@ class Profesor(db.Model):
 
     cursos = db.relationship('Curso', backref='profesor', lazy=True)
     pagos = db.relationship('Pagos', backref='profesor', lazy=True)
-
+    videos = db.relationship('Videos', backref='videos', lazy=True)
     def __repr__(self):
         return f'<Profesor {self.name}>'
     
@@ -133,7 +133,7 @@ class Videos(db.Model):
     url = db.Column(db.String(250), nullable=False)
     text = db.Column(db.String(250), nullable=False)
     curso_id = db.Column(db.Integer(), db.ForeignKey('curso.id'))
-
+    profesor_id = db.Column(db.Integer(), db.ForeignKey('profesor.id')) 
     def __repr__(self):
         return f'<title {self.title}>'
 
@@ -143,7 +143,8 @@ class Videos(db.Model):
             "title": self.title,
             "url": self.url,
             "text": self.text,
-            "curso_id": self.curso_id
+            "curso_id": self.curso_id,
+            "profesor_id": self.profesor_id
         }
 
 

@@ -153,6 +153,7 @@ def cargarCursos():
         cursos_list = [curso.serialize() for curso in cursos]
         return jsonify(cursos_list), 200
     except Exception as e: 
+        print(e)
         return jsonify({'message': str(e)}), 500
     
 # CURSO concreto.
@@ -163,6 +164,7 @@ def get_curso(id):
         curso = [curso.serialize()]
         return jsonify(curso), 200
     except Exception as e: 
+        print(e)
         return jsonify({'message': str(e)}), 500
     
 @api.route('/mis_cursos', methods=['GET'])
@@ -197,6 +199,7 @@ def cursos_profe():
         cursos_list = [curso.serialize() for curso in cursos]
         return jsonify({'success': True, 'misCursos': cursos_list}), 200
     except Exception as e:
+        print(e)
         return jsonify({'error': str(e)}), 500
 
 @api.route('/cursos', methods=['POST'])
@@ -263,52 +266,62 @@ def edit_curso(id):
 @api.route('/videos', methods=['GET'])
 @jwt_required()
 def get_videos():
-    videos = Videos.query.all()
-    if videos:
-        return jsonify({"msg": [videos.serialize() for videos in videos]}), 200
-    else:
-        return jsonify({"error": "Videos not found"}), 404
+    try:
+        videos = Videos.query.all()
+        if videos:
+            return jsonify({"videos": [videos.serialize() for videos in videos]}), 200
+        else:
+            return jsonify({"error": "Videos not found"}), 404
+    except Exception as e: 
+            print(e)
+            return jsonify({"error": "Videos not found"}), 418
     
 @api.route('/videos/<int:id>', methods=['GET'])
 @jwt_required()
 def get_video(id):
-    video = Videos.query.get(id)
-    if video:
-        return jsonify({"msg": video.serialize()}), 200
-    else:
-        return jsonify({"error": "Video not found"}), 404
-    
+    try:
+        video = Videos.query.get(id)
+        if video:
+            return jsonify({"videos": video.serialize()}), 200
+        else:
+            return jsonify({"error": "Video not found"}), 404
+    except Exception as e: 
+            print(e)
+            return jsonify({"error": "Video not found"}), 418
 
 @api.route('/videos', methods=['POST'])
 @jwt_required()
 def create_video():
-    data = request.json
-    curso_id = data.get('cursoID', None)  
-    title = data.get('title', None)
-    url = data.get('videoUrl', None)  
-    text = data.get('text', None)
-    profesor_id = data.get('profesorID', None)  
+    try:
+        data = request.json
+        curso_id = data.get('cursoID', None)  
+        title = data.get('title', None)
+        url = data.get('videoUrl', None)  
+        text = data.get('text', None)
+        profesor_id = data.get('profesorID', None)  
 
-    if not title or not url or not text or not curso_id or not profesor_id:
-        return jsonify({'success': False, 'msg': 'Todos los campos son necesarios'}), 400
+        if not title or not url or not text or not curso_id or not profesor_id:
+            return jsonify({'success': False, 'msg': 'Todos los campos son necesarios'}), 400
 
-    video = Videos.query.filter_by(title=title).first()
-    if video:
-        return jsonify({'success': False, 'msg': 'El video ya existe'}), 400
+        video = Videos.query.filter_by(title=title).first()
+        if video:
+            return jsonify({'success': False, 'msg': 'El video ya existe'}), 400
 
-    new_video = Videos(
-        title=title,
-        url=url,
-        text=text,
-        curso_id=curso_id,
-        profesor_id=profesor_id  # Incluye el ID del profesor en el modelo
-    )
+        new_video = Videos(
+            title=title,
+            url=url,
+            text=text,
+            curso_id=curso_id,
+            profesor_id=profesor_id  # Incluye el ID del profesor en el modelo
+        )
 
-    db.session.add(new_video)
-    db.session.commit()
+        db.session.add(new_video)
+        db.session.commit()
 
-    return jsonify(new_video.serialize()), 200
-
+        return jsonify({'success':True, 'videos': new_video.serialize()}), 200
+    except Exception as e: 
+            print(e)
+            return jsonify({"error": "Videos not created"}), 418
 
 
 
@@ -317,15 +330,18 @@ def create_video():
 @api.route('/videos/<int:id>', methods=['PUT'])
 @jwt_required()
 def edit_video(id):
-    edited_video = Videos.query.get(id)
-    data=request.json
-    edited_video.title = data.get('title', None) if data.get('title') else edited_video.title
-    edited_video.url = data.get('url', None) if data.get('url') else edited_video.url
-    edited_video.text = data.get('text', None) if data.get('text') else edited_video.text
+    try:
+        edited_video = Videos.query.get(id)
+        data=request.json
+        edited_video.title = data.get('title', None) if data.get('title') else edited_video.title
+        edited_video.url = data.get('url', None) if data.get('url') else edited_video.url
+        edited_video.text = data.get('text', None) if data.get('text') else edited_video.text
 
-    db.session.commit()
-    return jsonify(edited_video.serialize()), 200
-
+        db.session.commit()
+        return jsonify(edited_video.serialize()), 200
+    except Exception as e: 
+            print(e)
+            return jsonify({"error": "Videos not edited"}), 418
 ##### RUTAS MATRICULAS #####
 
 #GET matriculas por curso segun ID del profesor
@@ -442,7 +458,7 @@ def upload():
         file_type = file_to_upload.filename.split('.')[-1].lower()
         if file_type in ['jpg', 'jpeg', 'png', 'gif']:
             resource_type = 'image'
-        elif file_type in ['mp4', 'mov', 'avi', 'mkv']:
+        elif file_type in ['mp4', 'mov', 'avi', 'mkv', 'webm']:
             resource_type = 'video'
         else:
             return jsonify({"error": "Unsupported file type"}), 400
