@@ -293,26 +293,23 @@ def get_video(id):
 @jwt_required()
 def create_video():
     try:
+        id=get_jwt_identity()
+        profesor=Profesor.query.filter_by(user_id=id).first()
         data = request.json
         curso_id = data.get('cursoID', None)  
         title = data.get('title', None)
         url = data.get('videoUrl', None)  
         text = data.get('text', None)
-        profesor_id = data.get('profesorID', None)  
 
-        if not title or not url or not text or not curso_id or not profesor_id:
+        if not title or not url or not text or not curso_id:
             return jsonify({'success': False, 'msg': 'Todos los campos son necesarios'}), 400
-
-        video = Videos.query.filter_by(title=title).first()
-        if video:
-            return jsonify({'success': False, 'msg': 'El video ya existe'}), 400
 
         new_video = Videos(
             title=title,
             url=url,
             text=text,
             curso_id=curso_id,
-            profesor_id=profesor_id  # Incluye el ID del profesor en el modelo
+            profesor_id=profesor.id  # Incluye el ID del profesor en el modelo
         )
 
         db.session.add(new_video)
