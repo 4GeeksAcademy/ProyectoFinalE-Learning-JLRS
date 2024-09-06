@@ -1,136 +1,190 @@
-//VistaDetallada:Frontend (VistaDetallada.js): El usuario selecciona un curso y hace clic en "Ir a pagar".
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
+import { Uploader } from "../component/cloudinary";
+import ReactPlayer from "react-player";
+import { useParams, useNavigate } from "react-router-dom";
 
-import React, { useEffect, useContext, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Context } from '../store/appContext';
-import "../../styles/VistaDetallaDWeb.css";
-
-
-
-const VistaDetallada = () => {
-    const { id } = useParams(); // Obtiene el id del curso desde la URL
-    const { store, actions } = useContext(Context); // Obtiene el estado global
-    const navigate = useNavigate(); // Hook para navegación
-
-    // Convierte el id de la URL a un número entero
-    const cursoId = parseInt(id, 10);
-
-    console.log('ID desde la URL:', cursoId); // Verifica el ID obtenido de la URL
-
-
+const VistaProfe = () => {
+    const { store, actions } = useContext(Context);
+    const { id } = useParams()
+    const [cursoID, setCursoID] = useState("");
+    const [title, setTitle] = useState("");
+    const [text, setText] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [setVideos] = useState([]);
+    const navigate = useNavigate()
     useEffect(() => {
-        store.cursos.find(curso => curso.id === cursoId); // Encuentra el curso por ID en el estado global
+        if (store.user?.profesor) {
+            actions.obtenerCursosProfesor(store.user.profesor.id);
+            fetchVideos();
+        }
+    }, [store.user?.profesor]);
 
-    }, []);
+    const fetchVideos = () => {
+        fetch(`${process.env.BACKEND_URL}/api/videos`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => setVideos(data))
+            .catch(error => console.error('Error fetching videos:', error));
+    };
+
+    const handleVideoUpload = (url) => {
 
 
-    console.log('Cursos en store:', store.cursosConFiltros); // Verifica los cursos en el estado global
-    console.log('Curso encontrado:', store.cursoSeleccionado); // Verifica el curso encontrado
+        fetch(`${process.env.BACKEND_URL}/api/videos`, {
+            method: 'POST',
+            body: JSON.stringify({
+                cursoID: cursoID,
+                title: title,
+                videoUrl: url,
+                text: text,
+                profesorID: store.user?.profesor.id
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Video registrado:', data);
+                fetchVideos(); // Actualiza la lista de videos después de subir uno nuevo
+                // Resetea el estado del modal
+                setCursoID("");
+                setTitle("");
+                setText("");
+                toggleModal(); // Cierra el modal
+            })
+            .catch(error => console.error('Error al registrar el video:', error));
+    };
 
-    // Al hacer clic en el botón "Ir a pagar", el usuario es redirigido a la vista de pago (VistaPago)
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
+    };
+
     const handleGoToPayment = () => {
         navigate('/vistaPago', { state: store.cursoSeleccionado }); // Pasa información del curso a VistaPago
     };
 
 
-    if (!store.cursoSeleccionado) {
-        return <p>Curso no encontrado</p>; // Mensaje si el curso no existe
-    }
 
     return (
-        <div className="curso-vistaDetallada">
-            <h1>{store.cursoSeleccionado.title}</h1>
-            <div className="cursoVD">
-                {/* Columna izquierda: Descripción del curso */}
-                <div className="cursoVD-col-izquierda">
-                    <div className="cursoVD-aprenderas">
-                        <h3>Competencias que desarrollarás</h3>
-                        <ul>
-                            <li>HTML, CSS, Responsive Design, Figma, SASS, Javascript, Jquery, Bootstrap, Wordpress, Creación de Temas de Wordpress, Git, Github, Alojamiento en Internet.</li>
-                            <li>Diseñar cualquier sitio web con HTML y CSS.</li>
-                            <li>Crear sitios adaptables a dispositivos móviles.</li>
-                            <li>Darle lógica y funcionalidades a sus páginas web mediante Javascript.</li>
-                            <li>Darle efectos y animaciones a sus páginas web mediante Jquery.</li>
-                            <li>Diseñar bocetos de páginas web en Figma.</li>
-                            <li>Crear sitios web responsive y en poco tiempo con Bootstrap.</li>
-                            <li>Utilizar Wordpress y crear temas personalizados.</li>
-                            <li>Subir sus propios sitios web a Internet.</li>
-                            <li>Utilizar Git para compartir código en Github.</li>
-                        </ul>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            {/* Botón que abre el modal */}
+            {store.user?.is_teacher ? <button className="btn btn-primary" onClick={toggleModal}>
+                Subir Video
+            </button> : ''}
+
+            {/* Modal que contiene los campos para completar */}
+            {isModalOpen && (
+                <div className="modal" style={{
+                    display: 'block',
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: 'rgba(0,0,0,0.5)'
+                }}>
+                    <div className="modal-content" style={{
+                        margin: 'auto',
+                        padding: '20px',
+                        backgroundColor: '#fff',
+                        width: '50%',
+                        borderRadius: '8px'
+                    }}>
+                        <h3>Subir Video</h3>
+
+                        <label>Curso ID:</label>
+                        <input
+                            type="text"
+                            placeholder="Curso ID"
+                            value={cursoID}
+                            onChange={(e) => setCursoID(e.target.value)}
+                            style={{ marginBottom: '10px', padding: '8px', width: '100%' }}
+                        />
+
+                        <label>Título del video:</label>
+                        <input
+                            type="text"
+                            placeholder="Título del video"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            style={{ marginBottom: '10px', padding: '8px', width: '100%' }}
+                        />
+
+                        <label>Descripción del video:</label>
+                        <textarea
+                            placeholder="Descripción del video"
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
+                            style={{ marginBottom: '10px', padding: '8px', width: '100%', height: '100px' }}
+                        />
+
+                        {/* Componente de subida de video */}
+                        <Uploader onUpload={handleVideoUpload} />
+
+                        {/* Botón para cerrar el modal */}
+                        <button className="btn btn-secondary" onClick={toggleModal} style={{ marginTop: '10px' }}>
+                            Cerrar
+                        </button>
                     </div>
+                </div>
+            )}
 
-                    <div className="cursoVD-incluye">
-                        <h3>Incluye</h3>
-                        <ul>
-                            <li>38 horas de vídeo bajo demanda</li>
-                            <li>5 artículos de profesores con más de 20 años de experiencia</li>
-                            <li>Recursos descargables</li>
-                            <li>Acceso en dispositivos electrónicos</li>
-                            <li>Certificado por la Universidad de 4Geeks</li>
-                        </ul>
+            {/* Mostrar la lista de videos subidos */}
+
+            {store.user?.is_teacher && store.cursoSeleccionado?.videos
+                ?
+                store.cursoSeleccionado?.videos?.map(video => (
+                    <div key={video.id} style={{ width: '800px', height: 'auto', border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden', marginTop: '20px' }}>
+                        <h4>{video.title}</h4>
+                        <p>{video.text}</p>
+                        <ReactPlayer url={video.url} controls width="100%" height="100%" />
                     </div>
-
-                    <div className="cursoVD-contenido">
-                        <h3>Nuestro curso</h3>
-                        <div className="accordion" id="cursoContenido">
-                            {/* Tema 1 */}
-                            <div className="accordionVC-item">
-                                <h2 className="accordionVC-header" id="headingOne">
-                                    <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Tema 1: Introducción al Diseño Web
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#cursoContenido">
-                                    <div className="accordion-body">
-                                        <ul>
-                                            <li>Lección 1: Introducción</li>
-                                            <li>Lección 2: Configuración del entorno</li>
-                                            <li>Lección 3: Primeros pasos en HTML y CSS</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Tema 2 */}
-                            <div className="accordionVC-item">
-                                <h2 className="accordion-header" id="headingTwo">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Tema 2: Javascript y Jquery
-                                    </button>
-                                </h2>
-                                <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#cursoContenido">
-                                    <div className="accordion-body">
-                                        <ul>
-                                            <li>Lección 1: Fundamentos de Javascript</li>
-                                            <li>Lección 2: Manipulación del DOM</li>
-                                            <li>Lección 3: Efectos y animaciones</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Añade más temas según sea necesario */}
+                ))
+                : store.user && store.cursosAlumno?.filter(curso => curso.id == id)[0]
+                    ?
+                    store.cursosAlumno?.filter(curso => curso.id == id)[0]?.videos?.map(video => (
+                        <div key={video.id} style={{ width: '800px', height: 'auto', border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden', marginTop: '20px' }}>
+                            <h4>{video.title}</h4>
+                            <p>{video.text}</p>
+                            <ReactPlayer url={video.url} controls width="100%" height="100%" />
                         </div>
-                    </div>
-                </div>
+                    ))
+                    :
+                    !store.user?.profesor
+                        ?
+                        <>
+                            <div className="cursoVD-col-derecha">
+                                <h2 className="cursoVD-titulo">{store.cursoSeleccionado?.title}</h2> {/* Nombre del curso */}
+                                <div className="fotoVD">
+                                    <img src={store.cursoSeleccionado?.portada} alt={store.cursoSeleccionado?.title} className="cursoVD-imagen" />
+                                </div>
+                                <p>Resumen: {store.cursoSeleccionado?.resumen}</p>
+                                <div className="d-flex justify-items-between">
+                                    <p>Idioma: {store.cursoSeleccionado?.idioma}</p>
+                                    <p>Nivel: {store.cursoSeleccionado?.nivel}</p>
+                                    <p>Categoría: {store.cursoSeleccionado?.categoria}</p>
+                                </div>
+                                <p className="cursoVD-precio">€{store.cursoSeleccionado?.precio}</p>
+                                <button onClick={handleGoToPayment} className="btn btn-primary_pagar">
+                                    Adquirir nuestro curso
+                                </button>
+                            </div>
+                        </>
+                        :
+                        ''
 
-                {/* Columna derecha: Resumen del curso */}
-                {
-                    //si no esta en misCursos, aparece para comprar
-                }
-                <div className="cursoVD-col-derecha">
-                    <h2 className="cursoVD-titulo">{store.cursoSeleccionado?.title}</h2> {/* Nombre del curso */}
-                    <div className="fotoVD">
-                        <img src={store.cursoSeleccionado?.portada} alt={store.cursoSeleccionado?.title} className="cursoVD-imagen" />
-                    </div>
-                    <p className="cursoVD-precio">€{store.cursoSeleccionado?.precio}</p>
-                    <button onClick={handleGoToPayment} className="btn btn-primary_pagar">
-                        Adquirir nuestro curso
-                    </button>
-                </div>
-            </div>
+            }
+            {!store.cursoSeleccionado ? <p>Curso no encontrado</p> : ''}
         </div>
     );
 };
 
-export default VistaDetallada;
+export default VistaProfe;

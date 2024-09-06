@@ -55,6 +55,7 @@ export const CheckoutForm = () => {
       } else if (paymentIntent.status === 'succeeded') {
           actions.setPaymentInfo(paymentIntent)
           actions.nuevaCompra(paymentIntent.id)
+          actions.obtenerCursosAlumno()
         console.log('Payment succeeded!');
         navigate("/completoDisWeb"); 
       }

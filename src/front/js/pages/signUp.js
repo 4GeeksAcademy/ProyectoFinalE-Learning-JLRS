@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
 import "../../styles/signUp.css";
 import { Context } from "../store/appContext";
 

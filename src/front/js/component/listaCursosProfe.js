@@ -7,9 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import "../../styles/listaCursosProfe.css";
 
 const ListaCursosProfe = ({ cursos }) => {
+    const {store, actions} = useContext(Context)
     const navigate = useNavigate();
 
     const handleCourseClick = (id) => {
+        actions.seleccionarCurso(store.cursosProfe.filter(el=>el.id==id)[0])
         navigate(`/curso/${id}`);
     };
 

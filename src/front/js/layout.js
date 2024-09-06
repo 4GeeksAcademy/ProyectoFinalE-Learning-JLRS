@@ -9,6 +9,7 @@ import Perfil from "./pages/perfil";
 import About from "./pages/about";
 import Vistacurso from "./pages/vistacurso";
 import Contacto from "./pages/contacto";
+import verVideo from "./pages/verVideo"
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";

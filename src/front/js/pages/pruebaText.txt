@@ -1,0 +1,154 @@
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import "../../styles/VistaDetallaDWeb.css";
+
+const VistaDetallada = () => {
+    const { id } = useParams(); // Obtiene el id del curso desde la URL
+    const [curso, setCurso] = useState(null); // Estado para almacenar los detalles del curso
+    const [loading, setLoading] = useState(true); // Estado para gestionar la carga de datos
+    const [error, setError] = useState(null); // Estado para gestionar errores en la solicitud de datos
+    const navigate = useNavigate(); // Hook para navegación
+
+    // Convierte el id de la URL a un número entero
+    const cursoId = parseInt(id, 10);
+
+    // useEffect para hacer la solicitud a la API y obtener los detalles del curso
+    useEffect(() => {
+        const fetchCurso = async () => {
+            try {
+                const response = await fetch(`/api/curso/${cursoId}`); // Llama a tu API para obtener los detalles del curso
+                if (!response.ok) {
+                    throw new Error('Error al obtener los detalles del curso');
+                }
+                const data = await response.json(); // Convierte la respuesta en JSON
+                setCurso(data); // Almacena los detalles del curso en el estado
+            } catch (error) {
+                setError(error.message); // Almacena el mensaje de error en caso de fallo
+            } finally {
+                setLoading(false); // Finaliza la carga
+            }
+        };
+
+        fetchCurso(); // Ejecuta la función de obtención de datos
+    }, [cursoId]); // El efecto se vuelve a ejecutar si cambia el cursoId
+
+    // Función para redirigir al usuario a la vista de pago
+    const handleGoToPayment = () => {
+        navigate('/vistaPago', { state: curso }); // Navega a la vista de pago pasando los detalles del curso
+    };
+
+    if (loading) return <p>Cargando...</p>; // Muestra un mensaje mientras se cargan los datos
+    if (error) return <p>Error: {error}</p>; // Muestra un mensaje en caso de error
+
+    if (!curso) {
+        return <p>Curso no encontrado</p>; // Si no se encuentra el curso, muestra un mensaje
+    }
+
+    return (
+        <div className="curso-vistaDetallada">
+            <h1>{curso.title}</h1> {/* Muestra el título del curso */}
+            <div className="cursoVD">
+                {/* Columna izquierda: Descripción del curso */}
+                <div className="cursoVD-col-izquierda">
+                    <div className="cursoVD-resumen">
+                        <h3>Resumen</h3>
+                        <p>{curso.resumen}</p> {/* Muestra el resumen del curso */}
+                    </div>
+                    <div className="cursoVD-detalles">
+                        <h3>Detalles del Curso</h3>
+                        <ul>
+                            <li>Categoría: {curso.categoria}</li>
+                            <li>Valoraciones: {curso.valoraciones}</li>
+                            <li>Nivel: {curso.nivel}</li>
+                            <li>Fecha de inicio: {curso.fecha_inicio}</li>
+                            <li>Idioma: {curso.idioma}</li>
+                            <li>Profesor: {curso.profesor}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                {/* Columna derecha: Resumen del curso y compra */}
+                <div className="cursoVD-col-derecha">
+                    <h2 className="cursoVD-titulo">{curso.title}</h2> {/* Nombre del curso */}
+                    <div className="fotoVD">
+                        <img src={curso.portada} alt={curso.title} className="cursoVD-imagen" /> {/* Muestra la portada */}
+                    </div>
+                    <p className="cursoVD-precio">€{curso.precio}</p> {/* Muestra el precio */}
+                    <button onClick={handleGoToPayment} className="btn btn-primary_pagar">
+                        Adquirir nuestro curso
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default VistaDetallada;
+
+
+///
+
+
+import React, { useEffect, useState } from 'react';
+import ReactPlayer from 'react-player';  // Importamos React Player
+import '../../styles/pantallaVideo.css'; 
+
+const VerVideo = ({ cursoId }) => {
+    const [videoUrl, setVideoUrl] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchVideo = async () => {
+            try {
+
+                const token = localStorage.getItem('token'); // Asume que tienes un token de autenticación en localStorage
+                
+                const response = await fetch(`/verVideo`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                       
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                setVideoUrl(data.video_url);  // La URL de Cloudinary será devuelta por tu backend
+            } catch (error) {
+                setError(error.message);
+                console.error('Error fetching video:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchVideo();
+    }, [cursoId]);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
+
+    return (
+        <div className='videoPantalla'>
+            <div className='videoContainer'>
+                {videoUrl ? (
+                    <ReactPlayer
+                        url={videoUrl} // La URL pública de Cloudinary
+                        controls={true} // Mostrar controles de reproducción
+                        width='100%' // Ajusta el ancho del reproductor
+                        height='100%' // Ajusta la altura del reproductor
+                        playing={false} // No iniciar el video automáticamente
+                    />
+                ) : (
+                    <p>No video available for this course.</p>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default VerVideo;
+
